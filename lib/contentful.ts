@@ -355,6 +355,14 @@ export async function getPageBySlug(slug: string, preview = false) {
           ? block.fields.includedCards
           : [block.fields.includedCards]
 
+        // Debug: log raw card references before resolution
+        console.log("[v0] Block:", block.fields?.internalName, "- raw cardRefs count:", cardRefs.length)
+        cardRefs.forEach((ref: any, idx: number) => {
+          const alreadyResolved = !!ref.fields
+          const foundInIncludes = data.includes?.Entry?.find((e: any) => e.sys.id === ref.sys?.id)
+          console.log("[v0]   Raw ref", idx + 1, "- id:", ref.sys?.id, "- alreadyResolved:", alreadyResolved, "- foundInIncludes:", !!foundInIncludes)
+        })
+
         block.fields.includedCards = cardRefs
           .map((ref: any) => {
             if (ref.fields) return ref // Already resolved
