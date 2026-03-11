@@ -256,11 +256,11 @@ export default async function ArticleDetailPage({ params }: PageProps) {
       )}
 
       {/* ============================================ */}
-      {/* Visual Sections (body, visualSection2-5)    */}
+      {/* Visual Sections (visualSection1Text-5Text)  */}
       {/* ============================================ */}
       {(() => {
         // Collect all visual sections that have content
-        const sectionFields = ['body', 'visualSection2', 'visualSection3', 'visualSection4', 'visualSection5']
+        const sectionFields = ['visualSection1Text', 'visualSection2Text', 'visualSection3Text', 'visualSection4Text', 'visualSection5Text']
         const activeSections = sectionFields
           .map((fieldName) => article.fields[fieldName] as Document | undefined)
           .filter((doc): doc is Document => !!doc && !!doc.content && doc.content.length > 0)
