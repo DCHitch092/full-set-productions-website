@@ -114,7 +114,7 @@ export default async function ArticlesPage() {
         <ModularBlockRenderer block={heroBlock} />
       ) : (
         <section className="bg-secondary py-16 lg:py-24">
-          <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl text-balance">
               Articles
             </h1>

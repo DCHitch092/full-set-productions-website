@@ -203,7 +203,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
 
         <div className="relative z-10 w-full pb-12 pt-32 lg:pb-16">
-          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             <Link
               href="/articles"
               className="mb-6 inline-flex items-center text-sm text-white/70 hover:text-white transition-colors"
