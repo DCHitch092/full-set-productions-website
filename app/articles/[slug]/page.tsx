@@ -261,19 +261,9 @@ export default async function ArticleDetailPage({ params }: PageProps) {
       {(() => {
         // Collect all visual sections that have content
         const sectionFields = ['body', 'visualSection2', 'visualSection3', 'visualSection4', 'visualSection5']
-        
-        // Debug: log all article fields to see what's available
-        console.log("[v0] Article fields available:", Object.keys(article.fields))
-        sectionFields.forEach(field => {
-          const val = article.fields[field]
-          console.log(`[v0] ${field}:`, val ? `has content (${val.content?.length} nodes)` : 'empty/undefined')
-        })
-        
         const activeSections = sectionFields
           .map((fieldName) => article.fields[fieldName] as Document | undefined)
           .filter((doc): doc is Document => !!doc && !!doc.content && doc.content.length > 0)
-        
-        console.log("[v0] Active sections count:", activeSections.length)
         
         // If only one section, render without striping
         if (activeSections.length === 1) {
