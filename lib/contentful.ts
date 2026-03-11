@@ -60,9 +60,10 @@ async function contentfulFetch<T>(
         Authorization: `Bearer ${accessToken}`,
         "Content-Type": "application/json",
       },
-      // Use Next.js 16 cacheLife with 'max' profile for stale-while-revalidate
-      // This caches aggressively but allows on-demand revalidation via webhooks
-      next: { revalidate: 3600, tags: ['contentful-api'] }, // Cache for 1 hour
+      // Cache for 2 hours, matching the global layout revalidation interval.
+      // On-demand revalidation via /api/revalidate webhook handles content
+      // changes between rebuilds, so this is only a fallback safety net.
+      next: { revalidate: 7200, tags: ['contentful-api'] },
     })
 
     if (!res.ok) {

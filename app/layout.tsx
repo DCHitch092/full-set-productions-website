@@ -10,6 +10,10 @@ import "./globals.css"
 const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
+// Revalidate all pages at most every 2 hours - on-demand revalidation via
+// /api/revalidate webhook handles content changes between rebuilds
+export const revalidate = 7200
+
 export const metadata: Metadata = {
   title: 'Full Set Productions | Escape Rooms & Immersive Attractions',
   description: 'Edinburgh-based designers and builders of escape rooms, immersive attractions, and theatrical sets. From concept to install-ready builds.',
