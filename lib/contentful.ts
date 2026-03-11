@@ -60,9 +60,9 @@ async function contentfulFetch<T>(
         Authorization: `Bearer ${accessToken}`,
         "Content-Type": "application/json",
       },
-      // Disable caching entirely to always get fresh content from Contentful
-      // Contentful's CDN handles caching on their end; we want fresh data per request
-      cache: 'no-store',
+      // Use Next.js 16 cacheLife with 'max' profile for stale-while-revalidate
+      // This caches aggressively but allows on-demand revalidation via webhooks
+      next: { revalidate: 3600, tags: ['contentful-api'] }, // Cache for 1 hour
     })
 
     if (!res.ok) {

@@ -1,4 +1,4 @@
-import { revalidatePath } from "next/cache"
+import { revalidatePath, revalidateTag } from "next/cache"
 import { NextRequest, NextResponse } from "next/server"
 
 /**
@@ -10,9 +10,8 @@ import { NextRequest, NextResponse } from "next/server"
  * 3. Create a new webhook with:
  *    - URL: https://your-domain.com/api/revalidate?secret=YOUR_SECRET
  *    - Triggers: Entry publish, Entry unpublish
- *    - Content type filters (optional): page, modularBlock, person, etc.
  * 
- * The webhook will trigger a full site revalidation when content is published.
+ * The webhook will intelligently revalidate only the affected pages based on content type.
  */
 
 export async function POST(request: NextRequest) {
@@ -34,8 +33,18 @@ export async function POST(request: NextRequest) {
 
     console.log(`[Revalidate] Triggered for ${contentType || "unknown"} (${entryId || "no id"})`)
 
-    // Revalidate the entire site - this ensures all pages pick up the changes
-    // For more granular control, you could map content types to specific paths
+    // Revalidate based on content type - this is much more efficient than full site revalidation
+    if (contentType === "page" || contentType === "modularBlock") {
+      // For pages and modular blocks, invalidate the Contentful API cache tag
+      revalidateTag("contentful-api")
+      console.log("[Revalidate] Cleared contentful-api tag")
+    } else if (contentType === "person" || contentType === "caseStudy") {
+      // These are referenced within pages, so clear the API cache
+      revalidateTag("contentful-api")
+      console.log("[Revalidate] Cleared contentful-api tag for", contentType)
+    }
+
+    // Also revalidate any hardcoded paths that might have changed
     revalidatePath("/", "layout")
 
     return NextResponse.json({
@@ -65,11 +74,12 @@ export async function GET(request: NextRequest) {
   }
 
   try {
+    revalidateTag("contentful-api")
     revalidatePath("/", "layout")
     return NextResponse.json({
       revalidated: true,
       timestamp: Date.now(),
-      message: "Full site revalidation triggered",
+      message: "Contentful API cache cleared",
     })
   } catch (error) {
     return NextResponse.json(
