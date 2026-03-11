@@ -1,0 +1,182 @@
+{
+  "company": {
+    "name": "Full Set Productions",
+    "tagline": "Escape Rooms & Immersive Attractions",
+    "description": "Edinburgh-based designers and builders of escape rooms, immersive attractions, and theatrical sets.",
+    "email": "hello@fullsetproductions.com",
+    "phone": "+44 131 XXX XXXX",
+    "location": "Edinburgh, Scotland",
+    "address": "Unit 12, Edinburgh Workshop Estate, Edinburgh EH6 XXX"
+  },
+  "hero": {
+    "headline": "We build escape rooms and immersive attractions",
+    "subheadline": "From concept to install-ready builds. Durable, safe, and delivered on time.",
+    "cta": "Discuss a project"
+  },
+  "proofPoints": [
+    {
+      "stat": "50+",
+      "label": "Rooms delivered"
+    },
+    {
+      "stat": "8+",
+      "label": "Years experience"
+    },
+    {
+      "stat": "UK-wide",
+      "label": "Installation"
+    },
+    {
+      "stat": "In-house",
+      "label": "Workshop"
+    }
+  ],
+  "services": [
+    {
+      "title": "Escape Rooms & Immersive Attractions",
+      "slug": "escape-rooms",
+      "summary": "Full design and build service for escape rooms, from puzzle mechanics to themed environments.",
+      "description": "We create complete escape room experiences from the ground up. Our team handles everything from initial concept and puzzle design through to fabrication, electronics integration, and on-site installation.",
+      "features": [
+        "Concept development and narrative design",
+        "Puzzle mechanics and game flow",
+        "Themed set construction",
+        "Electronics and automation",
+        "On-site installation and training"
+      ],
+      "featured": true
+    },
+    {
+      "title": "Theatre, Festival & Fringe Builds",
+      "slug": "theatre-festival",
+      "summary": "Sets, props, and scenic elements for theatre productions and festival installations.",
+      "description": "With Edinburgh as our home, we're perfectly positioned for Fringe and festival work. Our workshop is minutes from major venues, allowing for rapid turnarounds and easy logistics.",
+      "features": [
+        "Stage sets and backdrops",
+        "Festival installations",
+        "Edinburgh Fringe specialist",
+        "Quick turnaround capability",
+        "Local pickup and delivery"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Props & Scenic Fabrication",
+      "slug": "props-scenic",
+      "summary": "Custom props, scenic elements, and specialty fabrication for any project.",
+      "description": "From hero props to large-scale scenic pieces, our workshop is equipped for diverse fabrication needs. We work with wood, metal, foam, and mixed media to bring any vision to life.",
+      "features": [
+        "Custom prop fabrication",
+        "Scenic painting and finishing",
+        "Replica and period pieces",
+        "Large-scale installations",
+        "Material versatility"
+      ],
+      "featured": false
+    }
+  ],
+  "whyWorkWithUs": [
+    {
+      "title": "Built to Last",
+      "description": "Our builds are designed for thousands of uses. We engineer durability and safety into everything we create."
+    },
+    {
+      "title": "Clear Communication",
+      "description": "Regular updates, transparent timelines, and no surprises. You'll always know where your project stands."
+    },
+    {
+      "title": "Deadline Delivery",
+      "description": "Opening nights don't move. We plan backwards from your launch date and deliver on time, every time."
+    },
+    {
+      "title": "Collaborative Process",
+      "description": "Your expertise in your audience combined with our build experience creates better outcomes."
+    }
+  ],
+  "edinburghAdvantage": {
+    "headline": "The Edinburgh Advantage",
+    "description": "Based in Edinburgh, we're at the heart of the UK's creative scene. Our location means reduced transport costs for Scottish clients, quick turnarounds for Fringe productions, and easy access to our workshop for client visits.",
+    "points": [
+      "Minutes from major Fringe venues",
+      "Reduced logistics costs for Scottish clients",
+      "Workshop visits welcome",
+      "UK-wide delivery available"
+    ]
+  },
+  "process": [
+    {
+      "step": "01",
+      "title": "Discovery",
+      "description": "We learn about your vision, constraints, and timeline."
+    },
+    {
+      "step": "02",
+      "title": "Design",
+      "description": "Concepts, technical drawings, and project planning."
+    },
+    {
+      "step": "03",
+      "title": "Build",
+      "description": "Fabrication in our Edinburgh workshop with regular updates."
+    },
+    {
+      "step": "04",
+      "title": "Install",
+      "description": "On-site installation, testing, and handover."
+    }
+  ],
+  "cta": {
+    "headline": "Ready to start your project?",
+    "description": "Tell us about your vision and timeline. We'll get back to you within 2 working days.",
+    "buttonText": "Start a project"
+  },
+  "about": {
+    "headline": "Craftspeople who understand entertainment",
+    "intro": "Full Set Productions was founded in Edinburgh with a simple mission: build immersive experiences that work flawlessly and last.",
+    "story": "We started as escape room enthusiasts frustrated by poorly-built props that broke after a few uses. We knew we could do better. Today, our workshop produces some of the most durable, innovative escape room builds in the UK.",
+    "team": [
+      {
+        "name": "James",
+        "role": "Founder & Lead Designer",
+        "image": "/images/james.webp",
+        "bio": "James founded Full Set after years in theatre production. His background in set design and project management drives our commitment to deadline delivery."
+      },
+      {
+        "name": "Perim",
+        "role": "Production Manager",
+        "image": "/images/perim.jpg",
+        "bio": "Perim keeps projects on track and clients informed. Her background in events management ensures smooth communication throughout every build."
+      }
+    ],
+    "values": [
+      {
+        "title": "Quality Over Speed",
+        "description": "We'd rather take the time to do it right than rush and regret."
+      },
+      {
+        "title": "Honest Communication",
+        "description": "If there's a problem, you'll hear about it immediately—along with our plan to fix it."
+      },
+      {
+        "title": "Continuous Improvement",
+        "description": "Every project teaches us something. We document and apply those lessons."
+      }
+    ]
+  },
+  "navigation": {
+    "main": [
+      { "label": "Services", "href": "/services/escape-rooms" },
+      { "label": "Projects", "href": "/projects" },
+      { "label": "About", "href": "/about" },
+      { "label": "Contact", "href": "/contact" }
+    ],
+    "services": [
+      { "label": "Escape Rooms", "href": "/services/escape-rooms" },
+      { "label": "Theatre & Festival", "href": "/services/theatre-festival" },
+      { "label": "Props & Scenic", "href": "/services/props-scenic" }
+    ]
+  },
+  "footer": {
+    "tagline": "Escape rooms, immersive attractions, and theatrical builds. Based in Edinburgh, delivering UK-wide."
+  }
+}
