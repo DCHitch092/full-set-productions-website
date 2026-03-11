@@ -26,6 +26,18 @@ export default async function AboutPage() {
   const body = page?.fields?.body as Document | undefined
   const allBlocks = page?._includedModularBlocks ?? []
   
+  // Debug: log modular blocks and their includedCards
+  console.log("[v0] About page modular blocks count:", allBlocks.length)
+  allBlocks.forEach((block: any) => {
+    console.log("[v0] Block:", block.fields?.internalName, "- sectionType:", block.fields?.sectionType)
+    if (block.fields?.includedCards) {
+      console.log("[v0]   includedCards count:", block.fields.includedCards.length)
+      block.fields.includedCards.forEach((card: any, idx: number) => {
+        console.log("[v0]     Card", idx + 1, ":", card.fields?.name || "NO NAME", "- has fields:", !!card.fields)
+      })
+    }
+  })
+  
   // Separate hero from other modular blocks
   const heroBlock = allBlocks.find((b: any) => b.fields?.sectionType === "Hero")
   const otherBlocks = allBlocks.filter((b: any) => b.fields?.sectionType !== "Hero")
