@@ -203,7 +203,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
 
         <div className="relative z-10 w-full pb-12 pt-32 lg:pb-16">
-          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
             <Link
               href="/articles"
               className="mb-6 inline-flex items-center text-sm text-white/70 hover:text-white transition-colors"
@@ -247,7 +247,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
       {/* ============================================ */}
       {article.fields.excerpt && (
         <section className="bg-secondary py-10 lg:py-14">
-          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
             <p className="text-xl text-foreground/80 leading-relaxed lg:text-2xl lg:leading-relaxed font-light text-balance">
               {article.fields.excerpt as string}
             </p>
@@ -260,7 +260,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
       {/* ============================================ */}
       {article.fields.body && (
         <section className="bg-background py-12 lg:py-20">
-          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
             <article className="prose prose-lg max-w-none">
               <RichText document={article.fields.body as Document} />
             </article>
@@ -273,7 +273,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
       {/* ============================================ */}
       {author?.fields && (
         <section className="border-t border-border bg-secondary py-10 lg:py-14">
-          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
             <div className="flex items-start gap-5">
               {authorHeadshotUrl && (
                 <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-full bg-muted">
