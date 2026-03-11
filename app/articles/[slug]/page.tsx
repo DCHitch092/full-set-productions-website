@@ -256,17 +256,74 @@ export default async function ArticleDetailPage({ params }: PageProps) {
       )}
 
       {/* ============================================ */}
-      {/* Article Body                                */}
+      {/* Visual Sections (body, visualSection2-5)    */}
       {/* ============================================ */}
-      {article.fields.body && (
-        <section className="bg-background py-12 lg:py-20">
-          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-            <article className="prose prose-lg max-w-none">
-              <RichText document={article.fields.body as Document} />
-            </article>
-          </div>
-        </section>
-      )}
+      {(() => {
+        // Collect all visual sections that have content
+        const sectionFields = ['body', 'visualSection2', 'visualSection3', 'visualSection4', 'visualSection5']
+        const activeSections = sectionFields
+          .map((fieldName) => article.fields[fieldName] as Document | undefined)
+          .filter((doc): doc is Document => !!doc && !!doc.content && doc.content.length > 0)
+        
+        // If only one section, render without striping
+        if (activeSections.length === 1) {
+          return (
+            <section className="bg-background py-12 lg:py-20">
+              <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+                <article className="prose prose-lg max-w-none">
+                  <RichText document={activeSections[0]} />
+                </article>
+              </div>
+            </section>
+          )
+        }
+        
+        // Multiple sections: render with alternating diagonal striping
+        return activeSections.map((doc, index) => {
+          const isEven = index % 2 === 0
+          const isFirst = index === 0
+          const isLast = index === activeSections.length - 1
+          
+          // Determine clip-path for diagonal effect
+          let clipPath = 'none'
+          if (!isFirst && !isLast) {
+            // Middle sections: diagonal on both edges
+            clipPath = isEven
+              ? 'polygon(0 3%, 100% 0, 100% 97%, 0 100%)'
+              : 'polygon(0 0, 100% 3%, 100% 100%, 0 97%)'
+          } else if (!isFirst && isLast) {
+            // Last section: diagonal on top only
+            clipPath = isEven
+              ? 'polygon(0 3%, 100% 0, 100% 100%, 0 100%)'
+              : 'polygon(0 0, 100% 3%, 100% 100%, 0 100%)'
+          } else if (isFirst && !isLast) {
+            // First section (but not only): diagonal on bottom only
+            clipPath = isEven
+              ? 'polygon(0 0, 100% 0, 100% 97%, 0 100%)'
+              : 'polygon(0 0, 100% 0, 100% 100%, 0 97%)'
+          }
+          
+          // Alternating background colors
+          const bgColor = isEven ? 'bg-background' : 'bg-secondary'
+          
+          // Add negative margin to overlap sections for seamless diagonal joins
+          const marginTop = !isFirst ? '-mt-4 lg:-mt-6' : ''
+          
+          return (
+            <section
+              key={index}
+              className={`relative ${bgColor} py-14 lg:py-20 ${marginTop}`}
+              style={{ clipPath }}
+            >
+              <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+                <article className="prose prose-lg max-w-none">
+                  <RichText document={doc} />
+                </article>
+              </div>
+            </section>
+          )
+        })
+      })()}
 
       {/* ============================================ */}
       {/* Author Bio                                  */}
