@@ -42,8 +42,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       return { title: "Article | Full Set Productions" }
     }
 
-    const featuredImageUrl = article.fields.featuredImage
-      ? contentfulImageUrl(article.fields.featuredImage, { w: 1200, h: 630, q: 80, fm: "webp" })
+    const featuredImageUrl = article.fields.headerImage
+      ? contentfulImageUrl(article.fields.headerImage, { w: 1200, h: 630, q: 80, fm: "webp" })
       : null
 
     return {
@@ -139,8 +139,8 @@ export default async function ArticleDetailPage({ params }: PageProps) {
 
   // Resolve featured image
   let featuredImageUrl: string | null = null
-  if (article.fields.featuredImage) {
-    featuredImageUrl = contentfulImageUrl(article.fields.featuredImage, {
+  if (article.fields.headerImage) {
+    featuredImageUrl = contentfulImageUrl(article.fields.headerImage, {
       w: 1600,
       q: 80,
       fm: "webp",
