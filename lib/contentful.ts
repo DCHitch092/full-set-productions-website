@@ -60,7 +60,9 @@ async function contentfulFetch<T>(
         Authorization: `Bearer ${accessToken}`,
         "Content-Type": "application/json",
       },
-      next: { revalidate: false },
+      // Disable caching entirely to always get fresh content from Contentful
+      // Contentful's CDN handles caching on their end; we want fresh data per request
+      cache: 'no-store',
     })
 
     if (!res.ok) {
