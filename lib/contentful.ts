@@ -18,7 +18,7 @@ import caseStudiesFallback from "@/content/case-studies.json"
 // =============================================================
 
 const CONTENTFUL_BASE = "https://cdn.contentful.com"
-const CONTENTFUL_PREVIEW_BASE = "https://preview.contentful.app"
+const CONTENTFUL_PREVIEW_BASE = "https://preview.contentful.com"
 
 interface ContentfulResponse<T> {
   sys: { type: string }
@@ -60,7 +60,9 @@ async function contentfulFetch<T>(
         Authorization: `Bearer ${accessToken}`,
         "Content-Type": "application/json",
       },
-      next: { revalidate: false },
+      // Use Next.js 16 cacheLife with 'max' profile for stale-while-revalidate
+      // This caches aggressively but allows on-demand revalidation via webhooks
+      next: { revalidate: 3600, tags: ['contentful-api'] }, // Cache for 1 hour
     })
 
     if (!res.ok) {
