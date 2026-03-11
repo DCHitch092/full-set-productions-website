@@ -18,7 +18,7 @@ import caseStudiesFallback from "@/content/case-studies.json"
 // =============================================================
 
 const CONTENTFUL_BASE = "https://cdn.contentful.com"
-const CONTENTFUL_PREVIEW_BASE = "https://preview.contentful.app"
+const CONTENTFUL_PREVIEW_BASE = "https://preview.contentful.com"
 
 interface ContentfulResponse<T> {
   sys: { type: string }

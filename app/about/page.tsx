@@ -17,10 +17,20 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function AboutPage() {
-  const [page, globalSettings] = await Promise.all([
-    getPageBySlug("about"),
+  // Test: Compare delivery vs preview API
+  const [page, pagePreview, globalSettings] = await Promise.all([
+    getPageBySlug("about", false), // Delivery API
+    getPageBySlug("about", true),  // Preview API
     getGlobalSettings(),
   ])
+  
+  // Debug: compare delivery vs preview
+  const deliveryBlocks = page?._includedModularBlocks ?? []
+  const previewBlocks = pagePreview?._includedModularBlocks ?? []
+  const deliveryTeam = deliveryBlocks.find((b: any) => b.fields?.internalName === "About Team")
+  const previewTeam = previewBlocks.find((b: any) => b.fields?.internalName === "About Team")
+  console.log("[v0] DELIVERY API - About Team includedCards:", deliveryTeam?.fields?.includedCards?.length ?? 0)
+  console.log("[v0] PREVIEW API - About Team includedCards:", previewTeam?.fields?.includedCards?.length ?? 0)
 
   // Get the page body and modular blocks
   const body = page?.fields?.body as Document | undefined
