@@ -573,11 +573,19 @@ export async function getArticles(preview = false) {
       preview,
     )
     
-    // Resolve featured images for each article
+    // Resolve featured images and headers for each article
     const articles = data.items.map((item: any) => {
       const article = { fields: item.fields, sys: item.sys, _includes: data.includes }
       
-      // Resolve featuredImage asset
+      // Resolve headerImage asset
+      if (article.fields.headerImage?.sys?.id && data.includes?.Asset) {
+        const asset = data.includes.Asset.find(
+          (a: any) => a.sys.id === article.fields.headerImage.sys.id,
+        )
+        if (asset) article.fields.headerImage = asset
+      }
+      
+      // Resolve featuredImage asset (for listings)
       if (article.fields.featuredImage?.sys?.id && data.includes?.Asset) {
         const asset = data.includes.Asset.find(
           (a: any) => a.sys.id === article.fields.featuredImage.sys.id,
@@ -636,7 +644,15 @@ export async function getArticleBySlug(slug: string, preview = false) {
     
     const article = { fields: item.fields, sys: item.sys, _includes: data.includes }
     
-    // Resolve featuredImage asset
+    // Resolve headerImage asset
+    if (article.fields.headerImage?.sys?.id && data.includes?.Asset) {
+      const asset = data.includes.Asset.find(
+        (a: any) => a.sys.id === article.fields.headerImage.sys.id,
+      )
+      if (asset) article.fields.headerImage = asset
+    }
+    
+    // Resolve featuredImage asset (for related articles grid)
     if (article.fields.featuredImage?.sys?.id && data.includes?.Asset) {
       const asset = data.includes.Asset.find(
         (a: any) => a.sys.id === article.fields.featuredImage.sys.id,
