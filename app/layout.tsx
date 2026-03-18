@@ -1,6 +1,6 @@
 import React from "react"
 import type { Metadata } from "next"
-import { Geist, Geist_Mono } from "next/font/google"
+import { Alfa_Slab_One, Chivo } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { Header } from "@/components/layout/header"
 import { Footer } from "@/components/layout/footer"
@@ -8,8 +8,8 @@ import { ThemeWrapper } from "@/components/layout/theme-wrapper"
 import { GoogleAnalytics } from "@/components/analytics"
 import "./globals.css"
 
-const _geist = Geist({ subsets: ["latin"] });
-const _geistMono = Geist_Mono({ subsets: ["latin"] });
+const _alfaSlab = Alfa_Slab_One({ weight: "400", subsets: ["latin"] });
+const _chivo = Chivo({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: 'Full Set Productions | Escape Rooms & Immersive Attractions',
