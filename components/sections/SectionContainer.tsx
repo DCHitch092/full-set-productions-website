@@ -11,6 +11,7 @@ interface SectionContainerProps {
   spacing?: "sm" | "md" | "lg" | "xl"
   maxWidth?: "sm" | "md" | "lg" | "full"
   background?: "primary" | "secondary" | "muted" | "card" | "transparent"
+  backgroundImage?: string
   className?: string
 }
 
@@ -19,6 +20,7 @@ export function SectionContainer({
   spacing: spacingSize = "lg",
   maxWidth = "lg",
   background = "transparent",
+  backgroundImage,
   className = "",
 }: SectionContainerProps) {
   const spacingMap = {
@@ -43,8 +45,20 @@ export function SectionContainer({
     transparent: "",
   }
 
+  const sectionStyle = backgroundImage
+    ? {
+        backgroundImage: `url('${backgroundImage}')`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundAttachment: "fixed",
+      }
+    : undefined
+
   return (
-    <section className={`${spacingMap[spacingSize]} ${bgMap[background]} ${className}`}>
+    <section 
+      className={`${spacingMap[spacingSize]} ${bgMap[background]} ${className}`}
+      style={sectionStyle}
+    >
       <div className={`mx-auto ${maxWidthMap[maxWidth]} ${spacing.containerPadding}`}>
         {children}
       </div>

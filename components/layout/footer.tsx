@@ -48,7 +48,7 @@ export async function Footer() {
                 className="h-9 w-auto"
               />
             </Link>
-            <p className="mt-4 max-w-sm text-sm text-muted-foreground leading-relaxed">
+            <p className="mt-4 max-w-sm text-sm text-white/80 leading-relaxed">
               {bodyText}
             </p>
             {/* Social links */}
@@ -60,7 +60,7 @@ export async function Footer() {
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                    className="text-sm text-white/70 hover:text-white transition-colors"
                   >
                     {link.label}
                   </a>
@@ -74,7 +74,7 @@ export async function Footer() {
             <div key={section.href}>
               <Link
                 href={section.href}
-                className="text-sm font-semibold text-foreground hover:text-accent transition-colors"
+                className="text-sm font-semibold text-white hover:text-accent transition-colors"
               >
                 {section.label}
               </Link>
@@ -85,7 +85,7 @@ export async function Footer() {
                       href={item.href}
                       target={item.openInNewTab ? "_blank" : undefined}
                       rel={item.openInNewTab ? "noopener noreferrer" : undefined}
-                      className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                      className="text-sm text-white/70 hover:text-white transition-colors"
                     >
                       {item.label}
                     </Link>
@@ -97,8 +97,8 @@ export async function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-12 border-t border-border pt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
-          <p className="text-sm text-muted-foreground">
+        <div className="mt-12 border-t border-border/30 pt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
+          <p className="text-sm text-white/60">
             &copy; {new Date().getFullYear()} Full Set Productions. All rights reserved.
           </p>
           {legalLinks.length > 0 && (
@@ -118,7 +118,7 @@ export async function Footer() {
                   <Link
                     key={link.label}
                     href={href}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                    className="text-sm text-white/70 hover:text-white transition-colors"
                   >
                     {link.label}
                   </Link>

@@ -175,7 +175,7 @@ export default async function HomePage() {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <SectionContainer as="section" bg="primary" spacing="lg">
+      <SectionContainer as="section" bg="primary" spacing="lg" backgroundImage="/images/texture-subtle.jpg">
         <div className="max-w-3xl">
           <Badge variant="secondary" className="mb-4">
             {heroBadgeText}
@@ -360,7 +360,7 @@ export default async function HomePage() {
       </SectionContainer>
 
       {/* Edinburgh Advantage */}
-      <SectionContainer as="section" bg="primary" spacing="lg">
+      <SectionContainer as="section" bg="primary" spacing="lg" backgroundImage="/images/texture-subtle.jpg">
         <div className="grid items-center gap-12 lg:grid-cols-2">
           <div>
             <div className="flex items-center gap-2 text-primary-foreground/80">
@@ -432,7 +432,7 @@ export default async function HomePage() {
       </SectionContainer>
 
       {/* CTA Block */}
-      <SectionContainer as="section" bg="secondary" spacing="lg" align="center">
+      <SectionContainer as="section" bg="secondary" spacing="lg" align="center" backgroundImage="/images/texture-subtle.jpg">
         <div className="mx-auto max-w-2xl text-center">
           <Wrench className="mx-auto h-12 w-12 text-accent" />
           <H2 className="mt-6">{ctaHeadline}</H2>
