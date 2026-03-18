@@ -59,7 +59,7 @@ export default async function ServicesPage() {
       {/* Hero / Intro                                */}
       {/* ============================================ */}
       {heroBlock && (
-        <SectionContainer as="section" bg="secondary" spacing="lg" align="center">
+        <SectionContainer bg="secondary" spacing="lg" align="center">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl text-balance">
               {heroBlock.fields.headline as string}
@@ -80,7 +80,6 @@ export default async function ServicesPage() {
         category.items.length > 0 ? (
           <SectionContainer
             key={category.key}
-            as="section"
             spacing="lg"
           >
             <h2 className="mb-12 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">

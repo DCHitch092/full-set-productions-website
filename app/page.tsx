@@ -175,7 +175,7 @@ export default async function HomePage() {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <SectionContainer as="section" bg="primary" spacing="lg" backgroundImage="/images/texture-subtle.jpg">
+      <SectionContainer bg="primary" spacing="lg" backgroundImage="/images/texture-subtle.jpg">
         <div className="max-w-3xl">
           <Badge variant="secondary" className="mb-4">
             {heroBadgeText}
@@ -226,7 +226,7 @@ export default async function HomePage() {
       </section>
 
       {/* Services Overview */}
-      <SectionContainer as="section" spacing="lg" align="center">
+      <SectionContainer spacing="lg" align="center">
         <div className="text-center">
           <H2>What we build</H2>
           <Body className="mx-auto mt-4 max-w-2xl text-lg" color="muted">
@@ -268,7 +268,7 @@ export default async function HomePage() {
       </SectionContainer>
 
       {/* Featured Work */}
-      <SectionContainer as="section" bg="secondary" spacing="lg">
+      <SectionContainer bg="secondary" spacing="lg">
         <div className="flex items-end justify-between">
           <div>
             <H2>Featured work</H2>
@@ -327,7 +327,7 @@ export default async function HomePage() {
       </SectionContainer>
 
       {/* Why Work With Us */}
-      <SectionContainer as="section" spacing="lg" align="center">
+      <SectionContainer spacing="lg" align="center">
         <div className="text-center">
           <H2>Why work with us</H2>
           <Body className="mx-auto mt-4 max-w-2xl text-lg" color="muted">
@@ -360,7 +360,7 @@ export default async function HomePage() {
       </SectionContainer>
 
       {/* Edinburgh Advantage */}
-      <SectionContainer as="section" bg="primary" spacing="lg" backgroundImage="/images/texture-subtle.jpg">
+      <SectionContainer bg="primary" spacing="lg" backgroundImage="/images/texture-subtle.jpg">
         <div className="grid items-center gap-12 lg:grid-cols-2">
           <div>
             <div className="flex items-center gap-2 text-primary-foreground/80">
@@ -432,7 +432,7 @@ export default async function HomePage() {
       </SectionContainer>
 
       {/* CTA Block */}
-      <SectionContainer as="section" bg="secondary" spacing="lg" align="center" backgroundImage="/images/texture-subtle.jpg">
+      <SectionContainer bg="secondary" spacing="lg" align="center" backgroundImage="/images/texture-subtle.jpg">
         <div className="mx-auto max-w-2xl text-center">
           <Wrench className="mx-auto h-12 w-12 text-accent" />
           <H2 className="mt-6">{ctaHeadline}</H2>

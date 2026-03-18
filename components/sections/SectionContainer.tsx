@@ -10,8 +10,9 @@ interface SectionContainerProps {
   children: ReactNode
   spacing?: "sm" | "md" | "lg" | "xl"
   maxWidth?: "sm" | "md" | "lg" | "full"
-  background?: "primary" | "secondary" | "muted" | "card" | "transparent"
+  bg?: "primary" | "secondary" | "muted" | "card" | "transparent"
   backgroundImage?: string
+  align?: "left" | "center"
   className?: string
 }
 
@@ -19,8 +20,9 @@ export function SectionContainer({
   children,
   spacing: spacingSize = "lg",
   maxWidth = "lg",
-  background = "transparent",
+  bg = "transparent",
   backgroundImage,
+  align = "left",
   className = "",
 }: SectionContainerProps) {
   const spacingMap = {
@@ -45,6 +47,11 @@ export function SectionContainer({
     transparent: "",
   }
 
+  const alignMap = {
+    left: "",
+    center: "text-center",
+  }
+
   const sectionStyle = backgroundImage
     ? {
         backgroundImage: `url('${backgroundImage}')`,
@@ -56,10 +63,10 @@ export function SectionContainer({
 
   return (
     <section 
-      className={`${spacingMap[spacingSize]} ${bgMap[background]} ${className}`}
+      className={`${spacingMap[spacingSize]} ${bgMap[bg]} ${className}`}
       style={sectionStyle}
     >
-      <div className={`mx-auto ${maxWidthMap[maxWidth]} ${spacing.containerPadding}`}>
+      <div className={`mx-auto ${maxWidthMap[maxWidth]} ${spacing.containerPadding} ${alignMap[align]}`}>
         {children}
       </div>
     </section>
