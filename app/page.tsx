@@ -25,6 +25,7 @@ import {
 } from "@/lib/contentful"
 import { SectionContainer } from "@/components/sections/SectionContainer"
 import { BaseCard } from "@/components/cards/BaseCard"
+import { H1, H2, BodyLarge, Body } from "@/components/typography"
 
 const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   shield: Shield,
@@ -179,12 +180,10 @@ export default async function HomePage() {
           <Badge variant="secondary" className="mb-4">
             {heroBadgeText}
           </Badge>
-          <h1 className="text-4xl font-bold tracking-tight text-primary-foreground sm:text-5xl lg:text-6xl text-balance">
-            {heroHeadline}
-          </h1>
-          <p className="mt-6 text-xl text-primary-foreground/80 leading-relaxed">
+          <H1 color="primary-foreground">{heroHeadline}</H1>
+          <BodyLarge color="primary-foreground" className="mt-6 opacity-80">
             {heroSubheadline}
-          </p>
+          </BodyLarge>
           <div className="mt-10 flex flex-col gap-4 sm:flex-row">
             <Button
               size="lg"
@@ -229,13 +228,11 @@ export default async function HomePage() {
       {/* Services Overview */}
       <SectionContainer as="section" spacing="lg" align="center">
         <div className="text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-            What we build
-          </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
+          <H2>What we build</H2>
+          <Body className="mx-auto mt-4 max-w-2xl text-lg" color="muted">
             From escape rooms to festival installations, we design and build
             immersive experiences that work.
-          </p>
+          </Body>
         </div>
         <div className="mt-12 grid gap-8 md:grid-cols-3">
           {serviceCards.map((service, index) => (
@@ -274,13 +271,11 @@ export default async function HomePage() {
       <SectionContainer as="section" bg="secondary" spacing="lg">
         <div className="flex items-end justify-between">
           <div>
-            <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-              Featured work
-            </h2>
-            <p className="mt-4 text-lg text-muted-foreground">
+            <H2>Featured work</H2>
+            <Body className="mt-4 text-lg" color="muted">
               Recent projects across escape rooms, theatre, and scenic
               fabrication.
-            </p>
+            </Body>
           </div>
           <Button
             variant="outline"
@@ -334,12 +329,10 @@ export default async function HomePage() {
       {/* Why Work With Us */}
       <SectionContainer as="section" spacing="lg" align="center">
         <div className="text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-            Why work with us
-          </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
+          <H2>Why work with us</H2>
+          <Body className="mx-auto mt-4 max-w-2xl text-lg" color="muted">
             {"We build for the real world\u2014durability, safety, and deadlines matter."}
-          </p>
+          </Body>
         </div>
         <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {trustPoints.map(
@@ -374,12 +367,10 @@ export default async function HomePage() {
               <MapPin className="h-5 w-5" />
               <span className="text-sm font-medium">Based in Edinburgh</span>
             </div>
-            <h2 className="mt-4 text-3xl font-bold tracking-tight text-primary-foreground sm:text-4xl">
-              {edinHeadline}
-            </h2>
-            <p className="mt-4 text-lg text-primary-foreground/80 leading-relaxed">
+            <H2 color="primary-foreground" className="mt-4">{edinHeadline}</H2>
+            <BodyLarge color="primary-foreground" className="mt-4 opacity-80">
               {edinDescription}
-            </p>
+            </BodyLarge>
             <ul className="mt-8 space-y-3">
               {edinBullets.map((point: string, index: number) => (
                 <li
@@ -406,13 +397,11 @@ export default async function HomePage() {
       {/* How We Work */}
       <SectionContainer as="section" spacing="lg" align="center">
         <div className="text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-            How we work
-          </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
+          <H2>How we work</H2>
+          <Body className="mx-auto mt-4 max-w-2xl text-lg" color="muted">
             A straightforward process from first conversation to final
             install.
-          </p>
+          </Body>
         </div>
         <div className="mt-12 grid gap-8 md:grid-cols-4">
           {processSteps.map(
@@ -446,12 +435,8 @@ export default async function HomePage() {
       <SectionContainer as="section" bg="secondary" spacing="lg" align="center">
         <div className="mx-auto max-w-2xl text-center">
           <Wrench className="mx-auto h-12 w-12 text-accent" />
-          <h2 className="mt-6 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-            {ctaHeadline}
-          </h2>
-          <p className="mt-4 text-lg text-muted-foreground">
-            {ctaDescription}
-          </p>
+          <H2 className="mt-6">{ctaHeadline}</H2>
+          <Body className="mt-4 text-lg" color="muted">{ctaDescription}</Body>
           <Button
             size="lg"
             asChild
