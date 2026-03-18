@@ -8,6 +8,7 @@ import { RichText } from "@/components/rich-text"
 import { contentfulImageUrl } from "@/lib/contentful"
 import { SectionContainer } from "@/components/sections/SectionContainer"
 import { BaseCard } from "@/components/cards/BaseCard"
+import { ANIMATIONS } from "@/lib/animations"
 import type { Document } from "@contentful/rich-text-types"
 
 // ============================================================
@@ -241,7 +242,7 @@ export function StepsBlock({ block }: { block: ModularBlock }) {
                 </div>
                 
                 {/* Step content */}
-                <BaseCard variant="simple" className="flex-1 transition-all duration-300 group-hover:shadow-lg group-hover:border-primary/50">
+                <BaseCard variant="simple" className={`flex-1 ${ANIMATIONS.cardInteractive}`}>
                   <CardContent className="p-6 lg:p-8">
                     <h3 className="text-xl lg:text-2xl font-semibold text-foreground leading-tight text-balance">
                       {step.title}

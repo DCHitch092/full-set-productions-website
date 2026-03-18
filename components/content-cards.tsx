@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge"
 import { ArrowRight, Quote as QuoteIcon } from "lucide-react"
 import { contentfulImageUrl } from "@/lib/contentful"
 import { BaseCard } from "@/components/cards/BaseCard"
+import { ANIMATIONS } from "@/lib/animations"
 
 // ============================================================
 // Service Card
@@ -32,7 +33,7 @@ export function ServiceCard({ item }: { item: any }) {
           )}
           <div className="mt-4 flex items-center text-sm font-medium text-foreground">
             Learn more
-            <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
+            <ArrowRight className={`ml-1 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1`} />
           </div>
         </div>
       </BaseCard>
