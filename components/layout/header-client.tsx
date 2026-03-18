@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Menu, ChevronDown } from "lucide-react"
+import { ANIMATIONS } from "@/lib/animations"
 import type { NavEntry } from "@/lib/contentful"
 
 interface HeaderClientProps {
@@ -49,12 +50,12 @@ export function HeaderClient({ navEntries, ctaText, ctaUrl }: HeaderClientProps)
             entry.children.length > 0 ? (
               <DropdownMenu key={entry.href}>
                 <div className="flex items-center">
-                  <Link
-                    href={entry.href}
-                    className="rounded-md px-3 py-2 text-sm font-medium text-foreground hover:bg-accent/10"
-                  >
-                    {entry.label}
-                  </Link>
+              <Link
+                href={entry.href}
+                className={`rounded-md px-3 py-2 text-sm font-medium text-foreground transition-colors duration-300 hover:bg-accent/10`}
+              >
+                {entry.label}
+              </Link>
                   <DropdownMenuTrigger asChild>
                     <Button
                       variant="ghost"
@@ -124,7 +125,7 @@ export function HeaderClient({ navEntries, ctaText, ctaUrl }: HeaderClientProps)
                         setMobileOpen(false)
                         window.location.href = entry.href
                       }}
-                      className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                      className={`text-sm font-medium text-muted-foreground transition-colors duration-300 hover:text-foreground`}
                     >
                       {entry.label}
                     </button>
@@ -136,7 +137,7 @@ export function HeaderClient({ navEntries, ctaText, ctaUrl }: HeaderClientProps)
                           target="_blank"
                           rel="noopener noreferrer"
                           onClick={() => setMobileOpen(false)}
-                          className="block py-2 text-foreground hover:text-accent"
+                          className={`block py-2 text-foreground transition-colors duration-300 hover:text-accent`}
                         >
                           {child.label}
                         </a>
@@ -145,7 +146,7 @@ export function HeaderClient({ navEntries, ctaText, ctaUrl }: HeaderClientProps)
                           key={child.href}
                           href={child.href}
                           onClick={() => setMobileOpen(false)}
-                          className="block py-2 text-foreground hover:text-accent"
+                          className={`block py-2 text-foreground transition-colors duration-300 hover:text-accent`}
                         >
                           {child.label}
                         </Link>
@@ -157,7 +158,7 @@ export function HeaderClient({ navEntries, ctaText, ctaUrl }: HeaderClientProps)
                     key={entry.href}
                     href={entry.href}
                     onClick={() => setMobileOpen(false)}
-                    className="py-2 text-foreground hover:text-accent"
+                    className={`py-2 text-foreground transition-colors duration-300 hover:text-accent`}
                   >
                     {entry.label}
                   </Link>
