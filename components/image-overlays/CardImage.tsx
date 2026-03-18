@@ -4,6 +4,7 @@
  */
 
 import Image from "next/image"
+import { ANIMATIONS } from "@/lib/animations"
 
 interface CardImageProps {
   src: string
@@ -30,7 +31,7 @@ export function CardImage({
         src={src}
         alt={alt}
         fill
-        className="object-cover transition-transform duration-300 group-hover:scale-105"
+        className={`object-cover ${ANIMATIONS.scaleHover}`}
       />
     </div>
   )

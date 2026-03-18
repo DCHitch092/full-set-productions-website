@@ -233,10 +233,13 @@ export function StepsBlock({ block }: { block: ModularBlock }) {
             >
               <div className="flex gap-6 lg:gap-8 items-start">
                 {/* Step number */}
-                <div className="relative flex-shrink-0">
-                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary text-primary-foreground font-bold text-2xl shadow-lg transition-transform duration-300 group-hover:scale-110 group-hover:shadow-xl">
+              <div className="relative flex-shrink-0">
+                  <div className={`flex h-16 w-16 items-center justify-center rounded-full bg-primary text-primary-foreground font-bold text-2xl shadow-lg ${ANIMATIONS.cardInteractive}`}>
                     {index + 1}
                   </div>
+                  {/* Connecting dot on the line (desktop only) */}
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-primary border-4 border-secondary hidden lg:block" />
+                </div>
                   {/* Connecting dot on the line (desktop only) */}
                   <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-primary border-4 border-secondary hidden lg:block" />
                 </div>
@@ -305,7 +308,7 @@ export function TeamBlock({ block }: { block: ModularBlock }) {
                       src={photoUrl}
                       alt={name || "Team member"}
                       fill
-                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                      className={`object-cover ${ANIMATIONS.scaleHover}`}
                     />
                   </div>
                 )}

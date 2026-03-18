@@ -26,6 +26,7 @@ import {
 import { SectionContainer } from "@/components/sections/SectionContainer"
 import { BaseCard } from "@/components/cards/BaseCard"
 import { H1, H2, BodyLarge, Body } from "@/components/typography"
+import { ANIMATIONS } from "@/lib/animations"
 
 const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   shield: Shield,
@@ -297,7 +298,7 @@ export default async function HomePage() {
                   src={project.image}
                   alt={project.title}
                   fill
-                  className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  className={`object-cover ${ANIMATIONS.scaleHover}`}
                 />
               )}
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
