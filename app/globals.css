@@ -4,6 +4,19 @@
 @custom-variant dark (&:is(.dark *));
 
 /* ============================================================ */
+/* Header Theme Lock (Always Use Home Theme)                    */
+/* ============================================================ */
+.header-theme-lock {
+  --primary: var(--color-blue);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: var(--color-blue);
+  --secondary-foreground: oklch(0.145 0.01 250);
+  --accent: var(--color-blue);
+  --accent-foreground: oklch(1 0 0);
+  --ring: var(--color-blue);
+}
+
+/* ============================================================ */
 /* Page Theme Color Overrides                                   */
 /* ============================================================ */
 [data-page-theme="home"] {
