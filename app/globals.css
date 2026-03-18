@@ -4,6 +4,90 @@
 @custom-variant dark (&:is(.dark *));
 
 /* ============================================================ */
+/* Page Theme Color Overrides                                   */
+/* ============================================================ */
+[data-page-theme="home"] {
+  --primary: var(--color-blue);
+  --primary-foreground: oklch(1 0 0);
+  --ring: var(--color-blue);
+  --sidebar-primary: var(--color-blue);
+}
+
+[data-page-theme="services"] {
+  --primary: var(--color-teal);
+  --primary-foreground: oklch(0.145 0.01 250);
+  --ring: var(--color-teal);
+  --sidebar-primary: var(--color-teal);
+}
+
+[data-page-theme="industries"] {
+  --primary: var(--color-coral);
+  --primary-foreground: oklch(1 0 0);
+  --ring: var(--color-coral);
+  --sidebar-primary: var(--color-coral);
+}
+
+[data-page-theme="projects"] {
+  --primary: var(--color-pink);
+  --primary-foreground: oklch(1 0 0);
+  --ring: var(--color-pink);
+  --sidebar-primary: var(--color-pink);
+}
+
+[data-page-theme="about"] {
+  --primary: var(--color-yellow);
+  --primary-foreground: oklch(0.145 0.01 250);
+  --ring: var(--color-yellow);
+  --sidebar-primary: var(--color-yellow);
+}
+
+[data-page-theme="contact"] {
+  --primary: var(--color-teal);
+  --primary-foreground: oklch(0.145 0.01 250);
+  --ring: var(--color-teal);
+  --sidebar-primary: var(--color-teal);
+}
+
+/* ============================================================ */
+/* Geometric Motif Background Shapes                            */
+/* ============================================================ */
+[data-page-theme="home"]::before,
+[data-page-theme="home"]::after {
+  background: radial-gradient(circle at 100% 0%, var(--color-blue) 0%, transparent 40%);
+  opacity: 0.08;
+}
+
+[data-page-theme="services"]::before,
+[data-page-theme="services"]::after {
+  background: radial-gradient(ellipse at 0% 100%, var(--color-teal) 0%, transparent 45%);
+  opacity: 0.08;
+}
+
+[data-page-theme="industries"]::before,
+[data-page-theme="industries"]::after {
+  background: radial-gradient(circle at 50% 50%, var(--color-coral) 0%, transparent 50%);
+  opacity: 0.08;
+}
+
+[data-page-theme="projects"]::before,
+[data-page-theme="projects"]::after {
+  background: radial-gradient(ellipse at 100% 50%, var(--color-pink) 0%, transparent 48%);
+  opacity: 0.08;
+}
+
+[data-page-theme="about"]::before,
+[data-page-theme="about"]::after {
+  background: radial-gradient(circle at 25% 75%, var(--color-yellow) 0%, transparent 42%);
+  opacity: 0.08;
+}
+
+[data-page-theme="contact"]::before,
+[data-page-theme="contact"]::after {
+  background: radial-gradient(ellipse at 50% 0%, var(--color-teal) 0%, transparent 46%);
+  opacity: 0.08;
+}
+
+/* ============================================================ */
 /* Keyframe animations for microinteractions                    */
 /* ============================================================ */
 @keyframes fadeInUp {
@@ -83,40 +167,52 @@
 }
 
 :root {
-  /* Professional dark slate palette with warm amber accent */
+  /* Premium immersive experiences studio - brand colors */
   --background: oklch(0.985 0 0);
   --foreground: oklch(0.145 0.01 250);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0.01 250);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0.01 250);
-  --primary: oklch(0.205 0.015 250);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.965 0.005 250);
-  --secondary-foreground: oklch(0.205 0.015 250);
+  
+  /* Brand color palette */
+  --color-blue: oklch(0.55 0.15 260);          /* #7F97C4 */
+  --color-teal: oklch(0.61 0.11 190);          /* #7CC0B8 */
+  --color-pink: oklch(0.55 0.22 330);          /* #D85AB8 */
+  --color-coral: oklch(0.55 0.18 20);          /* #E0615A */
+  --color-yellow: oklch(0.75 0.16 90);         /* #EBCB5B */
+  
+  /* Semantic tokens default to blue (home page) */
+  --primary: var(--color-blue);
+  --primary-foreground: oklch(1 0 0);          /* white */
+  --secondary: var(--color-teal);
+  --secondary-foreground: oklch(0.145 0.01 250);
+  --accent: var(--color-pink);
+  --accent-foreground: oklch(1 0 0);           /* white */
+  --destructive: var(--color-coral);
+  --destructive-foreground: oklch(1 0 0);      /* white */
+  --highlight: var(--color-yellow);
+  --highlight-foreground: oklch(0.145 0.01 250); /* dark text on yellow */
+  
   --muted: oklch(0.955 0.005 250);
   --muted-foreground: oklch(0.45 0.01 250);
-  --accent: oklch(0.75 0.15 75);
-  --accent-foreground: oklch(0.205 0.015 250);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.577 0.245 27.325);
   --border: oklch(0.91 0.005 250);
   --input: oklch(0.91 0.005 250);
-  --ring: oklch(0.45 0.01 250);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
+  --ring: var(--color-blue);
+  --chart-1: var(--color-blue);
+  --chart-2: var(--color-teal);
+  --chart-3: var(--color-pink);
+  --chart-4: var(--color-coral);
+  --chart-5: var(--color-yellow);
   --radius: 0.5rem;
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary: var(--color-blue);
   --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-accent: var(--color-pink);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --sidebar-ring: var(--color-blue);
 }
 
 .dark {
@@ -126,32 +222,34 @@
   --card-foreground: oklch(0.95 0.005 250);
   --popover: oklch(0.20 0.015 250);
   --popover-foreground: oklch(0.95 0.005 250);
-  --primary: oklch(0.95 0.005 250);
-  --primary-foreground: oklch(0.16 0.015 250);
-  --secondary: oklch(0.25 0.015 250);
+  --primary: var(--color-blue);
+  --primary-foreground: oklch(0.95 0.005 250);
+  --secondary: var(--color-teal);
   --secondary-foreground: oklch(0.95 0.005 250);
+  --accent: var(--color-pink);
+  --accent-foreground: oklch(0.95 0.005 250);
+  --destructive: var(--color-coral);
+  --destructive-foreground: oklch(0.95 0.005 250);
+  --highlight: var(--color-yellow);
+  --highlight-foreground: oklch(0.16 0.015 250);
   --muted: oklch(0.25 0.015 250);
   --muted-foreground: oklch(0.65 0.01 250);
-  --accent: oklch(0.75 0.15 75);
-  --accent-foreground: oklch(0.16 0.015 250);
-  --destructive: oklch(0.396 0.141 25.723);
-  --destructive-foreground: oklch(0.637 0.237 25.331);
   --border: oklch(0.30 0.015 250);
   --input: oklch(0.30 0.015 250);
-  --ring: oklch(0.65 0.01 250);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
+  --ring: var(--color-blue);
+  --chart-1: var(--color-blue);
+  --chart-2: var(--color-teal);
+  --chart-3: var(--color-pink);
+  --chart-4: var(--color-coral);
+  --chart-5: var(--color-yellow);
   --sidebar: oklch(0.205 0 0);
   --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary: var(--color-blue);
   --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent: var(--color-pink);
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(0.269 0 0);
-  --sidebar-ring: oklch(0.439 0 0);
+  --sidebar-ring: var(--color-blue);
 }
 
 @theme inline {
@@ -181,6 +279,14 @@
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
+  /* Brand colors for direct use */
+  --color-blue: var(--color-blue);
+  --color-teal: var(--color-teal);
+  --color-pink: var(--color-pink);
+  --color-coral: var(--color-coral);
+  --color-yellow: var(--color-yellow);
+  --color-highlight: var(--highlight);
+  --color-highlight-foreground: var(--highlight-foreground);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);

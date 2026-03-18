@@ -4,6 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { Header } from "@/components/layout/header"
 import { Footer } from "@/components/layout/footer"
+import { ThemeWrapper } from "@/components/layout/theme-wrapper"
 import { GoogleAnalytics } from "@/components/analytics"
 import "./globals.css"
 
@@ -49,9 +50,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="font-sans antialiased">
-        <Header />
-        <main className="min-h-screen">{children}</main>
-        <Footer />
+        <ThemeWrapper>
+          <Header />
+          <main className="min-h-screen">{children}</main>
+          <Footer />
+        </ThemeWrapper>
         <Analytics />
         <GoogleAnalytics />
       </body>
