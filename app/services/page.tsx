@@ -4,6 +4,7 @@ import Image from "next/image"
 import { ArrowRight } from "lucide-react"
 import { getServices, getModularBlockByName, contentfulImageUrl } from "@/lib/contentful"
 import { RichText } from "@/components/rich-text"
+import { SectionContainer } from "@/components/sections/SectionContainer"
 import type { Document } from "@contentful/rich-text-types"
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -58,8 +59,8 @@ export default async function ServicesPage() {
       {/* Hero / Intro                                */}
       {/* ============================================ */}
       {heroBlock && (
-        <section className="bg-secondary py-16 lg:py-24">
-          <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+        <SectionContainer as="section" bg="secondary" spacing="lg" align="center">
+          <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl text-balance">
               {heroBlock.fields.headline as string}
             </h1>
@@ -69,7 +70,7 @@ export default async function ServicesPage() {
               </div>
             )}
           </div>
-        </section>
+        </SectionContainer>
       )}
 
       {/* ============================================ */}
@@ -77,15 +78,15 @@ export default async function ServicesPage() {
       {/* ============================================ */}
       {categories.map((category) =>
         category.items.length > 0 ? (
-          <section
+          <SectionContainer
             key={category.key}
-            className="py-16 lg:py-24 bg-background"
+            as="section"
+            spacing="lg"
           >
-            <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-              <h2 className="mb-12 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-                {category.title}
-              </h2>
-              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <h2 className="mb-12 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+              {category.title}
+            </h2>
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                 {category.items.map((service) => {
                   const {
                     title,
@@ -219,18 +220,17 @@ export default async function ServicesPage() {
                   )
                 })}
               </div>
-            </div>
-          </section>
-        ) : null,
+            </SectionContainer>
+          ) : null,
       )}
 
       {/* ============================================ */}
       {/* CTA banner                                  */}
       {/* ============================================ */}
       {ctaBlock && (
-        <section className="bg-primary py-16 text-primary-foreground lg:py-20">
-          <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-balance">
+        <SectionContainer as="section" bg="primary" spacing="lg" align="center">
+          <div className="mx-auto max-w-4xl text-center">
+            <h2 className="text-3xl font-bold tracking-tight text-primary-foreground sm:text-4xl text-balance">
               {ctaBlock.fields.headline as string}
             </h2>
             {ctaBlock.fields.body && (
@@ -248,7 +248,7 @@ export default async function ServicesPage() {
               </Link>
             </div>
           </div>
-        </section>
+        </SectionContainer>
       )}
     </div>
   )
