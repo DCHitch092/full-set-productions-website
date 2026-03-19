@@ -45,16 +45,10 @@ function getIcon(iconName: string) {
 
 export default async function HomePage() {
   // Fetch from Contentful in parallel
-  const [homepage, globalSettings, services, featuredProjects, heroTexture, edinburghTexture, ctaTexture] =
+  const [homepage, globalSettings, services, featuredProjects] =
     await Promise.all([
       getHomepage(),
       getGlobalSettings(),
-      getServices(),
-      getFeaturedProjects(),
-      getSectionTexture("home", 0), // Hero
-      getSectionTexture("home", 1), // Edinburgh Advantage
-      getSectionTexture("home", 2), // CTA Block
-    ])
       getServices(),
       getFeaturedProjects(),
     ])
