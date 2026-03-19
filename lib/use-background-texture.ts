@@ -6,7 +6,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { getTextureAsset, TextureType } from '@/lib/contentful-textures'
+import { TextureType } from '@/lib/contentful-textures'
 
 interface UseBackgroundTextureOptions {
   textureType: TextureType
@@ -27,9 +27,15 @@ export function useBackgroundTexture({
     async function loadTexture() {
       try {
         setLoading(true)
-        const url = await getTextureAsset(textureType, index)
+        const response = await fetch(
+          `/api/textures?type=${textureType}&index=${index}`
+        )
+        if (!response.ok) {
+          throw new Error('Failed to fetch texture')
+        }
+        const data = await response.json()
         if (isMounted) {
-          setTextureUrl(url)
+          setTextureUrl(data.url || null)
           setError(null)
         }
       } catch (err) {
