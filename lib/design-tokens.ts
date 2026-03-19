@@ -3,6 +3,52 @@
  * Single source of truth for spacing, sizing, timing, and layout
  */
 
+/* ============================================================ */
+/* Brand Color Palette                                          */
+/* ============================================================ */
+export const brandColors = {
+  blue: "var(--color-blue)",      // #7F97C4
+  teal: "var(--color-teal)",      // #7CC0B8
+  pink: "var(--color-pink)",      // #D85AB8
+  coral: "var(--color-coral)",    // #E0615A
+  yellow: "var(--color-yellow)",  // #EBCB5B
+}
+
+/* ============================================================ */
+/* Page Theme Configuration                                     */
+/* ============================================================ */
+export const pageThemes = {
+  home: "blue",
+  services: "teal",
+  industries: "coral",
+  projects: "pink",
+  about: "yellow",
+  contact: "teal",
+} as const
+
+export type PageTheme = keyof typeof pageThemes
+
+/**
+ * Map page routes to their theme identifiers
+ * Used by layout wrappers to apply data-page-theme attribute
+ */
+export const routeToTheme: Record<string, PageTheme> = {
+  "/": "home",
+  "/services": "services",
+  "/services/[slug]": "services",
+  "/industries": "industries",
+  "/industry/[slug]": "industries",
+  "/projects": "projects",
+  "/projects/[slug]": "projects",
+  "/about": "about",
+  "/about/[slug]": "about",
+  "/about/faq": "about",
+  "/contact": "contact",
+}
+
+/* ============================================================ */
+/* Spacing Tokens                                               */
+/* ============================================================ */
 export const spacing = {
   // Section padding (vertical rhythm for pages)
   sectionPy: "py-16 lg:py-24",
