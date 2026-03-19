@@ -184,9 +184,10 @@ export default async function HomePage() {
       {/* Hero Section */}
       <SectionContainer 
         bg="primary" 
-        spacing="lg" 
-        backgroundImage={heroTexture?.url || undefined}
-        colorFilter={heroTexture?.colorFilter}
+        spacing="lg"
+        textureType="background"
+        textureIndex={0}
+        themeColor="blue"
       >
         <div className="max-w-3xl">
           <Badge variant="secondary" className="mb-4">
@@ -280,7 +281,13 @@ export default async function HomePage() {
       </SectionContainer>
 
       {/* Featured Work */}
-      <SectionContainer bg="secondary" spacing="lg">
+      <SectionContainer 
+        bg="secondary" 
+        spacing="lg"
+        textureType="background"
+        textureIndex={1}
+        themeColor="blue"
+      >
         <div className="flex items-end justify-between">
           <div>
             <H2>Featured work</H2>
@@ -374,9 +381,10 @@ export default async function HomePage() {
       {/* Edinburgh Advantage */}
       <SectionContainer 
         bg="primary" 
-        spacing="lg" 
-        backgroundImage={edinburghTexture?.url || undefined}
-        colorFilter={edinburghTexture?.colorFilter}
+        spacing="lg"
+        textureType="background"
+        textureIndex={2}
+        themeColor="blue"
       >
         <div className="grid items-center gap-12 lg:grid-cols-2">
           <div>
@@ -412,7 +420,7 @@ export default async function HomePage() {
       </SectionContainer>
 
       {/* How We Work */}
-      <SectionContainer as="section" spacing="lg" align="center">
+      <SectionContainer spacing="lg" align="center">
         <div className="text-center">
           <H2>How we work</H2>
           <Body className="mx-auto mt-4 max-w-2xl text-lg" color="muted">
@@ -452,9 +460,10 @@ export default async function HomePage() {
       <SectionContainer 
         bg="secondary" 
         spacing="lg" 
-        align="center" 
-        backgroundImage={ctaTexture?.url || undefined}
-        colorFilter={ctaTexture?.colorFilter}
+        align="center"
+        textureType="background"
+        textureIndex={3}
+        themeColor="blue"
       >
         <div className="mx-auto max-w-2xl text-center">
           <Wrench className="mx-auto h-12 w-12 text-accent" />
