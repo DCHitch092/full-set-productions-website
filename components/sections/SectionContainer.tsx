@@ -84,18 +84,11 @@ export function SectionContainer({
   const sectionStyle = finalBackgroundImage
     ? {
         backgroundImage: finalColorFilter
-          ? `
-              linear-gradient(
-                0deg,
-                ${finalColorFilter},
-                ${finalColorFilter}
-              ),
-              url('${finalBackgroundImage}')
-            `
+          ? `linear-gradient(0deg, ${finalColorFilter}, ${finalColorFilter}), url('${finalBackgroundImage}')`
           : `url('${finalBackgroundImage}')`,
         backgroundSize: "cover",
         backgroundPosition: "center",
-        backgroundAttachment: "fixed",
+        backgroundAttachment: "scroll",
       }
     : undefined
 
