@@ -1,10 +1,13 @@
 /**
  * SectionContainer - Reusable wrapper for consistent section styling
- * Eliminates the repeated mx-auto max-w-6xl px-4... pattern
+ * Supports Contentful-managed background textures with themed color filters
  */
 
+'use client'
+
 import { ReactNode } from "react"
-import { spacing, layout } from "@/lib/design-tokens"
+import { spacing } from "@/lib/design-tokens"
+import { useBackgroundTexture, type TextureType } from "@/lib/use-background-texture"
 
 interface SectionContainerProps {
   children: ReactNode
@@ -12,6 +15,10 @@ interface SectionContainerProps {
   maxWidth?: "sm" | "md" | "lg" | "full"
   bg?: "primary" | "secondary" | "muted" | "card" | "transparent"
   backgroundImage?: string
+  textureType?: TextureType
+  textureIndex?: number
+  themeColor?: "blue" | "teal" | "coral" | "pink" | "yellow"
+  colorFilter?: string
   align?: "left" | "center"
   className?: string
 }
@@ -22,9 +29,18 @@ export function SectionContainer({
   maxWidth = "lg",
   bg = "transparent",
   backgroundImage,
+  textureType,
+  textureIndex = 0,
+  themeColor,
+  colorFilter,
   align = "left",
   className = "",
 }: SectionContainerProps) {
+  const { textureUrl } = useBackgroundTexture({
+    textureType: textureType,
+    index: textureIndex,
+  })
+
   const spacingMap = {
     sm: spacing.sectionPySmall,
     md: spacing.sectionPy,
@@ -52,9 +68,31 @@ export function SectionContainer({
     center: "text-center",
   }
 
-  const sectionStyle = backgroundImage
+  // Theme color to oklch mapping for filters
+  const themeColorMap = {
+    blue: "oklch(0.55 0.15 260 / 0.08)",
+    teal: "oklch(0.61 0.11 190 / 0.08)",
+    coral: "oklch(0.55 0.18 20 / 0.08)",
+    pink: "oklch(0.55 0.22 330 / 0.08)",
+    yellow: "oklch(0.75 0.16 90 / 0.08)",
+  }
+
+  // Use Contentful texture if available, otherwise fall back to backgroundImage
+  const finalBackgroundImage = textureUrl || backgroundImage
+  const finalColorFilter = themeColor ? themeColorMap[themeColor] : colorFilter
+
+  const sectionStyle = finalBackgroundImage
     ? {
-        backgroundImage: `url('${backgroundImage}')`,
+        backgroundImage: finalColorFilter
+          ? `
+              linear-gradient(
+                0deg,
+                ${finalColorFilter},
+                ${finalColorFilter}
+              ),
+              url('${finalBackgroundImage}')
+            `
+          : `url('${finalBackgroundImage}')`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundAttachment: "fixed",

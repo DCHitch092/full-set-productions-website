@@ -101,6 +101,61 @@
 }
 
 /* ============================================================ */
+/* Texture Background Filters for Theme Colors                  */
+/* Low opacity and color tint to maintain text readability     */
+/* ============================================================ */
+.texture-background {
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  position: relative;
+}
+
+.texture-background::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.08;
+}
+
+/* Blue theme filter (Home, Featured Work) */
+.texture-background.theme-blue::before {
+  background-color: var(--color-blue);
+  mix-blend-mode: multiply;
+}
+
+/* Teal theme filter (Services, Contact) */
+.texture-background.theme-teal::before {
+  background-color: var(--color-teal);
+  mix-blend-mode: multiply;
+}
+
+/* Coral theme filter (Industries) */
+.texture-background.theme-coral::before {
+  background-color: var(--color-coral);
+  mix-blend-mode: multiply;
+}
+
+/* Pink theme filter (Projects) */
+.texture-background.theme-pink::before {
+  background-color: var(--color-pink);
+  mix-blend-mode: multiply;
+}
+
+/* Yellow theme filter (About) */
+.texture-background.theme-yellow::before {
+  background-color: var(--color-yellow);
+  mix-blend-mode: multiply;
+}
+
+/* Ensure content stays above texture overlay */
+.texture-background > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ============================================================ */
 /* Keyframe animations for microinteractions                    */
 /* ============================================================ */
 @keyframes fadeInUp {

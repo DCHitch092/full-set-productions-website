@@ -16,6 +16,12 @@ export interface GlobalSettingsFields {
   contactResponseTime?: string
   ogDefaultImage?: Asset
   kvOverrides?: Record<string, string>
+  backgroundTextureAssets?: Asset[]
+  serviceBackgroundTextureAssets?: Asset[]
+  industryBackgroundTextureAssets?: Asset[]
+  aboutBackgroundTextureAssets?: Asset[]
+  projectBackgroundTextureAssets?: Asset[]
+  articleBackgroundTextureAssets?: Asset[]
 }
 
 export type GlobalSettingsSkeleton = EntrySkeletonType<

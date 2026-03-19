@@ -23,6 +23,7 @@ import {
   getStaticSiteContent,
   contentfulImageUrl,
 } from "@/lib/contentful"
+import { getSectionTexture } from "@/components/sections/texture-provider"
 import { SectionContainer } from "@/components/sections/SectionContainer"
 import { BaseCard } from "@/components/cards/BaseCard"
 import { H1, H2, BodyLarge, Body } from "@/components/typography"
@@ -44,10 +45,16 @@ function getIcon(iconName: string) {
 
 export default async function HomePage() {
   // Fetch from Contentful in parallel
-  const [homepage, globalSettings, services, featuredProjects] =
+  const [homepage, globalSettings, services, featuredProjects, heroTexture, edinburghTexture, ctaTexture] =
     await Promise.all([
       getHomepage(),
       getGlobalSettings(),
+      getServices(),
+      getFeaturedProjects(),
+      getSectionTexture("home", 0), // Hero
+      getSectionTexture("home", 1), // Edinburgh Advantage
+      getSectionTexture("home", 2), // CTA Block
+    ])
       getServices(),
       getFeaturedProjects(),
     ])
@@ -175,7 +182,12 @@ export default async function HomePage() {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <SectionContainer bg="primary" spacing="lg" backgroundImage="/images/texture-subtle.jpg">
+      <SectionContainer 
+        bg="primary" 
+        spacing="lg" 
+        backgroundImage={heroTexture?.url || undefined}
+        colorFilter={heroTexture?.colorFilter}
+      >
         <div className="max-w-3xl">
           <Badge variant="secondary" className="mb-4">
             {heroBadgeText}
@@ -360,7 +372,12 @@ export default async function HomePage() {
       </SectionContainer>
 
       {/* Edinburgh Advantage */}
-      <SectionContainer bg="primary" spacing="lg" backgroundImage="/images/texture-subtle.jpg">
+      <SectionContainer 
+        bg="primary" 
+        spacing="lg" 
+        backgroundImage={edinburghTexture?.url || undefined}
+        colorFilter={edinburghTexture?.colorFilter}
+      >
         <div className="grid items-center gap-12 lg:grid-cols-2">
           <div>
             <div className="flex items-center gap-2 text-primary-foreground/80">
@@ -432,7 +449,13 @@ export default async function HomePage() {
       </SectionContainer>
 
       {/* CTA Block */}
-      <SectionContainer bg="secondary" spacing="lg" align="center" backgroundImage="/images/texture-subtle.jpg">
+      <SectionContainer 
+        bg="secondary" 
+        spacing="lg" 
+        align="center" 
+        backgroundImage={ctaTexture?.url || undefined}
+        colorFilter={ctaTexture?.colorFilter}
+      >
         <div className="mx-auto max-w-2xl text-center">
           <Wrench className="mx-auto h-12 w-12 text-accent" />
           <H2 className="mt-6">{ctaHeadline}</H2>
