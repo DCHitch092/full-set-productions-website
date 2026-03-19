@@ -6,7 +6,14 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { TextureType } from '@/lib/contentful-textures'
+
+export type TextureType = 
+  | 'background'
+  | 'service'
+  | 'industry'
+  | 'about'
+  | 'project'
+  | 'article'
 
 interface UseBackgroundTextureOptions {
   textureType: TextureType
