@@ -9,6 +9,13 @@ import type { Document } from "@contentful/rich-text-types"
 import Image from "next/image"
 import Link from "next/link"
 import { getAssetUrl, getAssetDimensions } from "@/lib/contentful-types"
+import { LogoBullet } from "@/components/brand-shapes"
+
+// Stateful counter so bullets cycle per-list without React context
+function makeBulletCounter() {
+  let i = 0
+  return () => i++
+}
 
 const defaultOptions: Options = {
   renderNode: {
@@ -35,18 +42,32 @@ const defaultOptions: Options = {
     [BLOCKS.PARAGRAPH]: (node, children) => (
       <p className="mt-4 text-muted-foreground leading-relaxed">{children}</p>
     ),
-    [BLOCKS.UL_LIST]: (node, children) => (
-      <ul className="mt-4 space-y-2 list-disc pl-6 text-muted-foreground">
-        {children}
-      </ul>
-    ),
+    [BLOCKS.UL_LIST]: (node, children) => {
+      // Build a counter shared across this list's items
+      const counter = makeBulletCounter()
+      // Re-render children with index injected via wrapper
+      const childArray = Array.isArray(children) ? children : [children]
+      return (
+        <ul className="mt-4 space-y-3">
+          {childArray.map((child, i) => (
+            <li key={i} className="flex items-start gap-3 text-muted-foreground leading-relaxed">
+              <span className="mt-1 flex-shrink-0 text-primary">
+                <LogoBullet index={counter()} size="sm" color="var(--color-primary)" />
+              </span>
+              <span>{child}</span>
+            </li>
+          ))}
+        </ul>
+      )
+    },
     [BLOCKS.OL_LIST]: (node, children) => (
       <ol className="mt-4 space-y-2 list-decimal pl-6 text-muted-foreground">
         {children}
       </ol>
     ),
     [BLOCKS.LIST_ITEM]: (node, children) => (
-      <li className="leading-relaxed">{children}</li>
+      // Strip the outer <p> wrapper Contentful adds inside list items
+      <>{children}</>
     ),
     [BLOCKS.QUOTE]: (node, children) => (
       <blockquote className="mt-6 border-l-4 border-accent pl-4 italic text-muted-foreground">
@@ -124,18 +145,29 @@ const darkBgOptions: Options = {
     [BLOCKS.PARAGRAPH]: (node, children) => (
       <p className="mt-4 text-white/85 leading-relaxed">{children}</p>
     ),
-    [BLOCKS.UL_LIST]: (node, children) => (
-      <ul className="mt-4 space-y-2 list-disc pl-6 text-white/85">
-        {children}
-      </ul>
-    ),
+    [BLOCKS.UL_LIST]: (node, children) => {
+      const counter = makeBulletCounter()
+      const childArray = Array.isArray(children) ? children : [children]
+      return (
+        <ul className="mt-4 space-y-3">
+          {childArray.map((child, i) => (
+            <li key={i} className="flex items-start gap-3 text-white/85 leading-relaxed">
+              <span className="mt-1 flex-shrink-0">
+                <LogoBullet index={counter()} size="sm" color="rgba(255,255,255,0.75)" />
+              </span>
+              <span>{child}</span>
+            </li>
+          ))}
+        </ul>
+      )
+    },
     [BLOCKS.OL_LIST]: (node, children) => (
       <ol className="mt-4 space-y-2 list-decimal pl-6 text-white/85">
         {children}
       </ol>
     ),
     [BLOCKS.LIST_ITEM]: (node, children) => (
-      <li className="leading-relaxed">{children}</li>
+      <>{children}</>
     ),
     [BLOCKS.QUOTE]: (node, children) => (
       <blockquote className="mt-6 border-l-4 border-white/50 pl-4 italic text-white/85">
