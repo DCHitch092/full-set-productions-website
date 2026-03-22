@@ -40,13 +40,13 @@ const defaultOptions: Options = {
       // Render with diamond bullet only
       const childArray = Array.isArray(children) ? children : [children]
       return (
-        <ul className="mt-4 space-y-3 list-none p-0 m-0">
+        <ul className="mt-4 space-y-3">
           {childArray.map((child, i) => (
-            <li key={i} className="flex items-center gap-3 text-muted-foreground leading-relaxed m-0 p-0">
-              <span className="flex-shrink-0 inline-flex items-center justify-center text-primary h-5">
+            <li key={i} className="flex items-center gap-3 text-muted-foreground leading-relaxed">
+              <span className="flex-shrink-0 text-primary">
                 <LogoBullet index={0} size="sm" color="var(--color-primary)" />
               </span>
-              <span className="flex-1">{child}</span>
+              <span>{child}</span>
             </li>
           ))}
         </ul>
@@ -140,13 +140,13 @@ const darkBgOptions: Options = {
     [BLOCKS.UL_LIST]: (node, children) => {
       const childArray = Array.isArray(children) ? children : [children]
       return (
-        <ul className="mt-4 space-y-3 list-none p-0 m-0">
+        <ul className="mt-4 space-y-3">
           {childArray.map((child, i) => (
-            <li key={i} className="flex items-center gap-3 text-white/85 leading-relaxed m-0 p-0">
-              <span className="flex-shrink-0 inline-flex items-center justify-center h-5">
+            <li key={i} className="flex items-center gap-3 text-white/85 leading-relaxed">
+              <span className="flex-shrink-0">
                 <LogoBullet index={0} size="sm" color="rgba(255,255,255,0.75)" />
               </span>
-              <span className="flex-1">{child}</span>
+              <span>{child}</span>
             </li>
           ))}
         </ul>
