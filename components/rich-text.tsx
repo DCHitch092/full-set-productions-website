@@ -36,19 +36,43 @@ const defaultOptions: Options = {
     [BLOCKS.PARAGRAPH]: (node, children) => (
       <p className="mt-4 text-muted-foreground leading-relaxed">{children}</p>
     ),
-    [BLOCKS.UL_LIST]: (node, children) => {
-      // Render with diamond bullet only
-      const childArray = Array.isArray(children) ? children : [children]
+    [BLOCKS.UL_LIST]: (node, children, next) => {
+      // Re-render with a custom LIST_ITEM that strips paragraph margins
+      const listItemOptions: Options = {
+        renderNode: {
+          ...defaultOptions.renderNode,
+          [BLOCKS.LIST_ITEM]: (itemNode, _children, itemNext) => {
+            // Override PARAGRAPH inside list items to remove top margin
+            const inlineOptions: Options = {
+              renderNode: {
+                ...defaultOptions.renderNode,
+                [BLOCKS.PARAGRAPH]: (_pNode, pChildren) => (
+                  <span className="leading-relaxed">{pChildren}</span>
+                ),
+              },
+            }
+            return (
+              <li className="flex items-center gap-2 text-muted-foreground leading-relaxed">
+                <span className="flex-shrink-0 text-primary">
+                  <LogoBullet index={0} size="sm" color="var(--color-primary)" />
+                </span>
+                <span>
+                  {documentToReactComponents(
+                    { nodeType: BLOCKS.DOCUMENT, data: {}, content: itemNode.content } as any,
+                    inlineOptions
+                  )}
+                </span>
+              </li>
+            )
+          },
+        },
+      }
       return (
-        <ul className="mt-4 space-y-3">
-          {childArray.map((child, i) => (
-            <li key={i} className="flex items-center gap-3 text-muted-foreground leading-relaxed">
-              <span className="flex-shrink-0 text-primary">
-                <LogoBullet index={0} size="sm" color="var(--color-primary)" />
-              </span>
-              <span>{child}</span>
-            </li>
-          ))}
+        <ul className="mt-4 space-y-2.5">
+          {documentToReactComponents(
+            { nodeType: BLOCKS.DOCUMENT, data: {}, content: node.content } as any,
+            listItemOptions
+          )}
         </ul>
       )
     },
@@ -58,7 +82,6 @@ const defaultOptions: Options = {
       </ol>
     ),
     [BLOCKS.LIST_ITEM]: (node, children) => (
-      // Strip the outer <p> wrapper Contentful adds inside list items
       <>{children}</>
     ),
     [BLOCKS.QUOTE]: (node, children) => (
@@ -137,18 +160,41 @@ const darkBgOptions: Options = {
     [BLOCKS.PARAGRAPH]: (node, children) => (
       <p className="mt-4 text-white/85 leading-relaxed">{children}</p>
     ),
-    [BLOCKS.UL_LIST]: (node, children) => {
-      const childArray = Array.isArray(children) ? children : [children]
+    [BLOCKS.UL_LIST]: (node, children, next) => {
+      const listItemOptions: Options = {
+        renderNode: {
+          ...darkBgOptions.renderNode,
+          [BLOCKS.LIST_ITEM]: (itemNode, _children, itemNext) => {
+            const inlineOptions: Options = {
+              renderNode: {
+                ...darkBgOptions.renderNode,
+                [BLOCKS.PARAGRAPH]: (_pNode, pChildren) => (
+                  <span className="leading-relaxed">{pChildren}</span>
+                ),
+              },
+            }
+            return (
+              <li className="flex items-center gap-2 text-white/85 leading-relaxed">
+                <span className="flex-shrink-0">
+                  <LogoBullet index={0} size="sm" color="rgba(255,255,255,0.75)" />
+                </span>
+                <span>
+                  {documentToReactComponents(
+                    { nodeType: BLOCKS.DOCUMENT, data: {}, content: itemNode.content } as any,
+                    inlineOptions
+                  )}
+                </span>
+              </li>
+            )
+          },
+        },
+      }
       return (
-        <ul className="mt-4 space-y-3">
-          {childArray.map((child, i) => (
-            <li key={i} className="flex items-center gap-3 text-white/85 leading-relaxed">
-              <span className="flex-shrink-0">
-                <LogoBullet index={0} size="sm" color="rgba(255,255,255,0.75)" />
-              </span>
-              <span>{child}</span>
-            </li>
-          ))}
+        <ul className="mt-4 space-y-2.5">
+          {documentToReactComponents(
+            { nodeType: BLOCKS.DOCUMENT, data: {}, content: node.content } as any,
+            listItemOptions
+          )}
         </ul>
       )
     },
