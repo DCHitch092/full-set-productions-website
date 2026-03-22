@@ -50,8 +50,8 @@ const defaultOptions: Options = {
       return (
         <ul className="mt-4 space-y-3">
           {childArray.map((child, i) => (
-            <li key={i} className="flex items-start gap-3 text-muted-foreground leading-relaxed">
-              <span className="mt-1 flex-shrink-0 text-primary">
+            <li key={i} className="flex items-center gap-3 text-muted-foreground leading-relaxed">
+              <span className="flex-shrink-0 text-primary">
                 <LogoBullet index={counter()} size="sm" color="var(--color-primary)" />
               </span>
               <span>{child}</span>
@@ -151,8 +151,8 @@ const darkBgOptions: Options = {
       return (
         <ul className="mt-4 space-y-3">
           {childArray.map((child, i) => (
-            <li key={i} className="flex items-start gap-3 text-white/85 leading-relaxed">
-              <span className="mt-1 flex-shrink-0">
+            <li key={i} className="flex items-center gap-3 text-white/85 leading-relaxed">
+              <span className="flex-shrink-0">
                 <LogoBullet index={counter()} size="sm" color="rgba(255,255,255,0.75)" />
               </span>
               <span>{child}</span>
