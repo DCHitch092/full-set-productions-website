@@ -11,12 +11,6 @@ import Link from "next/link"
 import { getAssetUrl, getAssetDimensions } from "@/lib/contentful-types"
 import { LogoBullet } from "@/components/brand-shapes"
 
-// Stateful counter so bullets cycle per-list without React context
-function makeBulletCounter() {
-  let i = 0
-  return () => i++
-}
-
 const defaultOptions: Options = {
   renderNode: {
     [BLOCKS.HEADING_1]: (node, children) => (
@@ -43,16 +37,14 @@ const defaultOptions: Options = {
       <p className="mt-4 text-muted-foreground leading-relaxed">{children}</p>
     ),
     [BLOCKS.UL_LIST]: (node, children) => {
-      // Build a counter shared across this list's items
-      const counter = makeBulletCounter()
-      // Re-render children with index injected via wrapper
+      // Render with diamond bullet only
       const childArray = Array.isArray(children) ? children : [children]
       return (
         <ul className="mt-4 space-y-3">
           {childArray.map((child, i) => (
             <li key={i} className="flex items-center gap-3 text-muted-foreground leading-relaxed">
               <span className="flex-shrink-0 text-primary">
-                <LogoBullet index={counter()} size="sm" color="var(--color-primary)" />
+                <LogoBullet index={0} size="sm" color="var(--color-primary)" />
               </span>
               <span>{child}</span>
             </li>
@@ -146,14 +138,13 @@ const darkBgOptions: Options = {
       <p className="mt-4 text-white/85 leading-relaxed">{children}</p>
     ),
     [BLOCKS.UL_LIST]: (node, children) => {
-      const counter = makeBulletCounter()
       const childArray = Array.isArray(children) ? children : [children]
       return (
         <ul className="mt-4 space-y-3">
           {childArray.map((child, i) => (
             <li key={i} className="flex items-center gap-3 text-white/85 leading-relaxed">
               <span className="flex-shrink-0">
-                <LogoBullet index={counter()} size="sm" color="rgba(255,255,255,0.75)" />
+                <LogoBullet index={0} size="sm" color="rgba(255,255,255,0.75)" />
               </span>
               <span>{child}</span>
             </li>
