@@ -303,7 +303,7 @@ export function TeamBlock({ block }: { block: ModularBlock }) {
               : null
 
             return (
-              <BaseCard key={person.sys.id} variant="simple">
+              <BaseCard key={person.sys.id} variant="clean">
                 {photoUrl && (
                   <div className="relative aspect-square overflow-hidden bg-muted">
                     <Image
