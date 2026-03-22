@@ -238,9 +238,9 @@ export function StepsBlock({ block }: { block: ModularBlock }) {
                   <SplitCircleNumber
                     number={index + 1}
                     size={64}
-                    colorA="var(--color-primary)"
-                    colorB="var(--color-secondary)"
-                    angle={35}
+                    colorA="var(--color-blue)"
+                    colorB="var(--color-coral)"
+                    angle={-69}
                   />
                   {/* Connecting dot on the line (desktop only) */}
                   <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-primary border-4 border-secondary hidden lg:block" />
