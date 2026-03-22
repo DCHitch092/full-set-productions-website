@@ -8,7 +8,7 @@ import { ReactNode } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { ANIMATIONS } from "@/lib/animations"
 
-type CardVariant = "elevated" | "simple" | "interactive" | "testimonial"
+type CardVariant = "elevated" | "simple" | "interactive" | "testimonial" | "clean"
 
 interface BaseCardProps {
   children: ReactNode
@@ -36,6 +36,12 @@ export function BaseCard({
     simple: `
       relative flex flex-col overflow-hidden rounded-lg border border-border bg-card
       ${interactive ? `transition-all duration-300 hover:shadow-md hover:border-primary/30 cursor-pointer group` : ""}
+    `,
+    
+    // Clean: no border, seamless edge-to-edge images (Team members, profiles)
+    clean: `
+      relative flex flex-col overflow-hidden rounded-lg bg-card
+      ${interactive ? `transition-all duration-300 hover:shadow-md cursor-pointer group` : ""}
     `,
     
     // Interactive: for expandable/collapsible content (FAQ) with full hover effect
