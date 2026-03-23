@@ -3,6 +3,79 @@
  * Single source of truth for spacing, sizing, timing, and layout
  */
 
+/* ============================================================ */
+/* Brand Color Palette                                          */
+/* ============================================================ */
+/**
+ * Brand colour CSS variable references.
+ * Values are defined as the source of truth in app/globals.css —
+ * edit them there and the change will cascade everywhere automatically.
+ *
+ *   --color-blue:   oklch(0.73 0.09 262.89)  → Home / Header
+ *   --color-teal:   oklch(0.78 0.09 184.18)  → Services / Contact
+ *   --color-pink:   oklch(0.72 0.18 336.27)  → Projects
+ *   --color-coral:  oklch(0.67 0.16 38.00)   → Industries
+ *   --color-yellow: oklch(0.82 0.14 92.25)   → About
+ */
+export const brandColors = {
+  blue:   "var(--color-blue)",
+  teal:   "var(--color-teal)",
+  pink:   "var(--color-pink)",
+  coral:  "var(--color-coral)",
+  yellow: "var(--color-yellow)",
+}
+
+/**
+ * Neutral colour CSS variable references.
+ * Cool-tinted (hue 263°) to complement the brand palette.
+ *
+ *   --color-white:      oklch(1 0 0)            → Cards, modals, pure white surfaces
+ *   --color-light-grey: oklch(0.96 0.005 263)   → Page backgrounds, subtle panels
+ *   --color-grey:       oklch(0.65 0.010 263)   → Muted text, borders, placeholders
+ *   --color-off-black:  oklch(0.22 0.015 263)   → Body text, dark surfaces
+ */
+export const neutralColors = {
+  white:      "var(--color-white)",
+  lightGrey:  "var(--color-light-grey)",
+  grey:       "var(--color-grey)",
+  offBlack:   "var(--color-off-black)",
+}
+
+/* ============================================================ */
+/* Page Theme Configuration                                     */
+/* ============================================================ */
+export const pageThemes = {
+  home: "blue",
+  services: "teal",
+  industries: "coral",
+  projects: "pink",
+  about: "yellow",
+  contact: "teal",
+} as const
+
+export type PageTheme = keyof typeof pageThemes
+
+/**
+ * Map page routes to their theme identifiers
+ * Used by layout wrappers to apply data-page-theme attribute
+ */
+export const routeToTheme: Record<string, PageTheme> = {
+  "/": "home",
+  "/services": "services",
+  "/services/[slug]": "services",
+  "/industries": "industries",
+  "/industry/[slug]": "industries",
+  "/projects": "projects",
+  "/projects/[slug]": "projects",
+  "/about": "about",
+  "/about/[slug]": "about",
+  "/about/faq": "about",
+  "/contact": "contact",
+}
+
+/* ============================================================ */
+/* Spacing Tokens                                               */
+/* ============================================================ */
 export const spacing = {
   // Section padding (vertical rhythm for pages)
   sectionPy: "py-16 lg:py-24",

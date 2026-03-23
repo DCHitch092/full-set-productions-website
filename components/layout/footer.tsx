@@ -50,7 +50,7 @@ export async function Footer() {
                 className="h-9 w-auto"
               />
             </Link>
-            <Body color="muted" className="mt-4 max-w-sm">
+            <Body color="muted" className="mt-4 max-w-sm text-sm text-white/80 leading-relaxed">
               {bodyText}
             </Body>
             {/* Social links */}
@@ -62,7 +62,7 @@ export async function Footer() {
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`text-sm text-muted-foreground transition-colors duration-300 hover:text-foreground`}
+                    className={`text-sm text-muted-foreground transition-colors duration-300 hover:text-foreground text-white/70 hover:text-white transition-colors`}
                   >
                     {link.label}
                   </a>
@@ -76,7 +76,7 @@ export async function Footer() {
             <div key={section.href}>
               <Link
                 href={section.href}
-                className={`transition-colors duration-300 hover:text-accent`}
+                className="transition-colors duration-300 hover:text-accent text-sm font-semibold text-white hover:text-accent transition-colors"
               >
                 <H6 color="foreground">{section.label}</H6>
               </Link>
@@ -87,7 +87,7 @@ export async function Footer() {
                       href={item.href}
                       target={item.openInNewTab ? "_blank" : undefined}
                       rel={item.openInNewTab ? "noopener noreferrer" : undefined}
-                      className={`text-sm text-muted-foreground transition-colors duration-300 hover:text-foreground`}
+                      className="text-sm text-white/70 hover:text-white transition-colors"
                     >
                       {item.label}
                     </Link>
@@ -99,8 +99,8 @@ export async function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-12 border-t border-border pt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
-          <BodySmall color="muted">
+        <div className="mt-12 border-t border-border/30 pt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
+          <p className="text-sm text-white/60">
             &copy; {new Date().getFullYear()} Full Set Productions. All rights reserved.
           </BodySmall>
           {legalLinks.length > 0 && (
@@ -120,7 +120,7 @@ export async function Footer() {
                   <Link
                     key={link.label}
                     href={href}
-                    className={`text-sm text-muted-foreground transition-colors duration-300 hover:text-foreground`}
+                    className="text-sm text-white/70 hover:text-white transition-colors"
                   >
                     {link.label}
                   </Link>

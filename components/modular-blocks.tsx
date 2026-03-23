@@ -9,6 +9,7 @@ import { contentfulImageUrl } from "@/lib/contentful"
 import { SectionContainer } from "@/components/sections/SectionContainer"
 import { BaseCard } from "@/components/cards/BaseCard"
 import { ANIMATIONS } from "@/lib/animations"
+import { SplitCircleNumber } from "@/components/brand-shapes"
 import type { Document } from "@contentful/rich-text-types"
 
 // ============================================================
@@ -232,11 +233,15 @@ export function StepsBlock({ block }: { block: ModularBlock }) {
               className="relative group"
             >
               <div className="flex gap-6 lg:gap-8 items-start">
-                {/* Step number */}
-              <div className="relative flex-shrink-0">
-                  <div className={`flex h-16 w-16 items-center justify-center rounded-full bg-primary text-primary-foreground font-bold text-2xl shadow-lg ${ANIMATIONS.cardInteractive}`}>
-                    {index + 1}
-                  </div>
+                {/* Step number — split-circle badge */}
+                <div className="relative flex-shrink-0 transition-transform duration-300 group-hover:scale-110">
+                  <SplitCircleNumber
+                    number={index + 1}
+                    size={64}
+                    colorA="var(--color-blue)"
+                    colorB="var(--color-coral)"
+                    angle={-69}
+                  />
                   {/* Connecting dot on the line (desktop only) */}
                   <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-primary border-4 border-secondary hidden lg:block" />
                 </div>
@@ -301,9 +306,9 @@ export function TeamBlock({ block }: { block: ModularBlock }) {
               : null
 
             return (
-              <BaseCard key={person.sys.id} variant="simple">
+              <BaseCard key={person.sys.id} variant="clean">
                 {photoUrl && (
-                  <div className="relative aspect-square overflow-hidden bg-muted">
+                  <div className="relative aspect-square overflow-hidden rounded-t-xl bg-muted">
                     <Image
                       src={photoUrl}
                       alt={name || "Team member"}
@@ -312,7 +317,7 @@ export function TeamBlock({ block }: { block: ModularBlock }) {
                     />
                   </div>
                 )}
-                <CardContent className="p-6">
+                <CardContent className="px-6 py-5">
                   <h3 className="text-xl font-semibold text-card-foreground">{name}</h3>
                   {displayRole && <p className="text-sm text-accent font-medium mt-1">{displayRole}</p>}
                   {bio && (
