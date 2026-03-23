@@ -8,6 +8,20 @@
 import { ReactNode } from "react"
 import { spacing } from "@/lib/design-tokens"
 import { useBackgroundTexture, type TextureType } from "@/lib/use-background-texture"
+import { CornerBracket } from "@/components/brand-shapes"
+
+interface BracketColors {
+  colorA: string
+  colorB: string
+}
+
+export interface CornerBracketsConfig {
+  topLeft?: BracketColors
+  topRight?: BracketColors
+  bottomLeft?: BracketColors
+  bottomRight?: BracketColors
+  size?: number
+}
 
 interface SectionContainerProps {
   children: ReactNode
@@ -21,6 +35,7 @@ interface SectionContainerProps {
   colorFilter?: string
   align?: "left" | "center"
   className?: string
+  cornerBrackets?: CornerBracketsConfig
 }
 
 export function SectionContainer({
@@ -35,6 +50,7 @@ export function SectionContainer({
   colorFilter,
   align = "left",
   className = "",
+  cornerBrackets,
 }: SectionContainerProps) {
   const { textureUrl } = useBackgroundTexture({
     textureType: textureType,
@@ -92,11 +108,25 @@ export function SectionContainer({
       }
     : undefined
 
+  const bracketSize = cornerBrackets?.size ?? 72
+
   return (
-    <section 
-      className={`${spacingMap[spacingSize]} ${bgMap[bg]} ${className}`}
+    <section
+      className={`${cornerBrackets ? 'relative' : ''} ${spacingMap[spacingSize]} ${bgMap[bg]} ${className}`}
       style={sectionStyle}
     >
+      {cornerBrackets?.topLeft && (
+        <CornerBracket corner="top-left" colorA={cornerBrackets.topLeft.colorA} colorB={cornerBrackets.topLeft.colorB} size={bracketSize} className="absolute top-0 left-0 pointer-events-none" />
+      )}
+      {cornerBrackets?.topRight && (
+        <CornerBracket corner="top-right" colorA={cornerBrackets.topRight.colorA} colorB={cornerBrackets.topRight.colorB} size={bracketSize} className="absolute top-0 right-0 pointer-events-none" />
+      )}
+      {cornerBrackets?.bottomLeft && (
+        <CornerBracket corner="bottom-left" colorA={cornerBrackets.bottomLeft.colorA} colorB={cornerBrackets.bottomLeft.colorB} size={bracketSize} className="absolute bottom-0 left-0 pointer-events-none" />
+      )}
+      {cornerBrackets?.bottomRight && (
+        <CornerBracket corner="bottom-right" colorA={cornerBrackets.bottomRight.colorA} colorB={cornerBrackets.bottomRight.colorB} size={bracketSize} className="absolute bottom-0 right-0 pointer-events-none" />
+      )}
       <div className={`mx-auto ${maxWidthMap[maxWidth]} ${spacing.containerPadding} ${alignMap[align]}`}>
         {children}
       </div>

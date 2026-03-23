@@ -3,7 +3,7 @@ import { notFound } from "next/navigation"
 import Link from "next/link"
 import Image from "next/image"
 import { Calendar, User } from "lucide-react"
-import { LogoArrow } from "@/components/brand-shapes"
+import { LogoArrow, CornerBracket } from "@/components/brand-shapes"
 import {
   getArticleBySlug,
   getPublishedArticles,
@@ -279,42 +279,15 @@ export default async function ArticleDetailPage({ params }: PageProps) {
           )
         }
         
-        // Multiple sections: render with alternating diagonal striping
+        // Multiple sections: render with alternating backgrounds
         return activeSections.map((doc, index) => {
           const isEven = index % 2 === 0
-          const isFirst = index === 0
-          const isLast = index === activeSections.length - 1
-          
-          // Determine clip-path for diagonal effect
-          let clipPath = 'none'
-          if (!isFirst && !isLast) {
-            // Middle sections: diagonal on both edges
-            clipPath = isEven
-              ? 'polygon(0 3%, 100% 0, 100% 97%, 0 100%)'
-              : 'polygon(0 0, 100% 3%, 100% 100%, 0 97%)'
-          } else if (!isFirst && isLast) {
-            // Last section: diagonal on top only
-            clipPath = isEven
-              ? 'polygon(0 3%, 100% 0, 100% 100%, 0 100%)'
-              : 'polygon(0 0, 100% 3%, 100% 100%, 0 100%)'
-          } else if (isFirst && !isLast) {
-            // First section (but not only): diagonal on bottom only
-            clipPath = isEven
-              ? 'polygon(0 0, 100% 0, 100% 97%, 0 100%)'
-              : 'polygon(0 0, 100% 0, 100% 100%, 0 97%)'
-          }
-          
-          // Alternating background colors
           const bgColor = isEven ? 'bg-background' : 'bg-secondary'
-          
-          // Add negative margin to overlap sections for seamless diagonal joins
-          const marginTop = !isFirst ? '-mt-4 lg:-mt-6' : ''
-          
+
           return (
             <section
               key={index}
-              className={`relative ${bgColor} py-14 lg:py-20 ${marginTop}`}
-              style={{ clipPath }}
+              className={`${bgColor} py-14 lg:py-20`}
             >
               <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
                 <article className="prose prose-lg max-w-none">
@@ -427,10 +400,8 @@ export default async function ArticleDetailPage({ params }: PageProps) {
       {/* ============================================ */}
       {articlesCta && (
         <section className="relative bg-primary py-16 lg:py-20">
-          <div
-            className="absolute inset-x-0 -top-5 h-5 bg-primary"
-            style={{ clipPath: "polygon(0 100%, 100% 0, 100% 100%)" }}
-          />
+          <CornerBracket corner="top-left" colorA="var(--color-teal)" colorB="var(--color-yellow)" className="absolute top-0 left-0 pointer-events-none" />
+          <CornerBracket corner="bottom-right" colorA="var(--color-coral)" colorB="var(--color-pink)" className="absolute bottom-0 right-0 pointer-events-none" />
           <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             <div className="mx-auto max-w-2xl text-center">
               <h2 className="text-2xl font-bold text-primary-foreground sm:text-3xl text-balance">

@@ -116,28 +116,10 @@ export default async function ProjectsPage() {
         )}
       </SectionContainer>
 
-      {/* Additional modular blocks (CTA, etc.) - rendered with dynamic diagonal styling */}
-      {otherBlocks.map((block: any, index: number) => {
-        const isLastBlock = index === otherBlocks.length - 1
-        // Diagonal on top only for last block, both top and bottom for others
-        const clipPath = isLastBlock
-          ? index % 2 === 0
-            ? "polygon(0 0, 100% 5%, 100% 100%, 0 100%)" // diagonal top-right, flat bottom
-            : "polygon(0 5%, 100% 0, 100% 100%, 0 100%)" // diagonal top-left, flat bottom
-          : index % 2 === 0
-            ? "polygon(0 0, 100% 5%, 100% 100%, 0 95%)" // diagonal both sides
-            : "polygon(0 5%, 100% 0, 100% 95%, 0 100%)" // diagonal both sides
-
-        return (
-          <div
-            key={block.sys.id}
-            className="relative"
-            style={{ clipPath }}
-          >
-            <ModularBlockRenderer block={block} />
-          </div>
-        )
-      })}
+      {/* Additional modular blocks (CTA, etc.) */}
+      {otherBlocks.map((block: any) => (
+        <ModularBlockRenderer key={block.sys.id} block={block} />
+      ))}
     </div>
   )
 }
