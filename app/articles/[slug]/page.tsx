@@ -2,7 +2,8 @@ import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import Link from "next/link"
 import Image from "next/image"
-import { ArrowLeft, ArrowRight, Calendar, User } from "lucide-react"
+import { Calendar, User } from "lucide-react"
+import { LogoArrow } from "@/components/brand-shapes"
 import {
   getArticleBySlug,
   getPublishedArticles,
@@ -208,7 +209,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
               href="/articles"
               className="mb-6 inline-flex items-center text-sm text-white/70 hover:text-white transition-colors"
             >
-              <ArrowLeft className="mr-2 h-4 w-4" />
+              <LogoArrow direction="left" size={14} className="mr-2" />
               All articles
             </Link>
 
@@ -389,7 +390,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
                   href={`/articles/${prevArticle.fields.slug}`}
                   className="group flex items-center gap-4 rounded-lg border border-border bg-card p-6 transition-shadow hover:shadow-md"
                 >
-                  <ArrowLeft className="h-5 w-5 shrink-0 text-muted-foreground group-hover:text-foreground" />
+                  <LogoArrow direction="left" size={20} color="var(--color-grey)" className="shrink-0 group-hover:[color:var(--color-off-black)] transition-colors" />
                   <div>
                     <p className="text-sm text-muted-foreground">Previous article</p>
                     <p className="mt-1 font-semibold text-card-foreground group-hover:text-accent line-clamp-1">
@@ -411,7 +412,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
                       {nextArticle.fields.title as string}
                     </p>
                   </div>
-                  <ArrowRight className="h-5 w-5 shrink-0 text-muted-foreground group-hover:text-foreground" />
+                  <LogoArrow size={20} color="var(--color-grey)" className="shrink-0 group-hover:[color:var(--color-off-black)] transition-colors" />
                 </Link>
               ) : (
                 <div />
@@ -449,7 +450,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
                   className="inline-flex items-center rounded-md bg-background px-8 py-3 text-base font-semibold text-foreground transition-colors hover:bg-background/90"
                 >
                   Get in touch
-                  <ArrowRight className="ml-2 h-5 w-5" />
+                  <LogoArrow size={18} className="ml-2" />
                 </Link>
               </div>
             </div>
