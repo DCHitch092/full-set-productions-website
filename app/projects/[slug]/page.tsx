@@ -247,11 +247,6 @@ export default async function ProjectDetailPage({ params }: PageProps) {
       {/* ============================================ */}
       {project.fields.brief && (
         <section className="relative overflow-hidden bg-background py-16 lg:py-24">
-          {/* Angled top separator */}
-          <div
-            className="absolute inset-x-0 -top-8 h-8 bg-background"
-            style={{ clipPath: "polygon(0 100%, 100% 0, 100% 100%)" }}
-          />
           <CornerBracket corner="bottom-left" className="absolute bottom-0 left-0" />
           <CornerBracket corner="top-right" className="absolute top-0 right-0" />
           <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
@@ -268,13 +263,8 @@ export default async function ProjectDetailPage({ params }: PageProps) {
       {/* ============================================ */}
       {project.fields.solution && (
         <section className="relative overflow-hidden bg-primary py-16 lg:py-24">
-          {/* Angled top separator */}
-          <div
-            className="absolute inset-x-0 -top-6 h-6 bg-primary"
-            style={{ clipPath: "polygon(0 0, 100% 100%, 0 100%)" }}
-          />
           <CornerBracket corner="bottom-left" colorA="var(--color-yellow)" colorB="var(--color-teal)" className="absolute bottom-0 left-0" />
-          <CornerBracket corner="top-right" colorA="var(--color-yellow)" colorB="var(--color-teal)" className="absolute top-0 right-0" />
+          <CornerBracket corner="top-right" colorA="var(--color-coral)" colorB="var(--color-pink)" className="absolute top-0 right-0" />
           <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             <h2 className="text-2xl font-bold text-primary-foreground sm:text-3xl">Our Solution</h2>
             <div className="mt-6">
@@ -284,11 +274,6 @@ export default async function ProjectDetailPage({ params }: PageProps) {
               />
             </div>
           </div>
-          {/* Angled bottom separator */}
-          <div
-            className="absolute inset-x-0 -bottom-6 h-6 bg-primary"
-            style={{ clipPath: "polygon(0 0, 100% 0, 100% 100%)" }}
-          />
         </section>
       )}
 
@@ -332,10 +317,8 @@ export default async function ProjectDetailPage({ params }: PageProps) {
       {/* ============================================ */}
       {projectsCta && (
         <section className="relative bg-primary py-16 lg:py-20">
-          <div
-            className="absolute inset-x-0 -top-5 h-5 bg-primary"
-            style={{ clipPath: "polygon(0 100%, 100% 0, 100% 100%)" }}
-          />
+          <CornerBracket corner="top-left" colorA="var(--color-teal)" colorB="var(--color-yellow)" className="absolute top-0 left-0 pointer-events-none" />
+          <CornerBracket corner="bottom-right" colorA="var(--color-coral)" colorB="var(--color-pink)" className="absolute bottom-0 right-0 pointer-events-none" />
           <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             <div className="mx-auto max-w-2xl text-center">
               {projectsCta.fields.body && (

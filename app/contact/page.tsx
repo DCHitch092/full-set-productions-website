@@ -3,6 +3,7 @@ import React from "react"
 import { ContactForm } from "@/components/contact-form"
 import { Card, CardContent } from "@/components/ui/card"
 import { Mail, MapPin, Clock } from "lucide-react"
+import { CornerBracket } from "@/components/brand-shapes"
 import {
   getGlobalSettings,
   getPageBySlug,
@@ -74,7 +75,9 @@ export default async function ContactPage() {
   return (
     <div className="flex flex-col">
       {/* Hero */}
-      <section className="bg-primary py-16 lg:py-20">
+      <section className="relative bg-primary py-16 lg:py-20">
+        <CornerBracket corner="top-right" colorA="var(--color-teal)" colorB="var(--color-yellow)" className="absolute top-0 right-0 pointer-events-none" />
+        <CornerBracket corner="bottom-left" colorA="var(--color-pink)" colorB="var(--color-coral)" className="absolute bottom-0 left-0 pointer-events-none" />
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl">
             <h1 className="text-4xl font-bold tracking-tight text-primary-foreground sm:text-5xl">

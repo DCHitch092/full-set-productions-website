@@ -3,6 +3,7 @@ import { notFound } from "next/navigation"
 import Link from "next/link"
 import { ArrowLeft, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { CornerBracket } from "@/components/brand-shapes"
 import {
   getIndustryBySlug,
   getIndustries,
@@ -141,10 +142,6 @@ export default async function IndustryDetailPage({ params }: PageProps) {
       {/* ============================================ */}
       {resolvedServices.length > 0 && (
         <section className="relative bg-secondary py-16 lg:py-20">
-          <div
-            className="absolute inset-x-0 -top-6 h-6 bg-secondary"
-            style={{ clipPath: "polygon(0 100%, 100% 0, 100% 100%)" }}
-          />
           <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             <div className="mx-auto max-w-3xl">
               <h2 className="text-2xl font-bold text-foreground sm:text-3xl">
@@ -181,10 +178,8 @@ export default async function IndustryDetailPage({ params }: PageProps) {
       {/* ============================================ */}
       {industryCta && (
         <section className="relative bg-primary py-16 lg:py-20">
-          <div
-            className="absolute inset-x-0 -top-5 h-5 bg-primary"
-            style={{ clipPath: "polygon(0 0, 100% 100%, 0 100%)" }}
-          />
+          <CornerBracket corner="top-left" colorA="var(--color-coral)" colorB="var(--color-yellow)" className="absolute top-0 left-0 pointer-events-none" />
+          <CornerBracket corner="bottom-right" colorA="var(--color-teal)" colorB="var(--color-pink)" className="absolute bottom-0 right-0 pointer-events-none" />
           <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             <div className="mx-auto max-w-2xl text-center">
               {industryCta.fields.body && (

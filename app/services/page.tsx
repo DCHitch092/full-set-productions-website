@@ -138,14 +138,6 @@ export default async function ServicesPage() {
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                           />
                           
-                          {/* Subtle textured overlay for visual interest */}
-                          <div 
-                            className="absolute inset-0 opacity-5 pointer-events-none"
-                            style={{
-                              backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(0,0,0,.1) 2px, rgba(0,0,0,.1) 4px)',
-                            }}
-                          />
-                          
                           {/* Category color gradient overlay for consistent branding */}
                           <div className={`absolute inset-0 ${category.bgColor} opacity-30`} />
                           
@@ -183,14 +175,6 @@ export default async function ServicesPage() {
                             backgroundAttachment: 'local',
                           }}
                         >
-                          {/* Subtle textured overlay for depth */}
-                          <div 
-                            className="absolute inset-0 opacity-10"
-                            style={{
-                              backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(0,0,0,.05) 2px, rgba(0,0,0,.05) 4px)',
-                            }}
-                          />
-                          
                           {/* Diagonal gradient overlay for visual interest and text contrast */}
                           <div 
                             className={`absolute inset-0 ${category.bgColor} opacity-75`}
@@ -228,7 +212,7 @@ export default async function ServicesPage() {
       {/* CTA banner                                  */}
       {/* ============================================ */}
       {ctaBlock && (
-        <SectionContainer as="section" bg="primary" spacing="lg" align="center">
+        <SectionContainer as="section" bg="primary" spacing="lg" align="center" cornerBrackets={{ topLeft: { colorA: "var(--color-teal)", colorB: "var(--color-yellow)" }, bottomRight: { colorA: "var(--color-coral)", colorB: "var(--color-pink)" }, size: 72 }}>
           <div className="mx-auto max-w-4xl text-center">
             <h2 className="text-3xl font-bold tracking-tight text-primary-foreground sm:text-4xl text-balance">
               {ctaBlock.fields.headline as string}

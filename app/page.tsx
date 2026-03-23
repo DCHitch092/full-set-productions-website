@@ -185,12 +185,17 @@ export default async function HomePage() {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <SectionContainer 
-        bg="primary" 
+      <SectionContainer
+        bg="primary"
         spacing="lg"
         textureType="background"
         textureIndex={0}
         themeColor="blue"
+        cornerBrackets={{
+          bottomLeft: { colorA: "var(--color-teal)", colorB: "var(--color-yellow)" },
+          topRight: { colorA: "var(--color-pink)", colorB: "var(--color-coral)" },
+          size: 80,
+        }}
       >
         <div className="max-w-3xl">
           <Badge variant="secondary" className="mb-4">
@@ -281,12 +286,17 @@ export default async function HomePage() {
       </SectionContainer>
 
       {/* Featured Work */}
-      <SectionContainer 
-        bg="secondary" 
+      <SectionContainer
+        bg="secondary"
         spacing="lg"
         textureType="background"
         textureIndex={1}
         themeColor="blue"
+        cornerBrackets={{
+          topRight: { colorA: "var(--color-pink)", colorB: "var(--color-coral)" },
+          bottomLeft: { colorA: "var(--color-teal)", colorB: "var(--color-yellow)" },
+          size: 72,
+        }}
       >
         <div className="flex items-end justify-between">
           <div>
@@ -382,12 +392,17 @@ export default async function HomePage() {
       </SectionContainer>
 
       {/* Edinburgh Advantage */}
-      <SectionContainer 
-        bg="primary" 
+      <SectionContainer
+        bg="primary"
         spacing="lg"
         textureType="background"
         textureIndex={2}
         themeColor="blue"
+        cornerBrackets={{
+          topLeft: { colorA: "var(--color-yellow)", colorB: "var(--color-coral)" },
+          bottomRight: { colorA: "var(--color-teal)", colorB: "var(--color-pink)" },
+          size: 72,
+        }}
       >
         <div className="grid items-center gap-12 lg:grid-cols-2">
           <div>
@@ -465,13 +480,18 @@ export default async function HomePage() {
       </SectionContainer>
 
       {/* CTA Block */}
-      <SectionContainer 
-        bg="secondary" 
-        spacing="lg" 
+      <SectionContainer
+        bg="secondary"
+        spacing="lg"
         align="center"
         textureType="background"
         textureIndex={3}
         themeColor="blue"
+        cornerBrackets={{
+          topLeft: { colorA: "var(--color-coral)", colorB: "var(--color-pink)" },
+          bottomRight: { colorA: "var(--color-yellow)", colorB: "var(--color-teal)" },
+          size: 72,
+        }}
       >
         <div className="mx-auto max-w-2xl text-center">
           <Wrench className="mx-auto h-12 w-12 text-accent" />
