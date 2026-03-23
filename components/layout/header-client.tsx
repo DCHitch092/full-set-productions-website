@@ -110,42 +110,6 @@ export function HeaderClient({ navEntries, ctaText, ctaUrl }: HeaderClientProps)
         <nav className="hidden items-center gap-1 md:flex">
           {mainNav.map((entry) =>
             entry.children.length > 0 ? (
-              <DropdownMenu key={entry.href}>
-                <div className="flex items-center">
-              <Link
-                href={entry.href}
-                className={`rounded-md px-3 py-2 text-sm font-medium text-foreground transition-colors duration-300 hover:bg-accent/10`}
-              >
-                {entry.label}
-              </Link>
-                  <DropdownMenuTrigger asChild>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="h-9 w-9 p-0"
-                    >
-                      <ChevronDown className="h-4 w-4" />
-                    </Button>
-                  </DropdownMenuTrigger>
-                </div>
-                <DropdownMenuContent align="start">
-                  {entry.children.map((child) => (
-                    <DropdownMenuItem key={child.href} asChild>
-                      {child.openInNewTab ? (
-                        <a
-                          href={child.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          {child.label}
-                        </a>
-                      ) : (
-                        <Link href={child.href}>{child.label}</Link>
-                      )}
-                    </DropdownMenuItem>
-                  ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
               <NavDropdown key={entry.href} entry={entry} />
             ) : (
               <Button

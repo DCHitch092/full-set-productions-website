@@ -245,9 +245,6 @@ export function StepsBlock({ block }: { block: ModularBlock }) {
                   {/* Connecting dot on the line (desktop only) */}
                   <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-primary border-4 border-secondary hidden lg:block" />
                 </div>
-                  {/* Connecting dot on the line (desktop only) */}
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-primary border-4 border-secondary hidden lg:block" />
-                </div>
                 
                 {/* Step content */}
                 <BaseCard variant="simple" className={`flex-1 ${ANIMATIONS.cardInteractive}`}>

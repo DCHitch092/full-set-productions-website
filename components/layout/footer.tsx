@@ -102,7 +102,7 @@ export async function Footer() {
         <div className="mt-12 border-t border-border/30 pt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
           <p className="text-sm text-white/60">
             &copy; {new Date().getFullYear()} Full Set Productions. All rights reserved.
-          </BodySmall>
+          </p>
           {legalLinks.length > 0 && (
             <div className="flex flex-wrap gap-4">
               {legalLinks.map((link) => {
