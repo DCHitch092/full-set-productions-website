@@ -164,11 +164,11 @@ export default async function ServiceDetailPage({ params }: PageProps) {
       {/* ============================================ */}
       {keyPoints && keyPoints.length > 0 && (
         <section className="border-b border-border bg-secondary py-12 lg:py-16">
-          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
             <h2 className="mb-8 text-2xl font-bold tracking-tight text-foreground">
               Key capabilities
             </h2>
-            <KeyPointsList points={keyPoints as string[]} columns={2} />
+            <KeyPointsList points={keyPoints as string[]} columns={2} itemClassName="bg-white py-3 pr-3 rounded-sm" />
           </div>
         </section>
       )}

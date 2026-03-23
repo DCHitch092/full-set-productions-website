@@ -38,7 +38,7 @@ export default async function AboutPage() {
       {/* Page body content (appears after hero) */}
       {body && (
         <section className="py-20 lg:py-28">
-          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
             <RichText document={body} />
           </div>
         </section>
