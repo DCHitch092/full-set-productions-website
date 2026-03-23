@@ -2,7 +2,8 @@ import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import Link from "next/link"
 import Image from "next/image"
-import { ArrowLeft, ArrowRight, Calendar, User } from "lucide-react"
+import { ArrowLeft, Calendar, User } from "lucide-react"
+import { LogoArrow } from "@/components/brand-shapes"
 import {
   getArticleBySlug,
   getPublishedArticles,
@@ -248,7 +249,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
       {article.fields.excerpt && (
         <section className="bg-secondary py-10 lg:py-14">
           <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-            <p className="text-xl text-foreground/80 leading-relaxed lg:text-2xl lg:leading-relaxed font-light text-balance">
+            <p className="text-xl text-muted-foreground leading-relaxed lg:text-2xl lg:leading-relaxed font-light text-balance">
               {article.fields.excerpt as string}
             </p>
           </div>
@@ -436,10 +437,10 @@ export default async function ArticleDetailPage({ params }: PageProps) {
                 {articlesCta.fields.headline as string}
               </h2>
               {articlesCta.fields.body && (
-                <div className="mt-4 text-primary-foreground/80">
+                <div className="mt-4 text-primary-foreground">
                   <RichText
                     document={articlesCta.fields.body as Document}
-                    className="[&_p]:text-primary-foreground/80"
+                    className="[&_p]:text-primary-foreground"
                   />
                 </div>
               )}
@@ -449,7 +450,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
                   className="inline-flex items-center rounded-md bg-background px-8 py-3 text-base font-semibold text-foreground transition-colors hover:bg-background/90"
                 >
                   Get in touch
-                  <ArrowRight className="ml-2 h-5 w-5" />
+                  <LogoArrow size={18} className="ml-2" />
                 </Link>
               </div>
             </div>

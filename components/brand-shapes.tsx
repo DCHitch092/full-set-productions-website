@@ -192,6 +192,61 @@ export function LogoBulletList({
 }
 
 // ─────────────────────────────────────────────
+// LogoArrow — the block arrow from the logo.
+//
+// Shape: flat-backed pentagon (square body + triangular tip),
+// derived from the directional element visible in the 'E' of the
+// Full Set Productions wordmark. Replaces the standard ArrowRight /
+// ArrowLeft icons on CTA buttons and navigation.
+//
+// Usage:
+//   <LogoArrow />                      → right, currentColor, 20 px
+//   <LogoArrow direction="left" />     → horizontally flipped
+//   <LogoArrow color="var(--color-pink)" size={16} />
+// ─────────────────────────────────────────────
+interface LogoArrowProps {
+  size?: number
+  color?: string
+  direction?: "right" | "left" | "up" | "down"
+  className?: string
+}
+
+const ARROW_ROTATIONS: Record<NonNullable<LogoArrowProps["direction"]>, number> = {
+  right: 0,
+  left: 180,
+  up: -90,
+  down: 90,
+}
+
+export function LogoArrow({
+  size = 20,
+  color = "currentColor",
+  direction = "right",
+  className,
+}: LogoArrowProps) {
+  const deg = ARROW_ROTATIONS[direction]
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      aria-hidden
+      style={deg !== 0 ? { transform: `rotate(${deg}deg)` } : undefined}
+    >
+      {/*
+        Flat-backed pentagon:
+        top-left → top-right shoulder → tip → bottom-right shoulder → bottom-left
+        Proportions match the squat, chunky quality of the logo letterforms.
+      */}
+      <path d="M1 4 L12 4 L19 10 L12 16 L1 16 Z" fill={color} />
+    </svg>
+  )
+}
+
+// ─────────────────────────────────────────────
 // SplitCircleIcon — circle split diagonally at
 // an angle inspired by the "S" half-circle motif.
 // Used as a replacement for the solid-colour icon housing.
@@ -200,7 +255,7 @@ interface SplitCircleIconProps {
   size?: number          // diameter in px
   colorA?: string        // top-left half (dominant)
   colorB?: string        // bottom-right half (accent)
-  angle?: number         // split angle in degrees (default 35, matching S tilt)
+  angle?: number         // split angle in degrees (default 42, matching S tilt in logo)
   children?: React.ReactNode   // icon rendered on top
   className?: string
 }
@@ -209,7 +264,7 @@ export function SplitCircleIcon({
   size = 64,
   colorA = "var(--color-primary)",
   colorB = "var(--color-secondary)",
-  angle = 35,
+  angle = 42,
   children,
   className,
 }: SplitCircleIconProps) {
@@ -290,7 +345,7 @@ export function SplitCircleNumber({
   size = 64,
   colorA = "var(--color-primary)",
   colorB = "var(--color-secondary)",
-  angle = 35,
+  angle = 42,
   className,
 }: SplitCircleNumberProps) {
   const fontSize = size * 0.34

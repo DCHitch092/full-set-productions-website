@@ -305,16 +305,16 @@ export function TeamBlock({ block }: { block: ModularBlock }) {
             return (
               <BaseCard key={person.sys.id} variant="clean">
                 {photoUrl && (
-                  <div className="relative aspect-square overflow-hidden bg-muted">
+                  <div className="relative aspect-square overflow-hidden rounded-t-xl bg-muted">
                     <Image
                       src={photoUrl}
                       alt={name || "Team member"}
                       fill
-                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                      className="object-cover"
                     />
                   </div>
                 )}
-                <CardContent className="p-6">
+                <CardContent className="px-6 py-5">
                   <h3 className="text-xl font-semibold text-card-foreground">{name}</h3>
                   {displayRole && <p className="text-sm text-accent font-medium mt-1">{displayRole}</p>}
                   {bio && (

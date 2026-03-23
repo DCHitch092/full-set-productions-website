@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import Image from "next/image"
-import { useState } from "react"
+import { useRef, useState } from "react"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -12,12 +12,74 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Menu, ChevronDown } from "lucide-react"
+import { cn } from "@/lib/utils"
 import type { NavEntry } from "@/lib/contentful"
 
 interface HeaderClientProps {
   navEntries: NavEntry[]
   ctaText: string
   ctaUrl: string
+}
+
+// ─────────────────────────────────────────────────────────────
+// Desktop-only hover dropdown — label + chevron are one element.
+// Opens on mouse-enter; a short close-delay lets the cursor
+// move from trigger to menu content without snapping shut.
+// ─────────────────────────────────────────────────────────────
+function NavDropdown({ entry }: { entry: NavEntry }) {
+  const [open, setOpen] = useState(false)
+  const timer = useRef<ReturnType<typeof setTimeout>>()
+
+  const show = () => {
+    clearTimeout(timer.current)
+    setOpen(true)
+  }
+  const hide = () => {
+    timer.current = setTimeout(() => setOpen(false), 120)
+  }
+
+  return (
+    <DropdownMenu open={open} onOpenChange={setOpen}>
+      {/* Trigger — the whole pill is one interactive unit */}
+      <div onMouseEnter={show} onMouseLeave={hide}>
+        <DropdownMenuTrigger asChild>
+          <button
+            className={cn(
+              "flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium text-foreground",
+              "hover:bg-accent/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+            )}
+          >
+            {entry.label}
+            <ChevronDown
+              className={cn(
+                "h-3.5 w-3.5 transition-transform duration-200",
+                open && "rotate-180",
+              )}
+            />
+          </button>
+        </DropdownMenuTrigger>
+      </div>
+
+      {/* Content — keep hover alive while cursor is inside */}
+      <DropdownMenuContent
+        align="start"
+        onMouseEnter={show}
+        onMouseLeave={hide}
+      >
+        {entry.children.map((child) => (
+          <DropdownMenuItem key={child.href} asChild>
+            {child.openInNewTab ? (
+              <a href={child.href} target="_blank" rel="noopener noreferrer">
+                {child.label}
+              </a>
+            ) : (
+              <Link href={child.href}>{child.label}</Link>
+            )}
+          </DropdownMenuItem>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
+  )
 }
 
 export function HeaderClient({ navEntries, ctaText, ctaUrl }: HeaderClientProps) {
@@ -47,42 +109,7 @@ export function HeaderClient({ navEntries, ctaText, ctaUrl }: HeaderClientProps)
         <nav className="hidden items-center gap-1 md:flex">
           {mainNav.map((entry) =>
             entry.children.length > 0 ? (
-              <DropdownMenu key={entry.href}>
-                <div className="flex items-center">
-                  <Link
-                    href={entry.href}
-                    className="rounded-md px-3 py-2 text-sm font-medium text-foreground hover:bg-accent/10"
-                  >
-                    {entry.label}
-                  </Link>
-                  <DropdownMenuTrigger asChild>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="h-9 w-9 p-0"
-                    >
-                      <ChevronDown className="h-4 w-4" />
-                    </Button>
-                  </DropdownMenuTrigger>
-                </div>
-                <DropdownMenuContent align="start">
-                  {entry.children.map((child) => (
-                    <DropdownMenuItem key={child.href} asChild>
-                      {child.openInNewTab ? (
-                        <a
-                          href={child.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          {child.label}
-                        </a>
-                      ) : (
-                        <Link href={child.href}>{child.label}</Link>
-                      )}
-                    </DropdownMenuItem>
-                  ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
+              <NavDropdown key={entry.href} entry={entry} />
             ) : (
               <Button
                 key={entry.href}

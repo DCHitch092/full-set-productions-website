@@ -18,7 +18,7 @@ export default function NotFound() {
             <h1 className="text-3xl font-bold tracking-tight sm:text-4xl mb-4">
               Page Not Found
             </h1>
-            <p className="text-lg text-primary-foreground/90 mb-8 leading-relaxed">
+            <p className="text-lg text-primary-foreground mb-8 leading-relaxed">
               Sorry, the page you're looking for doesn't exist. It might have been moved or removed. Let's get you back on track.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
