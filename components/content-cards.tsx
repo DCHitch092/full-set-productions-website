@@ -33,7 +33,7 @@ export function ServiceCard({ item }: { item: any }) {
           )}
           <div className="mt-4 flex items-center text-sm font-medium text-foreground">
             Learn more
-            <ArrowRight className={`ml-1 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1`} />
+            <ArrowRight className={`ml-1 h-4 w-4 ${ANIMATIONS.arrowHover}`} />
           </div>
         </div>
       </BaseCard>
@@ -58,7 +58,7 @@ export function IndustryCard({ item }: { item: any }) {
           </p>
           <div className="mt-4 flex items-center text-sm font-medium text-foreground">
             Explore
-            <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
+            <ArrowRight className={`ml-1 h-4 w-4 ${ANIMATIONS.arrowHover}`} />
           </div>
         </div>
       </BaseCard>

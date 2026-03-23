@@ -25,6 +25,9 @@ export const ANIMATIONS = {
   scaleHover: "transition-transform duration-300 hover:scale-105",
   scaleActive: "transition-transform duration-200 active:scale-95",
 
+  // Arrow animations (translate right on hover)
+  arrowHover: "transition-transform duration-300 group-hover:translate-x-1",
+
   // Opacity fades
   fadeIn: "transition-opacity duration-300",
   fadeHover: "transition-opacity duration-300 hover:opacity-80",

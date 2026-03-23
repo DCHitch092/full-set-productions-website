@@ -16,6 +16,9 @@ import {
 } from "@/components/ui/select"
 import { Card, CardContent } from "@/components/ui/card"
 import { CheckCircle, AlertCircle, Loader2 } from "lucide-react"
+import { ANIMATIONS } from "@/lib/animations"
+import { spacing } from "@/lib/design-tokens"
+import { BodySmall } from "@/components/typography/Typography"
 
 const defaultProjectTypes = [
   "Escape Room",
@@ -129,14 +132,14 @@ export function ContactForm({
       if (currentRow.length > 0) rows.push(currentRow)
 
       return rows.map((row, i) => (
-        <div key={i} className={row.length > 1 ? "grid gap-6 sm:grid-cols-2" : ""}>
+        <div key={i} className={row.length > 1 ? `grid gap-6 sm:grid-cols-2` : ""}>
           {row.map((field) => {
             // Resolve field identifier from whichever key the CMS uses
             const fieldId = field.id ?? field.name ?? field.fieldId ?? field.fieldName ?? ""
             const opts = field.options ?? (fieldId === "projectType" ? defaultProjectTypes : fieldId === "budget" || fieldId === "budgetRange" ? defaultBudgetRanges : [])
             return (
               <div key={fieldId} className="space-y-2">
-                <Label htmlFor={fieldId}>
+                <Label htmlFor={fieldId} className="text-sm font-medium">
                   {field.label}{field.required ? " *" : ""}
                 </Label>
                 {field.type === "select" || field.type === "select-solo" ? (
@@ -145,7 +148,7 @@ export function ContactForm({
                     required={field.required}
                     onValueChange={(val) => setSelectValues((prev) => ({ ...prev, [fieldId]: val }))}
                   >
-                    <SelectTrigger>
+                    <SelectTrigger className={`${ANIMATIONS.colorFocus} border-border bg-background`}>
                       <SelectValue placeholder={field.placeholder ?? `Select ${field.label.toLowerCase()}`} />
                     </SelectTrigger>
                     <SelectContent>
@@ -161,6 +164,7 @@ export function ContactForm({
                     required={field.required}
                     rows={field.rows ?? 6}
                     placeholder={field.placeholder}
+                    className={`${ANIMATIONS.colorFocus} border-border bg-background resize-none`}
                   />
                 ) : (
                   <Input
@@ -169,6 +173,7 @@ export function ContactForm({
                     type={field.type ?? "text"}
                     required={field.required}
                     placeholder={field.placeholder}
+                    className={`${ANIMATIONS.colorFocus} border-border bg-background`}
                   />
                 )}
               </div>
@@ -183,51 +188,51 @@ export function ContactForm({
       <>
         <div className="grid gap-6 sm:grid-cols-2">
           <div className="space-y-2">
-            <Label htmlFor="name">Name *</Label>
-            <Input id="name" name="name" required placeholder="Your name" />
+            <Label htmlFor="name" className="text-sm font-medium">Name *</Label>
+            <Input id="name" name="name" required placeholder="Your name" className={`${ANIMATIONS.colorFocus} border-border bg-background`} />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="email">Email *</Label>
-            <Input id="email" name="email" type="email" required placeholder="your@email.com" />
-          </div>
-        </div>
-        <div className="grid gap-6 sm:grid-cols-2">
-          <div className="space-y-2">
-            <Label htmlFor="company">Company / Organisation</Label>
-            <Input id="company" name="company" placeholder="Your company name" />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="location">Project Location</Label>
-            <Input id="location" name="location" placeholder="City or region" />
+            <Label htmlFor="email" className="text-sm font-medium">Email *</Label>
+            <Input id="email" name="email" type="email" required placeholder="your@email.com" className={`${ANIMATIONS.colorFocus} border-border bg-background`} />
           </div>
         </div>
         <div className="grid gap-6 sm:grid-cols-2">
           <div className="space-y-2">
-            <Label htmlFor="projectType">Project Type *</Label>
+            <Label htmlFor="company" className="text-sm font-medium">Company / Organisation</Label>
+            <Input id="company" name="company" placeholder="Your company name" className={`${ANIMATIONS.colorFocus} border-border bg-background`} />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="location" className="text-sm font-medium">Project Location</Label>
+            <Input id="location" name="location" placeholder="City or region" className={`${ANIMATIONS.colorFocus} border-border bg-background`} />
+          </div>
+        </div>
+        <div className="grid gap-6 sm:grid-cols-2">
+          <div className="space-y-2">
+            <Label htmlFor="projectType" className="text-sm font-medium">Project Type *</Label>
             <Select name="projectType" required onValueChange={(val) => setSelectValues((prev) => ({ ...prev, projectType: val }))}>
-              <SelectTrigger><SelectValue placeholder="Select project type" /></SelectTrigger>
+              <SelectTrigger className={`${ANIMATIONS.colorFocus} border-border bg-background`}><SelectValue placeholder="Select project type" /></SelectTrigger>
               <SelectContent>
                 {defaultProjectTypes.map((t) => <SelectItem key={t} value={t}>{t}</SelectItem>)}
               </SelectContent>
             </Select>
           </div>
           <div className="space-y-2">
-            <Label htmlFor="timeline">Timeline</Label>
-            <Input id="timeline" name="timeline" placeholder="e.g., Q3 2026, ASAP" />
+            <Label htmlFor="timeline" className="text-sm font-medium">Timeline</Label>
+            <Input id="timeline" name="timeline" placeholder="e.g., Q3 2026, ASAP" className={`${ANIMATIONS.colorFocus} border-border bg-background`} />
           </div>
         </div>
         <div className="space-y-2">
-          <Label htmlFor="budget">Budget Range</Label>
+          <Label htmlFor="budget" className="text-sm font-medium">Budget Range</Label>
           <Select name="budget" onValueChange={(val) => setSelectValues((prev) => ({ ...prev, budget: val }))}>
-            <SelectTrigger><SelectValue placeholder="Select budget range (optional)" /></SelectTrigger>
+            <SelectTrigger className={`${ANIMATIONS.colorFocus} border-border bg-background`}><SelectValue placeholder="Select budget range (optional)" /></SelectTrigger>
             <SelectContent>
               {defaultBudgetRanges.map((r) => <SelectItem key={r} value={r}>{r}</SelectItem>)}
             </SelectContent>
           </Select>
         </div>
         <div className="space-y-2">
-          <Label htmlFor="message">Tell us about your project *</Label>
-          <Textarea id="message" name="message" required rows={6} placeholder="Describe your project, requirements, and any specific challenges..." />
+          <Label htmlFor="message" className="text-sm font-medium">Tell us about your project *</Label>
+          <Textarea id="message" name="message" required rows={6} placeholder="Describe your project, requirements, and any specific challenges..." className={`${ANIMATIONS.colorFocus} border-border bg-background resize-none`} />
         </div>
       </>
     )
@@ -235,9 +240,9 @@ export function ContactForm({
 
   if (status === "success") {
     return (
-      <Card className="border-green-200 bg-green-50 dark:border-green-800 dark:bg-green-950">
+      <Card className={`border-green-200 bg-green-50 dark:border-green-800 dark:bg-green-950 ${ANIMATIONS.fadeIn}`}>
         <CardContent className="flex flex-col items-center justify-center p-12 text-center">
-          <CheckCircle className="h-12 w-12 text-green-600 dark:text-green-400" />
+          <CheckCircle className={`h-12 w-12 text-green-600 dark:text-green-400 ${ANIMATIONS.scaleHover}`} />
           <h3 className="mt-4 text-xl font-semibold text-green-900 dark:text-green-100">
             Message sent!
           </h3>
@@ -255,28 +260,28 @@ export function ContactForm({
   return (
     <Card>
       <CardContent className="p-6 lg:p-8">
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className={`space-y-6`}>
           {/* Honeypot */}
           <input type="text" name="website" tabIndex={-1} autoComplete="off" className="absolute left-[-9999px] top-[-9999px]" />
 
           {renderFields()}
 
           {status === "error" && (
-            <div className="flex items-center gap-2 rounded-lg bg-red-50 p-4 text-red-700 dark:bg-red-950 dark:text-red-300">
+            <div className={`flex items-center gap-2 rounded-lg bg-red-50 p-4 text-red-700 dark:bg-red-950 dark:text-red-300 ${ANIMATIONS.fadeIn}`}>
               <AlertCircle className="h-5 w-5 flex-shrink-0" />
               <p className="text-sm">{errorMessage}</p>
             </div>
           )}
 
-          <Button type="submit" size="lg" className="w-full" disabled={status === "loading"}>
+          <Button type="submit" size="lg" className={`w-full ${ANIMATIONS.buttonHover}`} disabled={status === "loading"}>
             {status === "loading" ? (
               <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Sending...</>
             ) : submitLabel}
           </Button>
 
-          <p className="text-center text-sm text-muted-foreground">
+          <BodySmall color="muted" className="text-center">
             {footerNote}
-          </p>
+          </BodySmall>
         </form>
       </CardContent>
     </Card>

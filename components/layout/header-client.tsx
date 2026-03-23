@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Menu, ChevronDown } from "lucide-react"
+import { ANIMATIONS } from "@/lib/animations"
 import { cn } from "@/lib/utils"
 import type { NavEntry } from "@/lib/contentful"
 
@@ -109,6 +110,42 @@ export function HeaderClient({ navEntries, ctaText, ctaUrl }: HeaderClientProps)
         <nav className="hidden items-center gap-1 md:flex">
           {mainNav.map((entry) =>
             entry.children.length > 0 ? (
+              <DropdownMenu key={entry.href}>
+                <div className="flex items-center">
+              <Link
+                href={entry.href}
+                className={`rounded-md px-3 py-2 text-sm font-medium text-foreground transition-colors duration-300 hover:bg-accent/10`}
+              >
+                {entry.label}
+              </Link>
+                  <DropdownMenuTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="h-9 w-9 p-0"
+                    >
+                      <ChevronDown className="h-4 w-4" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                </div>
+                <DropdownMenuContent align="start">
+                  {entry.children.map((child) => (
+                    <DropdownMenuItem key={child.href} asChild>
+                      {child.openInNewTab ? (
+                        <a
+                          href={child.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {child.label}
+                        </a>
+                      ) : (
+                        <Link href={child.href}>{child.label}</Link>
+                      )}
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
               <NavDropdown key={entry.href} entry={entry} />
             ) : (
               <Button
@@ -151,7 +188,7 @@ export function HeaderClient({ navEntries, ctaText, ctaUrl }: HeaderClientProps)
                         setMobileOpen(false)
                         window.location.href = entry.href
                       }}
-                      className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                      className={`text-sm font-medium text-muted-foreground transition-colors duration-300 hover:text-foreground`}
                     >
                       {entry.label}
                     </button>
@@ -163,7 +200,7 @@ export function HeaderClient({ navEntries, ctaText, ctaUrl }: HeaderClientProps)
                           target="_blank"
                           rel="noopener noreferrer"
                           onClick={() => setMobileOpen(false)}
-                          className="block py-2 text-foreground hover:text-accent"
+                          className={`block py-2 text-foreground transition-colors duration-300 hover:text-accent`}
                         >
                           {child.label}
                         </a>
@@ -172,7 +209,7 @@ export function HeaderClient({ navEntries, ctaText, ctaUrl }: HeaderClientProps)
                           key={child.href}
                           href={child.href}
                           onClick={() => setMobileOpen(false)}
-                          className="block py-2 text-foreground hover:text-accent"
+                          className={`block py-2 text-foreground transition-colors duration-300 hover:text-accent`}
                         >
                           {child.label}
                         </Link>
@@ -184,7 +221,7 @@ export function HeaderClient({ navEntries, ctaText, ctaUrl }: HeaderClientProps)
                     key={entry.href}
                     href={entry.href}
                     onClick={() => setMobileOpen(false)}
-                    className="py-2 text-foreground hover:text-accent"
+                    className={`py-2 text-foreground transition-colors duration-300 hover:text-accent`}
                   >
                     {entry.label}
                   </Link>

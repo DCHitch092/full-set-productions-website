@@ -5,6 +5,7 @@ import { ArrowRight } from "lucide-react"
 import { getServices, getModularBlockByName, contentfulImageUrl } from "@/lib/contentful"
 import { RichText } from "@/components/rich-text"
 import { SectionContainer } from "@/components/sections/SectionContainer"
+import { ANIMATIONS } from "@/lib/animations"
 import type { Document } from "@contentful/rich-text-types"
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -125,7 +126,7 @@ export default async function ServicesPage() {
                     <Link
                       key={service.sys.id}
                       href={`/services/${slug}`}
-                      className="group relative flex flex-col overflow-hidden rounded-lg border border-border transition-shadow hover:shadow-lg"
+                      className="group relative flex flex-col overflow-hidden rounded-lg border border-border"
                     >
                       {imageUrl ? (
                         <div className="relative aspect-[4/3] overflow-hidden bg-muted">
@@ -133,7 +134,7 @@ export default async function ServicesPage() {
                             src={imageUrl || "/placeholder.svg"}
                             alt={displayHeading}
                             fill
-                            className="object-cover transition-transform duration-500 group-hover:scale-105"
+                            className={`object-cover ${ANIMATIONS.scaleHover}`}
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                           />
                           
@@ -168,7 +169,7 @@ export default async function ServicesPage() {
                             )}
                             <div className="mt-3 flex items-center text-sm font-medium text-white/90">
                               Learn more
-                              <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                              <ArrowRight className={`ml-1 h-4 w-4 ${ANIMATIONS.arrowHover}`} />
                             </div>
                           </div>
                         </div>
@@ -210,7 +211,7 @@ export default async function ServicesPage() {
                             )}
                             <div className="mt-3 flex items-center text-sm font-medium">
                               Learn more
-                              <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                              <ArrowRight className={`ml-1 h-4 w-4 ${ANIMATIONS.arrowHover}`} />
                             </div>
                           </div>
                         </div>
