@@ -8,55 +8,57 @@
 /* ============================================================ */
 .header-theme-lock {
   --primary: var(--color-blue);
-  --primary-foreground: oklch(1 0 0);
+  --primary-foreground: var(--color-off-black);
   --secondary: var(--color-blue);
-  --secondary-foreground: oklch(0.145 0.01 250);
+  --secondary-foreground: var(--color-off-black);
   --accent: var(--color-blue);
-  --accent-foreground: oklch(1 0 0);
+  --accent-foreground: var(--color-off-black);
   --ring: var(--color-blue);
 }
 
 /* ============================================================ */
 /* Page Theme Color Overrides                                   */
+/* All brand colours are light (L 0.67–0.82), so all use        */
+/* --color-off-black as their foreground for legibility.        */
 /* ============================================================ */
 [data-page-theme="home"] {
   --primary: var(--color-blue);
-  --primary-foreground: oklch(1 0 0);
+  --primary-foreground: var(--color-off-black);
   --ring: var(--color-blue);
   --sidebar-primary: var(--color-blue);
 }
 
 [data-page-theme="services"] {
   --primary: var(--color-teal);
-  --primary-foreground: oklch(0.145 0.01 250);
+  --primary-foreground: var(--color-off-black);
   --ring: var(--color-teal);
   --sidebar-primary: var(--color-teal);
 }
 
 [data-page-theme="industries"] {
   --primary: var(--color-coral);
-  --primary-foreground: oklch(1 0 0);
+  --primary-foreground: var(--color-off-black);
   --ring: var(--color-coral);
   --sidebar-primary: var(--color-coral);
 }
 
 [data-page-theme="projects"] {
   --primary: var(--color-pink);
-  --primary-foreground: oklch(1 0 0);
+  --primary-foreground: var(--color-off-black);
   --ring: var(--color-pink);
   --sidebar-primary: var(--color-pink);
 }
 
 [data-page-theme="about"] {
   --primary: var(--color-yellow);
-  --primary-foreground: oklch(0.145 0.01 250);
+  --primary-foreground: var(--color-off-black);
   --ring: var(--color-yellow);
   --sidebar-primary: var(--color-yellow);
 }
 
 [data-page-theme="contact"] {
   --primary: var(--color-teal);
-  --primary-foreground: oklch(0.145 0.01 250);
+  --primary-foreground: var(--color-off-black);
   --ring: var(--color-teal);
   --sidebar-primary: var(--color-teal);
 }
@@ -235,37 +237,53 @@
 }
 
 :root {
-  /* Premium immersive experiences studio - brand colors */
-  --background: oklch(0.985 0 0);
-  --foreground: oklch(0.145 0.01 250);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0.01 250);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0.01 250);
-  
-  /* Brand color palette */
-  --color-blue: oklch(0.55 0.15 260);          /* #7F97C4 */
-  --color-teal: oklch(0.61 0.11 190);          /* #7CC0B8 */
-  --color-pink: oklch(0.55 0.22 330);          /* #D85AB8 */
-  --color-coral: oklch(0.55 0.18 20);          /* #E0615A */
-  --color-yellow: oklch(0.75 0.16 90);         /* #EBCB5B */
-  
-  /* Semantic tokens default to blue (home page) */
+  /* ============================================================ */
+  /* BRAND COLOURS — Edit these to update the whole site          */
+  /* Each colour maps to a page section (see Page Theme Overrides */
+  /* section below). Change a value here and it updates everywhere.*/
+  /* ============================================================ */
+  --color-blue:   oklch(0.73 0.09 262.89);   /* Home / Header / Default primary */
+  --color-teal:   oklch(0.78 0.09 184.18);   /* Services / Contact              */
+  --color-pink:   oklch(0.72 0.18 336.27);   /* Projects                        */
+  --color-coral:  oklch(0.67 0.16 38.00);    /* Industries                      */
+  --color-yellow: oklch(0.82 0.14 92.25);    /* About                           */
+
+  /* ============================================================ */
+  /* NEUTRAL COLOURS — Cool-tinted to complement the brand palette*/
+  /* ============================================================ */
+  --color-white:      oklch(1 0 0);              /* Pure white — cards, modals       */
+  --color-light-grey: oklch(0.96 0.005 263);     /* Page backgrounds, subtle panels  */
+  --color-grey:       oklch(0.65 0.010 263);     /* Muted text, borders, placeholders*/
+  --color-off-black:  oklch(0.22 0.015 263);     /* Body text, dark surfaces         */
+
+  /* ============================================================ */
+  /* Semantic tokens — reference the variables above              */
+  /* Don't edit values here; edit the colour sections above.      */
+  /* ============================================================ */
+  --background: var(--color-light-grey);
+  --foreground: var(--color-off-black);
+  --card: var(--color-white);
+  --card-foreground: var(--color-off-black);
+  --popover: var(--color-white);
+  --popover-foreground: var(--color-off-black);
+
+  /* All brand colours are now lighter (L 0.67–0.82), so dark     */
+  /* foreground text is used on all of them for legibility.        */
   --primary: var(--color-blue);
-  --primary-foreground: oklch(1 0 0);          /* white */
+  --primary-foreground: var(--color-off-black);
   --secondary: var(--color-teal);
-  --secondary-foreground: oklch(0.145 0.01 250);
+  --secondary-foreground: var(--color-off-black);
   --accent: var(--color-pink);
-  --accent-foreground: oklch(1 0 0);           /* white */
+  --accent-foreground: var(--color-off-black);
   --destructive: var(--color-coral);
-  --destructive-foreground: oklch(1 0 0);      /* white */
+  --destructive-foreground: var(--color-off-black);
   --highlight: var(--color-yellow);
-  --highlight-foreground: oklch(0.145 0.01 250); /* dark text on yellow */
-  
-  --muted: oklch(0.955 0.005 250);
-  --muted-foreground: oklch(0.45 0.01 250);
-  --border: oklch(0.91 0.005 250);
-  --input: oklch(0.91 0.005 250);
+  --highlight-foreground: var(--color-off-black);
+
+  --muted: oklch(0.93 0.005 263);
+  --muted-foreground: var(--color-grey);
+  --border: oklch(0.90 0.007 263);
+  --input: oklch(0.90 0.007 263);
   --ring: var(--color-blue);
   --chart-1: var(--color-blue);
   --chart-2: var(--color-teal);
@@ -273,50 +291,55 @@
   --chart-4: var(--color-coral);
   --chart-5: var(--color-yellow);
   --radius: 0.5rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar: var(--color-light-grey);
+  --sidebar-foreground: var(--color-off-black);
   --sidebar-primary: var(--color-blue);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-primary-foreground: var(--color-off-black);
   --sidebar-accent: var(--color-pink);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-accent-foreground: var(--color-off-black);
+  --sidebar-border: oklch(0.90 0.007 263);
   --sidebar-ring: var(--color-blue);
 }
 
 .dark {
-  --background: oklch(0.16 0.015 250);
-  --foreground: oklch(0.95 0.005 250);
-  --card: oklch(0.20 0.015 250);
-  --card-foreground: oklch(0.95 0.005 250);
-  --popover: oklch(0.20 0.015 250);
-  --popover-foreground: oklch(0.95 0.005 250);
+  /* Dark mode neutral surfaces — cool-tinted to match the palette */
+  --background: oklch(0.18 0.015 263);
+  --foreground: oklch(0.95 0.005 263);
+  --card: oklch(0.22 0.015 263);
+  --card-foreground: oklch(0.95 0.005 263);
+  --popover: oklch(0.22 0.015 263);
+  --popover-foreground: oklch(0.95 0.005 263);
+
+  /* Brand colours are light enough to read dark text on in light   */
+  /* mode; in dark mode they sit on dark surfaces so dark text      */
+  /* remains correct — the brand colours themselves don't change.   */
   --primary: var(--color-blue);
-  --primary-foreground: oklch(0.95 0.005 250);
+  --primary-foreground: var(--color-off-black);
   --secondary: var(--color-teal);
-  --secondary-foreground: oklch(0.95 0.005 250);
+  --secondary-foreground: var(--color-off-black);
   --accent: var(--color-pink);
-  --accent-foreground: oklch(0.95 0.005 250);
+  --accent-foreground: var(--color-off-black);
   --destructive: var(--color-coral);
-  --destructive-foreground: oklch(0.95 0.005 250);
+  --destructive-foreground: var(--color-off-black);
   --highlight: var(--color-yellow);
-  --highlight-foreground: oklch(0.16 0.015 250);
-  --muted: oklch(0.25 0.015 250);
-  --muted-foreground: oklch(0.65 0.01 250);
-  --border: oklch(0.30 0.015 250);
-  --input: oklch(0.30 0.015 250);
+  --highlight-foreground: var(--color-off-black);
+  --muted: oklch(0.27 0.015 263);
+  --muted-foreground: oklch(0.65 0.010 263);
+  --border: oklch(0.32 0.015 263);
+  --input: oklch(0.32 0.015 263);
   --ring: var(--color-blue);
   --chart-1: var(--color-blue);
   --chart-2: var(--color-teal);
   --chart-3: var(--color-pink);
   --chart-4: var(--color-coral);
   --chart-5: var(--color-yellow);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar: oklch(0.22 0.015 263);
+  --sidebar-foreground: oklch(0.95 0.005 263);
   --sidebar-primary: var(--color-blue);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-primary-foreground: var(--color-off-black);
   --sidebar-accent: var(--color-pink);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(0.269 0 0);
+  --sidebar-accent-foreground: var(--color-off-black);
+  --sidebar-border: oklch(0.32 0.015 263);
   --sidebar-ring: var(--color-blue);
 }
 
@@ -347,7 +370,7 @@
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
-  /* Brand colors for direct use */
+  /* Brand colours for direct use */
   --color-blue: var(--color-blue);
   --color-teal: var(--color-teal);
   --color-pink: var(--color-pink);
@@ -355,6 +378,11 @@
   --color-yellow: var(--color-yellow);
   --color-highlight: var(--highlight);
   --color-highlight-foreground: var(--highlight-foreground);
+  /* Neutral colours for direct use */
+  --color-white: var(--color-white);
+  --color-light-grey: var(--color-light-grey);
+  --color-grey: var(--color-grey);
+  --color-off-black: var(--color-off-black);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);

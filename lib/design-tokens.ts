@@ -6,12 +6,39 @@
 /* ============================================================ */
 /* Brand Color Palette                                          */
 /* ============================================================ */
+/**
+ * Brand colour CSS variable references.
+ * Values are defined as the source of truth in app/globals.css —
+ * edit them there and the change will cascade everywhere automatically.
+ *
+ *   --color-blue:   oklch(0.73 0.09 262.89)  → Home / Header
+ *   --color-teal:   oklch(0.78 0.09 184.18)  → Services / Contact
+ *   --color-pink:   oklch(0.72 0.18 336.27)  → Projects
+ *   --color-coral:  oklch(0.67 0.16 38.00)   → Industries
+ *   --color-yellow: oklch(0.82 0.14 92.25)   → About
+ */
 export const brandColors = {
-  blue: "var(--color-blue)",      // #7F97C4
-  teal: "var(--color-teal)",      // #7CC0B8
-  pink: "var(--color-pink)",      // #D85AB8
-  coral: "var(--color-coral)",    // #E0615A
-  yellow: "var(--color-yellow)",  // #EBCB5B
+  blue:   "var(--color-blue)",
+  teal:   "var(--color-teal)",
+  pink:   "var(--color-pink)",
+  coral:  "var(--color-coral)",
+  yellow: "var(--color-yellow)",
+}
+
+/**
+ * Neutral colour CSS variable references.
+ * Cool-tinted (hue 263°) to complement the brand palette.
+ *
+ *   --color-white:      oklch(1 0 0)            → Cards, modals, pure white surfaces
+ *   --color-light-grey: oklch(0.96 0.005 263)   → Page backgrounds, subtle panels
+ *   --color-grey:       oklch(0.65 0.010 263)   → Muted text, borders, placeholders
+ *   --color-off-black:  oklch(0.22 0.015 263)   → Body text, dark surfaces
+ */
+export const neutralColors = {
+  white:      "var(--color-white)",
+  lightGrey:  "var(--color-light-grey)",
+  grey:       "var(--color-grey)",
+  offBlack:   "var(--color-off-black)",
 }
 
 /* ============================================================ */
