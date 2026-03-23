@@ -233,7 +233,7 @@ export default async function ServicesPage() {
               {ctaBlock.fields.headline as string}
             </h2>
             {ctaBlock.fields.body && (
-              <div className="prose prose-lg mx-auto mt-4 text-primary-foreground/90">
+              <div className="prose prose-lg mx-auto mt-4 text-primary-foreground">
                 <RichText document={ctaBlock.fields.body as Document} />
               </div>
             )}

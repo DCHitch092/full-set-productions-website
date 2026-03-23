@@ -4,14 +4,12 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import {
-  ArrowRight,
   Shield,
   MessageSquare,
   Clock,
   Users,
   MapPin,
   Wrench,
-  CheckCircle,
   Sparkles,
   ClipboardCheck,
 } from "lucide-react"
@@ -27,6 +25,16 @@ import { getSectionTexture } from "@/components/sections/texture-provider"
 import { SectionContainer } from "@/components/sections/SectionContainer"
 import { BaseCard } from "@/components/cards/BaseCard"
 import { H1, H2, BodyLarge, Body } from "@/components/typography"
+import { SplitCircleNumber, LogoArrow } from "@/components/brand-shapes"
+
+// Brand palette — cycles across process steps and trust-point icons
+const PALETTE = [
+  "var(--color-blue)",
+  "var(--color-teal)",
+  "var(--color-pink)",
+  "var(--color-coral)",
+  "var(--color-yellow)",
+]
 
 const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   shield: Shield,
@@ -187,9 +195,11 @@ export default async function HomePage() {
           <Badge variant="secondary" className="mb-4">
             {heroBadgeText}
           </Badge>
-          <H1 color="primary-foreground">{heroHeadline}</H1>
-          <BodyLarge color="primary-foreground" className="mt-6 opacity-80">
-            {heroSubheadline}
+          <H1 color="primary-foreground" className="leading-[1.9]">
+            <span className="text-highlight-block">{heroHeadline}</span>
+          </H1>
+          <BodyLarge className="mt-6">
+            <span className="text-highlight-block">{heroSubheadline}</span>
           </BodyLarge>
           <div className="mt-10 flex flex-col gap-4 sm:flex-row">
             <Button
@@ -199,7 +209,7 @@ export default async function HomePage() {
             >
               <Link href={heroPrimaryCtaUrl}>
                 {heroPrimaryCta}
-                <ArrowRight className="ml-2 h-4 w-4" />
+                <LogoArrow size={16} className="ml-2" />
               </Link>
             </Button>
             <Button
@@ -247,13 +257,8 @@ export default async function HomePage() {
               key={service.slug}
               variant="simple"
               interactive
-              className={index === 0 ? "ring-2 ring-accent" : ""}
+              style={{ borderTop: `5px solid ${PALETTE[index % PALETTE.length]}` }}
             >
-              {index === 0 && (
-                <Badge className="absolute right-4 top-4 bg-accent text-accent-foreground z-10">
-                  Primary
-                </Badge>
-              )}
               <div className="p-6">
                 <h3 className="text-xl font-semibold text-foreground">
                   {service.heading || service.title}
@@ -266,7 +271,7 @@ export default async function HomePage() {
                   className="mt-4 inline-flex items-center text-sm font-medium text-foreground hover:text-accent"
                 >
                   Learn more
-                  <ArrowRight className="ml-1 h-4 w-4" />
+                  <LogoArrow size={14} className="ml-1" />
                 </Link>
               </div>
             </BaseCard>
@@ -356,8 +361,11 @@ export default async function HomePage() {
               const Icon = getIcon(item.icon)
               return (
                 <div key={index} className="text-center">
-                  <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-secondary">
-                    <Icon className="h-6 w-6 text-foreground" />
+                  <div
+                    className="mx-auto flex h-14 w-14 items-center justify-center rounded-full"
+                    style={{ backgroundColor: PALETTE[index % PALETTE.length] }}
+                  >
+                    <Icon className="h-6 w-6 text-off-black" style={{ color: "var(--color-off-black)" }} />
                   </div>
                   <h3 className="mt-4 text-lg font-semibold text-foreground">
                     {item.title}
@@ -382,12 +390,12 @@ export default async function HomePage() {
       >
         <div className="grid items-center gap-12 lg:grid-cols-2">
           <div>
-            <div className="flex items-center gap-2 text-primary-foreground/80">
+            <div className="flex items-center gap-2 text-primary-foreground">
               <MapPin className="h-5 w-5" />
               <span className="text-sm font-medium">Based in Edinburgh</span>
             </div>
             <H2 color="primary-foreground" className="mt-4">{edinHeadline}</H2>
-            <BodyLarge color="primary-foreground" className="mt-4 opacity-80">
+            <BodyLarge color="primary-foreground" className="mt-4">
               {edinDescription}
             </BodyLarge>
             <ul className="mt-8 space-y-3">
@@ -396,7 +404,9 @@ export default async function HomePage() {
                   key={index}
                   className="flex items-center gap-3 text-primary-foreground"
                 >
-                  <CheckCircle className="h-5 w-5 text-accent" />
+                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-accent">
+                    <LogoArrow direction="up" size={11} color="var(--color-off-black)" />
+                  </span>
                   <span>{point}</span>
                 </li>
               ))}
@@ -422,28 +432,31 @@ export default async function HomePage() {
             install.
           </Body>
         </div>
-        <div className="mt-12 grid gap-8 md:grid-cols-4">
+
+        {/* Step grid — circles centered, palette cycling, line at circle midpoint */}
+        <div className="relative mt-12 grid gap-y-10 sm:grid-cols-2 md:grid-cols-4">
+          {/* Horizontal connector — visible md+, sits at vertical centre of the 72px circles */}
+          <div className="absolute left-[12.5%] right-[12.5%] top-9 hidden h-0.5 bg-border md:block" />
+
           {processSteps.map(
-            (
-              step: { title: string; description: string },
-              index: number,
-            ) => (
-              <div key={index} className="relative">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-accent text-accent-foreground font-bold">
-                  {String(index + 1).padStart(2, "0")}
+            (step: { title: string; description: string }, index: number) => (
+              <div key={index} className="flex flex-col items-center text-center">
+                {/* Split-circle step badge — z-10 to sit above the connector line */}
+                <div className="relative z-10">
+                  <SplitCircleNumber
+                    number={index + 1}
+                    size={72}
+                    colorA={PALETTE[index % PALETTE.length]}
+                    colorB={PALETTE[(index + 1) % PALETTE.length]}
+                    angle={42}
+                  />
                 </div>
-                <h3 className="mt-4 text-lg font-semibold text-foreground">
+                <h3 className="mt-6 text-lg font-semibold text-foreground">
                   {step.title}
                 </h3>
                 <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
                   {step.description}
                 </p>
-                {index < processSteps.length - 1 && (
-                  <div
-                    className="absolute right-0 top-5 hidden h-0.5 w-full bg-border md:block"
-                    style={{ left: "3rem", width: "calc(100% - 3rem)" }}
-                  />
-                )}
               </div>
             ),
           )}
@@ -470,7 +483,7 @@ export default async function HomePage() {
           >
             <Link href={ctaUrl}>
               {ctaButton}
-              <ArrowRight className="ml-2 h-4 w-4" />
+              <LogoArrow size={16} className="ml-2" />
             </Link>
           </Button>
         </div>

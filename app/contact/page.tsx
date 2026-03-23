@@ -80,7 +80,7 @@ export default async function ContactPage() {
             <h1 className="text-4xl font-bold tracking-tight text-primary-foreground sm:text-5xl">
               {pageTitle}
             </h1>
-            <p className="mt-4 text-lg text-primary-foreground/80">
+            <p className="mt-4 text-lg text-primary-foreground">
               {pageIntro}
             </p>
           </div>

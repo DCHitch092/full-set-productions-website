@@ -191,7 +191,7 @@ export default async function IndustryDetailPage({ params }: PageProps) {
                 <div className="mb-6">
                   <RichText
                     document={industryCta.fields.body as Document}
-                    className="text-lg text-primary-foreground/80 [&_p]:text-primary-foreground/80"
+                    className="text-lg text-primary-foreground [&_p]:text-primary-foreground"
                   />
                 </div>
               )}

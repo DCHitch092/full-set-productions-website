@@ -407,6 +407,21 @@
 }
 
 /* ============================================================ */
+/* Hero text highlight — per-line rectangle background          */
+/* Apply to a <span> wrapping text that sits over a busy or     */
+/* colourful background. Each line gets its own rectangle.      */
+/* ============================================================ */
+.text-highlight-block {
+  display: inline;
+  background-color: var(--color-white);
+  color: var(--color-off-black);
+  padding: 0.08em 0.45em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  line-height: 1.9;
+}
+
+/* ============================================================ */
 /* Logo-derived bullet point utilities                          */
 /* Replace standard disc bullets with brand shapes via CSS      */
 /* ============================================================ */
