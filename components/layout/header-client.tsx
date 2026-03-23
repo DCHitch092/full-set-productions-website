@@ -41,16 +41,25 @@ function NavDropdown({ entry }: { entry: NavEntry }) {
 
   return (
     <DropdownMenu open={open} onOpenChange={setOpen}>
-      {/* Trigger — the whole pill is one interactive unit */}
-      <div onMouseEnter={show} onMouseLeave={hide}>
+      {/* Trigger — label navigates, chevron toggles dropdown */}
+      <div onMouseEnter={show} onMouseLeave={hide} className="flex items-center">
+        <Link
+          href={entry.href}
+          className={cn(
+            "rounded-l-md px-3 py-2 text-sm font-medium text-foreground",
+            "hover:bg-accent/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+          )}
+        >
+          {entry.label}
+        </Link>
         <DropdownMenuTrigger asChild>
           <button
             className={cn(
-              "flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium text-foreground",
+              "rounded-r-md px-1 py-2 text-sm font-medium text-foreground",
               "hover:bg-accent/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
             )}
+            aria-label={`${entry.label} submenu`}
           >
-            {entry.label}
             <ChevronDown
               className={cn(
                 "h-3.5 w-3.5 transition-transform duration-200",

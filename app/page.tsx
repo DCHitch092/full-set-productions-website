@@ -196,8 +196,8 @@ export default async function HomePage() {
           <Badge variant="secondary" className="mb-4">
             {heroBadgeText}
           </Badge>
-          <H1 color="primary-foreground" className="leading-[1.9]">
-            <span className="text-highlight-block">{heroHeadline}</span>
+          <H1 color="primary-foreground">
+            {heroHeadline}
           </H1>
           <BodyLarge className="mt-6">
             <span className="text-highlight-block">{heroSubheadline}</span>
@@ -217,7 +217,7 @@ export default async function HomePage() {
               size="lg"
               variant="outline"
               asChild
-              className="border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/10 bg-transparent"
+              className="border-2 border-white text-white hover:bg-white/15 bg-transparent"
             >
               <Link href={heroSecondaryCtaUrl}>{heroSecondaryCta}</Link>
             </Button>
@@ -234,7 +234,7 @@ export default async function HomePage() {
                 <div className="text-3xl font-bold text-foreground">
                   {point.value}
                 </div>
-                <div className="mt-1 text-sm text-muted-foreground">
+                <div className="mt-1 text-sm text-primary-foreground">
                   {point.label}
                 </div>
               </div>
@@ -291,7 +291,7 @@ export default async function HomePage() {
         <div className="flex items-end justify-between">
           <div>
             <H2>Featured work</H2>
-            <Body className="mt-4 text-lg" color="muted">
+            <Body className="mt-4 text-lg" color="primary-foreground">
               Recent projects across escape rooms, theatre, and scenic
               fabrication.
             </Body>
@@ -449,7 +449,7 @@ export default async function HomePage() {
                     size={72}
                     colorA={PALETTE[index % PALETTE.length]}
                     colorB={PALETTE[(index + 1) % PALETTE.length]}
-                    angle={42}
+                    angle={-45}
                   />
                 </div>
                 <h3 className="mt-6 text-lg font-semibold text-foreground">
@@ -476,11 +476,11 @@ export default async function HomePage() {
         <div className="mx-auto max-w-2xl text-center">
           <Wrench className="mx-auto h-12 w-12 text-accent" />
           <H2 className="mt-6">{ctaHeadline}</H2>
-          <Body className="mt-4 text-lg" color="muted">{ctaDescription}</Body>
+          <Body className="mt-4 text-lg" color="primary-foreground">{ctaDescription}</Body>
           <Button
             size="lg"
             asChild
-            className="mt-8 bg-primary text-primary-foreground hover:bg-primary/90"
+            className="mt-8 bg-accent text-accent-foreground hover:bg-accent/90"
           >
             <Link href={ctaUrl}>
               {ctaButton}

@@ -192,12 +192,70 @@ export function LogoBulletList({
 }
 
 // ─────────────────────────────────────────────
-// LogoArrow — the block arrow from the logo.
+// CornerBracket — two-colour L-shaped corner element.
 //
-// Shape: flat-backed pentagon (square body + triangular tip),
-// derived from the directional element visible in the 'E' of the
-// Full Set Productions wordmark. Replaces the standard ArrowRight /
-// ArrowLeft icons on CTA buttons and navigation.
+// Two overlapping rectangles (vertical + horizontal bars) forming
+// an L-bracket, derived from the rectangular block motifs in the logo.
+// Used as decorative corner framing on content sections.
+//
+// Usage:
+//   <CornerBracket corner="bottom-left" />   → sits at bottom-left
+//   <CornerBracket corner="top-right" />     → rotated 180°, top-right
+//   <CornerBracket colorA="var(--color-pink)" colorB="var(--color-yellow)" />
+// ─────────────────────────────────────────────
+interface CornerBracketProps {
+  corner?: "bottom-left" | "top-right" | "bottom-right" | "top-left"
+  colorA?: string   // vertical bar
+  colorB?: string   // horizontal bar
+  size?: number     // overall size in px
+  className?: string
+}
+
+const CORNER_ROTATIONS: Record<NonNullable<CornerBracketProps["corner"]>, number> = {
+  "bottom-left":  0,
+  "top-right":  180,
+  "bottom-right":  90,
+  "top-left": 270,
+}
+
+export function CornerBracket({
+  corner = "bottom-left",
+  colorA = "var(--color-pink)",
+  colorB = "var(--color-yellow)",
+  size = 72,
+  className,
+}: CornerBracketProps) {
+  const deg = CORNER_ROTATIONS[corner]
+  // Vertical bar: ~38% wide, full height. Horizontal bar: full width, ~32% tall.
+  // They overlap at the corner, vertical drawn on top for clean layering.
+  const vw = Math.round(size * 0.38)
+  const hh = Math.round(size * 0.32)
+
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox={`0 0 ${size} ${size}`}
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      aria-hidden
+      style={deg !== 0 ? { transform: `rotate(${deg}deg)` } : undefined}
+    >
+      {/* Horizontal bar (colorB) — bottom */}
+      <rect x={0} y={size - hh} width={size} height={hh} fill={colorB} />
+      {/* Vertical bar (colorA) — left, layered on top at the overlap */}
+      <rect x={0} y={0} width={vw} height={size} fill={colorA} />
+    </svg>
+  )
+}
+
+// ─────────────────────────────────────────────
+// LogoArrow — the arrow from the logo's 'E' letterform.
+//
+// Shape: right-pointing arrowhead with angled back corners, derived
+// from the rotated square (45°) clipped to the rectangular bounds of
+// the 'E' directional element in the Full Set Productions wordmark.
 //
 // Usage:
 //   <LogoArrow />                      → right, currentColor, 20 px
@@ -237,11 +295,12 @@ export function LogoArrow({
       style={deg !== 0 ? { transform: `rotate(${deg}deg)` } : undefined}
     >
       {/*
-        Flat-backed pentagon:
-        top-left → top-right shoulder → tip → bottom-right shoulder → bottom-left
-        Proportions match the squat, chunky quality of the logo letterforms.
+        Rotated-square arrowhead (chevron with angled back):
+        back-upper → tip-top → tip → tip-bottom → back-lower
+        Derived from a 45°-rotated square clipped to a rectangular viewport,
+        matching the 'E' arrow element in the Full Set Productions wordmark.
       */}
-      <path d="M1 4 L12 4 L19 10 L12 16 L1 16 Z" fill={color} />
+      <path d="M0 3 L7 0 L14.5 10 L7 20 L0 17 Z" fill={color} />
     </svg>
   )
 }
@@ -264,7 +323,7 @@ export function SplitCircleIcon({
   size = 64,
   colorA = "var(--color-primary)",
   colorB = "var(--color-secondary)",
-  angle = 42,
+  angle = -45,
   children,
   className,
 }: SplitCircleIconProps) {
@@ -345,7 +404,7 @@ export function SplitCircleNumber({
   size = 64,
   colorA = "var(--color-primary)",
   colorB = "var(--color-secondary)",
-  angle = 42,
+  angle = -45,
   className,
 }: SplitCircleNumberProps) {
   const fontSize = size * 0.34

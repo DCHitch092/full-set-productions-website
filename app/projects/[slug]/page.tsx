@@ -3,7 +3,7 @@ import { notFound } from "next/navigation"
 import Link from "next/link"
 import Image from "next/image"
 import { MapPin, Building2 } from "lucide-react"
-import { LogoArrow } from "@/components/brand-shapes"
+import { LogoArrow, CornerBracket } from "@/components/brand-shapes"
 import { Button } from "@/components/ui/button"
 import {
   getProjectBySlug,
@@ -220,9 +220,11 @@ export default async function ProjectDetailPage({ params }: PageProps) {
       {/* Excerpt -- lead paragraph                     */}
       {/* ============================================ */}
       {project.fields.excerpt && (
-        <section className="bg-secondary py-12 lg:py-16">
-          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-            <p className="text-xl text-muted-foreground leading-relaxed lg:text-2xl lg:leading-relaxed font-light text-balance">
+        <section className="relative overflow-hidden bg-secondary py-12 lg:py-16">
+          <CornerBracket corner="bottom-left" className="absolute bottom-0 left-0" />
+          <CornerBracket corner="top-right" className="absolute top-0 right-0" />
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+            <p className="text-xl text-muted-foreground leading-relaxed lg:text-2xl lg:leading-relaxed font-light text-balance max-w-3xl">
               {project.fields.excerpt as string}
             </p>
           </div>
@@ -244,15 +246,17 @@ export default async function ProjectDetailPage({ params }: PageProps) {
       {/* The Brief -- angled top edge for dynamism     */}
       {/* ============================================ */}
       {project.fields.brief && (
-        <section className="relative bg-background py-16 lg:py-24">
+        <section className="relative overflow-hidden bg-background py-16 lg:py-24">
           {/* Angled top separator */}
           <div
             className="absolute inset-x-0 -top-8 h-8 bg-background"
             style={{ clipPath: "polygon(0 100%, 100% 0, 100% 100%)" }}
           />
-          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+          <CornerBracket corner="bottom-left" className="absolute bottom-0 left-0" />
+          <CornerBracket corner="top-right" className="absolute top-0 right-0" />
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             <h2 className="text-2xl font-bold text-foreground sm:text-3xl">The Brief</h2>
-            <div className="mt-6">
+            <div className="mt-6 max-w-3xl">
               <RichText document={project.fields.brief as Document} />
             </div>
           </div>
@@ -263,15 +267,17 @@ export default async function ProjectDetailPage({ params }: PageProps) {
       {/* Our Solution -- dark primary bg section       */}
       {/* ============================================ */}
       {project.fields.solution && (
-        <section className="relative bg-primary py-16 lg:py-24">
+        <section className="relative overflow-hidden bg-primary py-16 lg:py-24">
           {/* Angled top separator */}
           <div
             className="absolute inset-x-0 -top-6 h-6 bg-primary"
             style={{ clipPath: "polygon(0 0, 100% 100%, 0 100%)" }}
           />
-          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+          <CornerBracket corner="bottom-left" colorA="var(--color-yellow)" colorB="var(--color-teal)" className="absolute bottom-0 left-0" />
+          <CornerBracket corner="top-right" colorA="var(--color-yellow)" colorB="var(--color-teal)" className="absolute top-0 right-0" />
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             <h2 className="text-2xl font-bold text-primary-foreground sm:text-3xl">Our Solution</h2>
-            <div className="mt-6">
+            <div className="mt-6 max-w-3xl">
               <RichText
                 document={project.fields.solution as Document}
                 className="text-primary-foreground [&_p]:text-primary-foreground [&_li]:text-primary-foreground [&_h3]:text-primary-foreground [&_h4]:text-primary-foreground [&_strong]:text-primary-foreground"
@@ -291,9 +297,9 @@ export default async function ProjectDetailPage({ params }: PageProps) {
       {/* ============================================ */}
       {resolvedGallery.length > 0 && (
         <section className="bg-secondary py-16 lg:py-24">
-          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             <h2 className="text-2xl font-bold text-foreground mb-10 sm:text-3xl">Gallery</h2>
-            <div className="grid gap-4 sm:grid-cols-2">
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {resolvedGallery.map((img, i) => (
                 <div
                   key={i}

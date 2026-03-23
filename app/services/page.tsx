@@ -66,7 +66,7 @@ export default async function ServicesPage() {
               {heroBlock.fields.headline as string}
             </h1>
             {heroBlock.fields.body && (
-              <div className="prose prose-lg mx-auto mt-6 text-muted-foreground">
+              <div className="prose prose-lg mx-auto mt-6 text-primary-foreground">
                 <RichText document={heroBlock.fields.body as Document} />
               </div>
             )}
@@ -81,9 +81,9 @@ export default async function ServicesPage() {
         category.items.length > 0 ? (
           <SectionContainer
             key={category.key}
-            spacing="lg"
+            spacing="sm"
           >
-            <h2 className="mb-12 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+            <h2 className="mb-6 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
               {category.title}
             </h2>
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -234,7 +234,7 @@ export default async function ServicesPage() {
               {ctaBlock.fields.headline as string}
             </h2>
             {ctaBlock.fields.body && (
-              <div className="prose prose-lg mx-auto mt-4 text-primary-foreground">
+              <div className="prose prose-lg prose-invert mx-auto mt-4">
                 <RichText document={ctaBlock.fields.body as Document} />
               </div>
             )}
