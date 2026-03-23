@@ -2,8 +2,7 @@ import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import Link from "next/link"
 import Image from "next/image"
-import { Calendar, User } from "lucide-react"
-import { LogoArrow } from "@/components/brand-shapes"
+import { ArrowLeft, ArrowRight, Calendar, User } from "lucide-react"
 import {
   getArticleBySlug,
   getPublishedArticles,
@@ -209,7 +208,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
               href="/articles"
               className="mb-6 inline-flex items-center text-sm text-white/70 hover:text-white transition-colors"
             >
-              <LogoArrow direction="left" size={14} className="mr-2" />
+              <ArrowLeft className="mr-2 h-4 w-4" />
               All articles
             </Link>
 
@@ -390,7 +389,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
                   href={`/articles/${prevArticle.fields.slug}`}
                   className="group flex items-center gap-4 rounded-lg border border-border bg-card p-6 transition-shadow hover:shadow-md"
                 >
-                  <LogoArrow direction="left" size={20} color="var(--color-grey)" className="shrink-0 group-hover:[color:var(--color-off-black)] transition-colors" />
+                  <ArrowLeft className="h-5 w-5 shrink-0 text-muted-foreground group-hover:text-foreground" />
                   <div>
                     <p className="text-sm text-muted-foreground">Previous article</p>
                     <p className="mt-1 font-semibold text-card-foreground group-hover:text-accent line-clamp-1">
@@ -412,7 +411,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
                       {nextArticle.fields.title as string}
                     </p>
                   </div>
-                  <LogoArrow size={20} color="var(--color-grey)" className="shrink-0 group-hover:[color:var(--color-off-black)] transition-colors" />
+                  <ArrowRight className="h-5 w-5 shrink-0 text-muted-foreground group-hover:text-foreground" />
                 </Link>
               ) : (
                 <div />
@@ -450,7 +449,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
                   className="inline-flex items-center rounded-md bg-background px-8 py-3 text-base font-semibold text-foreground transition-colors hover:bg-background/90"
                 >
                   Get in touch
-                  <LogoArrow size={18} className="ml-2" />
+                  <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </div>
             </div>
