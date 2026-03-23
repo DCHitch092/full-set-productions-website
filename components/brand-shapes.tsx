@@ -283,24 +283,38 @@ export function LogoArrow({
   className,
 }: LogoArrowProps) {
   const deg = ARROW_ROTATIONS[direction]
+  // Preserve the native 175:130 aspect ratio; `size` sets the height.
+  const h = size
+  const w = Math.round(size * (175 / 130))
+  const maskId = "logo-arrow-mask"
   return (
     <svg
-      width={size}
-      height={size}
-      viewBox="0 0 20 20"
+      width={w}
+      height={h}
+      viewBox="0 0 175 130"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
       aria-hidden
       style={deg !== 0 ? { transform: `rotate(${deg}deg)` } : undefined}
     >
-      {/*
-        Rotated-square arrowhead (chevron with angled back):
-        back-upper → tip-top → tip → tip-bottom → back-lower
-        Derived from a 45°-rotated square clipped to a rectangular viewport,
-        matching the 'E' arrow element in the Full Set Productions wordmark.
-      */}
-      <path d="M0 3 L7 0 L14.5 10 L7 20 L0 17 Z" fill={color} />
+      <mask
+        id={maskId}
+        style={{ maskType: "alpha" }}
+        maskUnits="userSpaceOnUse"
+        x={0}
+        y={0}
+        width={175}
+        height={130}
+      >
+        <path fill="#d9d9d9" d="M0 0h175v130H0z" />
+      </mask>
+      <g mask={`url(#${maskId})`}>
+        <path
+          fill={color}
+          d="m40.611-21.002 85.61 85.61-85.61 85.612-85.61-85.611z"
+        />
+      </g>
     </svg>
   )
 }

@@ -21,12 +21,14 @@ interface KeyPointsListProps {
   points: string[]
   columns?: 1 | 2 | 3 | 4
   className?: string
+  itemClassName?: string
 }
 
 export function KeyPointsList({
   points,
   columns = 2,
   className,
+  itemClassName,
 }: KeyPointsListProps) {
   const colClass = {
     1: "",
@@ -40,7 +42,7 @@ export function KeyPointsList({
       {points.map((point, i) => (
         <li
           key={i}
-          className="pl-4 text-[15px] text-foreground leading-snug"
+          className={cn("pl-4 text-[15px] text-foreground leading-snug", itemClassName)}
           style={{
             borderLeft: `10px solid ${PALETTE[i % PALETTE.length]}`,
           }}

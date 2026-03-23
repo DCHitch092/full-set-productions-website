@@ -256,7 +256,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
           <CornerBracket corner="top-right" className="absolute top-0 right-0" />
           <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             <h2 className="text-2xl font-bold text-foreground sm:text-3xl">The Brief</h2>
-            <div className="mt-6 max-w-3xl">
+            <div className="mt-6">
               <RichText document={project.fields.brief as Document} />
             </div>
           </div>
@@ -277,7 +277,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
           <CornerBracket corner="top-right" colorA="var(--color-yellow)" colorB="var(--color-teal)" className="absolute top-0 right-0" />
           <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             <h2 className="text-2xl font-bold text-primary-foreground sm:text-3xl">Our Solution</h2>
-            <div className="mt-6 max-w-3xl">
+            <div className="mt-6">
               <RichText
                 document={project.fields.solution as Document}
                 className="text-primary-foreground [&_p]:text-primary-foreground [&_li]:text-primary-foreground [&_h3]:text-primary-foreground [&_h4]:text-primary-foreground [&_strong]:text-primary-foreground"
