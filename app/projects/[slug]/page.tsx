@@ -220,9 +220,8 @@ export default async function ProjectDetailPage({ params }: PageProps) {
       {/* Excerpt -- lead paragraph                     */}
       {/* ============================================ */}
       {project.fields.excerpt && (
+        // ISS-25: L-pieces removed — bg-secondary is a coloured (teal) background. L-pieces must only appear on white/light backgrounds.
         <section className="relative overflow-hidden bg-secondary py-12 lg:py-16">
-          <CornerBracket corner="bottom-left" className="absolute bottom-0 left-0" />
-          <CornerBracket corner="top-right" className="absolute top-0 right-0" />
           <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             <p className="text-xl text-muted-foreground leading-relaxed lg:text-2xl lg:leading-relaxed font-light text-balance max-w-3xl">
               {project.fields.excerpt as string}
@@ -262,9 +261,8 @@ export default async function ProjectDetailPage({ params }: PageProps) {
       {/* Our Solution -- dark primary bg section       */}
       {/* ============================================ */}
       {project.fields.solution && (
+        // ISS-25: L-pieces removed — bg-primary is a coloured background. L-pieces must only appear on white/light backgrounds.
         <section className="relative overflow-hidden bg-primary py-16 lg:py-24">
-          <CornerBracket corner="bottom-left" colorA="var(--color-yellow)" colorB="var(--color-teal)" className="absolute bottom-0 left-0" />
-          <CornerBracket corner="top-right" colorA="var(--color-coral)" colorB="var(--color-pink)" className="absolute top-0 right-0" />
           <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             <h2 className="text-2xl font-bold text-primary-foreground sm:text-3xl">Our Solution</h2>
             <div className="mt-6">
@@ -316,9 +314,8 @@ export default async function ProjectDetailPage({ params }: PageProps) {
       {/* Projects CTA (from Contentful modular block)  */}
       {/* ============================================ */}
       {projectsCta && (
+        // ISS-25: L-pieces removed — bg-primary is a coloured background. L-pieces must only appear on white/light backgrounds.
         <section className="relative bg-primary py-16 lg:py-20">
-          <CornerBracket corner="top-left" colorA="var(--color-teal)" colorB="var(--color-yellow)" className="absolute top-0 left-0 pointer-events-none" />
-          <CornerBracket corner="bottom-right" colorA="var(--color-coral)" colorB="var(--color-pink)" className="absolute bottom-0 right-0 pointer-events-none" />
           <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             <div className="mx-auto max-w-2xl text-center">
               {projectsCta.fields.body && (
