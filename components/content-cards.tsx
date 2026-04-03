@@ -94,7 +94,8 @@ export function ProjectCard({ item }: { item: any }) {
 
   return (
     <Link href={`/projects/${slug}`}>
-      <BaseCard variant="simple" className="h-full">
+      {/* ISS-23: pt-0 removes Card's default py-6 top padding so the image sits flush */}
+      <BaseCard variant="simple" className="pt-0 h-full">
         {imageUrl && (
           <div className="relative aspect-[4/3] overflow-hidden bg-muted">
             <Image

@@ -185,17 +185,13 @@ export default async function HomePage() {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
+      {/* ISS-25: No cornerBrackets on bg-primary — L-pieces must only appear on white/light sections. */}
       <SectionContainer
         bg="primary"
         spacing="lg"
         textureType="background"
         textureIndex={0}
         themeColor="blue"
-        cornerBrackets={{
-          bottomLeft: { colorA: "var(--color-teal)", colorB: "var(--color-yellow)" },
-          topRight: { colorA: "var(--color-pink)", colorB: "var(--color-coral)" },
-          size: 80,
-        }}
       >
         <div className="max-w-3xl">
           <Badge variant="secondary" className="mb-4">
@@ -249,7 +245,12 @@ export default async function HomePage() {
       </section>
 
       {/* Services Overview */}
-      <SectionContainer spacing="lg" align="center">
+      {/* ISS-25: White section between Hero (above) and Featured Work (below) — L-pieces bridge both coloured sections. Only bottomLeft/topRight used (long side vertical). */}
+      <SectionContainer spacing="lg" align="center" cornerBrackets={{
+        topRight: { colorA: "var(--color-pink)", colorB: "var(--color-coral)" },
+        bottomLeft: { colorA: "var(--color-teal)", colorB: "var(--color-yellow)" },
+        size: 72,
+      }}>
         <div className="text-center">
           <H2>What we build</H2>
           <Body className="mx-auto mt-4 max-w-2xl text-lg" color="muted">
@@ -286,17 +287,13 @@ export default async function HomePage() {
       </SectionContainer>
 
       {/* Featured Work */}
+      {/* ISS-25: No cornerBrackets on bg-secondary — L-pieces must only appear on white/light sections. */}
       <SectionContainer
         bg="secondary"
         spacing="lg"
         textureType="background"
         textureIndex={1}
         themeColor="blue"
-        cornerBrackets={{
-          topRight: { colorA: "var(--color-pink)", colorB: "var(--color-coral)" },
-          bottomLeft: { colorA: "var(--color-teal)", colorB: "var(--color-yellow)" },
-          size: 72,
-        }}
       >
         <div className="flex items-end justify-between">
           <div>
@@ -356,7 +353,12 @@ export default async function HomePage() {
       </SectionContainer>
 
       {/* Why Work With Us */}
-      <SectionContainer spacing="lg" align="center">
+      {/* ISS-25: White section between Featured Work (above) and Edinburgh Advantage (below) — L-pieces bridge both coloured sections. */}
+      <SectionContainer spacing="lg" align="center" cornerBrackets={{
+        topRight: { colorA: "var(--color-teal)", colorB: "var(--color-yellow)" },
+        bottomLeft: { colorA: "var(--color-pink)", colorB: "var(--color-coral)" },
+        size: 72,
+      }}>
         <div className="text-center">
           <H2>Why work with us</H2>
           <Body className="mx-auto mt-4 max-w-2xl text-lg" color="muted">
@@ -392,17 +394,13 @@ export default async function HomePage() {
       </SectionContainer>
 
       {/* Edinburgh Advantage */}
+      {/* ISS-25: No cornerBrackets on bg-primary — L-pieces must only appear on white/light sections. */}
       <SectionContainer
         bg="primary"
         spacing="lg"
         textureType="background"
         textureIndex={2}
         themeColor="blue"
-        cornerBrackets={{
-          topLeft: { colorA: "var(--color-yellow)", colorB: "var(--color-coral)" },
-          bottomRight: { colorA: "var(--color-teal)", colorB: "var(--color-pink)" },
-          size: 72,
-        }}
       >
         <div className="grid items-center gap-12 lg:grid-cols-2">
           <div>
@@ -440,7 +438,12 @@ export default async function HomePage() {
       </SectionContainer>
 
       {/* How We Work */}
-      <SectionContainer spacing="lg" align="center">
+      {/* ISS-25: White section between Edinburgh Advantage (above) and CTA (below) — L-pieces bridge both coloured sections. */}
+      <SectionContainer spacing="lg" align="center" cornerBrackets={{
+        topRight: { colorA: "var(--color-yellow)", colorB: "var(--color-coral)" },
+        bottomLeft: { colorA: "var(--color-teal)", colorB: "var(--color-pink)" },
+        size: 72,
+      }}>
         <div className="text-center">
           <H2>How we work</H2>
           <Body className="mx-auto mt-4 max-w-2xl text-lg" color="muted">
@@ -480,6 +483,7 @@ export default async function HomePage() {
       </SectionContainer>
 
       {/* CTA Block */}
+      {/* ISS-25: No cornerBrackets on bg-secondary — L-pieces must only appear on white/light sections. */}
       <SectionContainer
         bg="secondary"
         spacing="lg"
@@ -487,11 +491,6 @@ export default async function HomePage() {
         textureType="background"
         textureIndex={3}
         themeColor="blue"
-        cornerBrackets={{
-          topLeft: { colorA: "var(--color-coral)", colorB: "var(--color-pink)" },
-          bottomRight: { colorA: "var(--color-yellow)", colorB: "var(--color-teal)" },
-          size: 72,
-        }}
       >
         <div className="mx-auto max-w-2xl text-center">
           <Wrench className="mx-auto h-12 w-12 text-accent" />

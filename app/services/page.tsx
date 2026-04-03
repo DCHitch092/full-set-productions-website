@@ -60,13 +60,14 @@ export default async function ServicesPage() {
       {/* Hero / Intro                                */}
       {/* ============================================ */}
       {heroBlock && (
+        // ISS-22: Hero sits on teal bg-secondary. Use text-foreground (off-black) — never grey/muted on coloured hero backgrounds.
         <SectionContainer bg="secondary" spacing="lg" align="center">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl text-balance">
               {heroBlock.fields.headline as string}
             </h1>
             {heroBlock.fields.body && (
-              <div className="prose prose-lg mx-auto mt-6 text-primary-foreground">
+              <div className="prose prose-lg mx-auto mt-6 text-foreground [&_p]:text-foreground [&_li]:text-foreground [&_strong]:text-foreground">
                 <RichText document={heroBlock.fields.body as Document} />
               </div>
             )}
@@ -211,8 +212,9 @@ export default async function ServicesPage() {
       {/* ============================================ */}
       {/* CTA banner                                  */}
       {/* ============================================ */}
+      {/* ISS-25: No cornerBrackets on bg-primary — L-pieces must only appear on white/light backgrounds. */}
       {ctaBlock && (
-        <SectionContainer as="section" bg="primary" spacing="lg" align="center" cornerBrackets={{ topLeft: { colorA: "var(--color-teal)", colorB: "var(--color-yellow)" }, bottomRight: { colorA: "var(--color-coral)", colorB: "var(--color-pink)" }, size: 72 }}>
+        <SectionContainer as="section" bg="primary" spacing="lg" align="center">
           <div className="mx-auto max-w-4xl text-center">
             <h2 className="text-3xl font-bold tracking-tight text-primary-foreground sm:text-4xl text-balance">
               {ctaBlock.fields.headline as string}

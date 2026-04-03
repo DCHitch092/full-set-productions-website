@@ -177,9 +177,8 @@ export default async function IndustryDetailPage({ params }: PageProps) {
       {/* CTA (from Contentful modular block)           */}
       {/* ============================================ */}
       {industryCta && (
+        // ISS-25: L-pieces removed — bg-primary is a coloured background. L-pieces must only appear on white/light backgrounds.
         <section className="relative bg-primary py-16 lg:py-20">
-          <CornerBracket corner="top-left" colorA="var(--color-coral)" colorB="var(--color-yellow)" className="absolute top-0 left-0 pointer-events-none" />
-          <CornerBracket corner="bottom-right" colorA="var(--color-teal)" colorB="var(--color-pink)" className="absolute bottom-0 right-0 pointer-events-none" />
           <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             <div className="mx-auto max-w-2xl text-center">
               {industryCta.fields.body && (

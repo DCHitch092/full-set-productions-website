@@ -158,6 +158,17 @@
 }
 
 /* ============================================================ */
+/* TEXT COLOUR RULE — coloured backgrounds (ISS-22, ISS-24)    */
+/* On any coloured/brand-tinted section (bg-primary, bg-secondary,
+/* bg-accent, or any --color-* background) NEVER use:
+/*   - text-muted-foreground  (resolves to --color-grey)
+/*   - text-muted             (grey tint)
+/* ALWAYS use text-foreground or the matching *-foreground token
+/* (e.g. text-primary-foreground on bg-primary,
+/*       text-secondary-foreground on bg-secondary).          */
+/* ============================================================ */
+
+/* ============================================================ */
 /* Keyframe animations for microinteractions                    */
 /* ============================================================ */
 @keyframes fadeInUp {

@@ -46,7 +46,8 @@ function ProjectListCard({ project }: { project: any }) {
 
   return (
     <Link href={`/projects/${slug}`}>
-      <BaseCard variant="simple">
+      {/* ISS-23: pt-0 removes the Card's default py-6 top padding so the image sits flush */}
+      <BaseCard variant="simple" className="pt-0">
         {/* Featured image -- consistently cropped 4:3 */}
         {imageUrl && (
           <div className="relative aspect-[4/3] overflow-hidden bg-muted">

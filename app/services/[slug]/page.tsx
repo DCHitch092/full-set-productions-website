@@ -181,9 +181,8 @@ export default async function ServiceDetailPage({ params }: PageProps) {
       {/* ============================================ */}
       {/* CTA                                         */}
       {/* ============================================ */}
+      {/* ISS-25: L-pieces removed — bg-primary is a coloured background. L-pieces must only appear on white/light backgrounds. */}
       <section className="relative border-t border-border bg-primary py-16 text-primary-foreground lg:py-20">
-        <CornerBracket corner="top-right" colorA="var(--color-teal)" colorB="var(--color-yellow)" className="absolute top-0 right-0 pointer-events-none" />
-        <CornerBracket corner="bottom-left" colorA="var(--color-coral)" colorB="var(--color-pink)" className="absolute bottom-0 left-0 pointer-events-none" />
         <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-balance">
             Ready to discuss your project?
