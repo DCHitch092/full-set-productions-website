@@ -16,6 +16,7 @@ export const metadata: Metadata = {
   description: 'Edinburgh-based designers and builders of escape rooms, immersive attractions, and theatrical sets. From concept to install-ready builds.',
   keywords: ['escape room design', 'immersive attractions', 'theatrical sets', 'Edinburgh', 'escape room builder', 'scenic fabrication'],
   authors: [{ name: 'Full Set Productions' }],
+  manifest: '/site.webmanifest',
   openGraph: {
     title: 'Full Set Productions | Escape Rooms & Immersive Attractions',
     description: 'Edinburgh-based designers and builders of escape rooms, immersive attractions, and theatrical sets.',
@@ -25,19 +26,21 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
+        url: '/favicon.ico',
+        type: 'image/x-icon',
       },
       {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
+        url: '/favicon-32x32.png',
+        sizes: '32x32',
+        type: 'image/png',
       },
       {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
+        url: '/favicon-16x16.png',
+        sizes: '16x16',
+        type: 'image/png',
       },
     ],
-    apple: '/apple-icon.png',
+    apple: '/apple-touch-icon.png',
   },
     generator: 'v0.app'
 }
