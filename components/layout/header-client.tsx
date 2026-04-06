@@ -4,12 +4,6 @@ import Link from "next/link"
 import Image from "next/image"
 import { useRef, useState } from "react"
 import { Button } from "@/components/ui/button"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Menu, ChevronDown } from "lucide-react"
 import { ANIMATIONS } from "@/lib/animations"
@@ -94,6 +88,7 @@ function NavDropdown({ entry }: { entry: NavEntry }) {
 
 export function HeaderClient({ navEntries, ctaText, ctaUrl }: HeaderClientProps) {
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [hoverMenu, setHoverMenu] = useState<string | null>(null)
 
   // Filter nav items by placement (header only) and visibility
   const mainNav = navEntries.filter(
@@ -119,7 +114,51 @@ export function HeaderClient({ navEntries, ctaText, ctaUrl }: HeaderClientProps)
         <nav className="hidden items-center gap-1 md:flex">
           {mainNav.map((entry) =>
             entry.children.length > 0 ? (
-              <NavDropdown key={entry.href} entry={entry} />
+              // Single hoverable container — text + chevron are one unit,
+              // eliminating the gap that caused hover flicker (ISS-47)
+              <div
+                key={entry.href}
+                className="relative"
+                onMouseEnter={() => setHoverMenu(entry.href)}
+                onMouseLeave={() => setHoverMenu(null)}
+              >
+                <Link
+                  href={entry.href}
+                  className="flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium text-foreground hover:bg-accent/10"
+                >
+                  {entry.label}
+                  <ChevronDown
+                    className={`h-4 w-4 transition-transform duration-150 ${
+                      hoverMenu === entry.href ? "rotate-180" : ""
+                    }`}
+                  />
+                </Link>
+                {hoverMenu === entry.href && (
+                  <div className="absolute top-full left-0 min-w-[160px] bg-background border border-border rounded-md shadow-md py-1 z-50">
+                    {entry.children.map((child) =>
+                      child.openInNewTab ? (
+                        <a
+                          key={child.href}
+                          href={child.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="block px-4 py-2 text-sm text-foreground hover:bg-accent/10 transition-colors"
+                        >
+                          {child.label}
+                        </a>
+                      ) : (
+                        <Link
+                          key={child.href}
+                          href={child.href}
+                          className="block px-4 py-2 text-sm text-foreground hover:bg-accent/10 transition-colors"
+                        >
+                          {child.label}
+                        </Link>
+                      ),
+                    )}
+                  </div>
+                )}
+              </div>
             ) : (
               <Button
                 key={entry.href}
