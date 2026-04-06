@@ -2,7 +2,8 @@ import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import Link from "next/link"
 import Image from "next/image"
-import { ArrowLeft, ArrowRight, MapPin, Building2 } from "lucide-react"
+import { MapPin, Building2 } from "lucide-react"
+import { LogoArrow, CornerBracket } from "@/components/brand-shapes"
 import { Button } from "@/components/ui/button"
 import {
   getProjectBySlug,
@@ -12,6 +13,7 @@ import {
 } from "@/lib/contentful"
 import { getAssetUrl } from "@/lib/contentful-types"
 import { RichText } from "@/components/rich-text"
+import { KeyPointsList } from "@/components/key-points"
 import type { Document } from "@contentful/rich-text-types"
 
 interface PageProps {
@@ -169,7 +171,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
               href="/projects"
               className="mb-6 inline-flex items-center text-sm text-white/70 hover:text-white transition-colors"
             >
-              <ArrowLeft className="mr-2 h-4 w-4" />
+              <LogoArrow direction="left" size={14} className="mr-2" />
               All projects
             </Link>
 
@@ -218,9 +220,10 @@ export default async function ProjectDetailPage({ params }: PageProps) {
       {/* Excerpt -- lead paragraph                     */}
       {/* ============================================ */}
       {project.fields.excerpt && (
-        <section className="bg-secondary py-12 lg:py-16">
-          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-            <p className="text-xl text-foreground/80 leading-relaxed lg:text-2xl lg:leading-relaxed font-light text-balance">
+        // ISS-25: L-pieces removed — bg-secondary is a coloured (teal) background. L-pieces must only appear on white/light backgrounds.
+        <section className="relative overflow-hidden bg-secondary py-12 lg:py-16">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+            <p className="text-xl text-muted-foreground leading-relaxed lg:text-2xl lg:leading-relaxed font-light text-balance max-w-3xl">
               {project.fields.excerpt as string}
             </p>
           </div>
@@ -232,17 +235,8 @@ export default async function ProjectDetailPage({ params }: PageProps) {
       {/* ============================================ */}
       {highlights.length > 0 && (
         <section className="border-y border-border bg-background py-8 lg:py-10">
-          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              {highlights.map((h) => (
-                <div
-                  key={h}
-                  className="relative pl-4 text-[15px] text-foreground leading-snug before:absolute before:left-0 before:top-0 before:bottom-0 before:w-[2px] before:rounded-full before:bg-accent"
-                >
-                  {h}
-                </div>
-              ))}
-            </div>
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+            <KeyPointsList points={highlights} columns={4} />
           </div>
         </section>
       )}
@@ -251,13 +245,10 @@ export default async function ProjectDetailPage({ params }: PageProps) {
       {/* The Brief -- angled top edge for dynamism     */}
       {/* ============================================ */}
       {project.fields.brief && (
-        <section className="relative bg-background py-16 lg:py-24">
-          {/* Angled top separator */}
-          <div
-            className="absolute inset-x-0 -top-8 h-8 bg-background"
-            style={{ clipPath: "polygon(0 100%, 100% 0, 100% 100%)" }}
-          />
-          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+        <section className="relative overflow-hidden bg-background py-16 lg:py-24">
+          <CornerBracket corner="bottom-left" className="absolute bottom-0 left-0" />
+          <CornerBracket corner="top-right" className="absolute top-0 right-0" />
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             <h2 className="text-2xl font-bold text-foreground sm:text-3xl">The Brief</h2>
             <div className="mt-6">
               <RichText document={project.fields.brief as Document} />
@@ -270,26 +261,17 @@ export default async function ProjectDetailPage({ params }: PageProps) {
       {/* Our Solution -- dark primary bg section       */}
       {/* ============================================ */}
       {project.fields.solution && (
-        <section className="relative bg-primary py-16 lg:py-24">
-          {/* Angled top separator */}
-          <div
-            className="absolute inset-x-0 -top-6 h-6 bg-primary"
-            style={{ clipPath: "polygon(0 0, 100% 100%, 0 100%)" }}
-          />
-          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+        // ISS-25: L-pieces removed — bg-primary is a coloured background. L-pieces must only appear on white/light backgrounds.
+        <section className="relative overflow-hidden bg-primary py-16 lg:py-24">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             <h2 className="text-2xl font-bold text-primary-foreground sm:text-3xl">Our Solution</h2>
             <div className="mt-6">
               <RichText
                 document={project.fields.solution as Document}
-                className="text-primary-foreground/85 [&_p]:text-primary-foreground/85 [&_li]:text-primary-foreground/85 [&_h3]:text-primary-foreground [&_h4]:text-primary-foreground [&_strong]:text-primary-foreground"
+                className="text-primary-foreground [&_p]:text-primary-foreground [&_li]:text-primary-foreground [&_h3]:text-primary-foreground [&_h4]:text-primary-foreground [&_strong]:text-primary-foreground"
               />
             </div>
           </div>
-          {/* Angled bottom separator */}
-          <div
-            className="absolute inset-x-0 -bottom-6 h-6 bg-primary"
-            style={{ clipPath: "polygon(0 0, 100% 0, 100% 100%)" }}
-          />
         </section>
       )}
 
@@ -298,9 +280,9 @@ export default async function ProjectDetailPage({ params }: PageProps) {
       {/* ============================================ */}
       {resolvedGallery.length > 0 && (
         <section className="bg-secondary py-16 lg:py-24">
-          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             <h2 className="text-2xl font-bold text-foreground mb-10 sm:text-3xl">Gallery</h2>
-            <div className="grid gap-4 sm:grid-cols-2">
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {resolvedGallery.map((img, i) => (
                 <div
                   key={i}
@@ -332,18 +314,15 @@ export default async function ProjectDetailPage({ params }: PageProps) {
       {/* Projects CTA (from Contentful modular block)  */}
       {/* ============================================ */}
       {projectsCta && (
+        // ISS-25: L-pieces removed — bg-primary is a coloured background. L-pieces must only appear on white/light backgrounds.
         <section className="relative bg-primary py-16 lg:py-20">
-          <div
-            className="absolute inset-x-0 -top-5 h-5 bg-primary"
-            style={{ clipPath: "polygon(0 100%, 100% 0, 100% 100%)" }}
-          />
           <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             <div className="mx-auto max-w-2xl text-center">
               {projectsCta.fields.body && (
                 <div className="mb-6">
                   <RichText
                     document={projectsCta.fields.body as Document}
-                    className="text-lg text-primary-foreground/80 [&_p]:text-primary-foreground/80"
+                    className="text-lg text-primary-foreground [&_p]:text-primary-foreground"
                   />
                 </div>
               )}
@@ -354,7 +333,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
               >
                 <Link href="/contact">
                   {(projectsCta.fields.headline as string) || "Get in touch"}
-                  <ArrowRight className="ml-2 h-4 w-4" />
+                  <LogoArrow size={16} className="ml-2" />
                 </Link>
               </Button>
             </div>
@@ -374,7 +353,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
                   href={`/projects/${prevProject.fields.slug}`}
                   className="group flex items-center gap-4 rounded-lg border border-border bg-card p-6 transition-shadow hover:shadow-md"
                 >
-                  <ArrowLeft className="h-5 w-5 shrink-0 text-muted-foreground group-hover:text-foreground" />
+                  <LogoArrow direction="left" size={20} color="var(--color-grey)" className="shrink-0 group-hover:[color:var(--color-off-black)] transition-colors" />
                   <div>
                     <p className="text-sm text-muted-foreground">
                       Previous project
@@ -400,7 +379,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
                       {nextProject.fields.title as string}
                     </p>
                   </div>
-                  <ArrowRight className="h-5 w-5 shrink-0 text-muted-foreground group-hover:text-foreground" />
+                  <LogoArrow size={20} color="var(--color-grey)" className="shrink-0 group-hover:[color:var(--color-off-black)] transition-colors" />
                 </Link>
               ) : (
                 <div />

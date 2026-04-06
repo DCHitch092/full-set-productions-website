@@ -3,6 +3,8 @@ import Link from "next/link"
 import Image from "next/image"
 import { getPageBySlug, getProjects, contentfulImageUrl } from "@/lib/contentful"
 import { ModularBlockRenderer } from "@/components/modular-blocks"
+import { SectionContainer } from "@/components/sections/SectionContainer"
+import { BaseCard } from "@/components/cards/BaseCard"
 
 export async function generateMetadata(): Promise<Metadata> {
   const page = await getPageBySlug("projects")
@@ -14,9 +16,6 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-// ============================================================
-// Project Card (editorial, calm, no badges/effects)
-// ============================================================
 function ProjectListCard({ project }: { project: any }) {
   const { title, slug, excerpt, clientName, location, projectType, heroImage, gallery } =
     project.fields
@@ -46,40 +45,40 @@ function ProjectListCard({ project }: { project: any }) {
   const meta = [clientName, location, projectType].filter(Boolean)
 
   return (
-    <Link
-      href={`/projects/${slug}`}
-      className="group flex flex-col overflow-hidden rounded-lg border border-border bg-card"
-    >
-      {/* Featured image -- consistently cropped 4:3 */}
-      {imageUrl && (
-        <div className="relative aspect-[4/3] overflow-hidden bg-muted">
-          <Image
-            src={imageUrl || "/placeholder.svg"}
-            alt={title as string}
-            fill
-            className="object-cover"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          />
+    <Link href={`/projects/${slug}`}>
+      {/* ISS-23: pt-0 removes the Card's default py-6 top padding so the image sits flush */}
+      <BaseCard variant="simple" className="pt-0">
+        {/* Featured image -- consistently cropped 4:3 */}
+        {imageUrl && (
+          <div className="relative aspect-[4/3] overflow-hidden bg-muted">
+            <Image
+              src={imageUrl || "/placeholder.svg"}
+              alt={title as string}
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            />
+          </div>
+        )}
+
+        <div className="flex flex-1 flex-col p-6">
+          <h3 className="text-xl font-semibold text-card-foreground leading-tight text-balance">
+            {title}
+          </h3>
+
+          {meta.length > 0 && (
+            <p className="mt-2 text-sm text-muted-foreground">
+              {meta.join(" \u2022 ")}
+            </p>
+          )}
+
+          {excerpt && (
+            <p className="mt-3 flex-1 text-sm text-muted-foreground leading-relaxed line-clamp-3">
+              {excerpt}
+            </p>
+          )}
         </div>
-      )}
-
-      <div className="flex flex-1 flex-col p-6">
-        <h3 className="text-xl font-semibold text-card-foreground leading-tight text-balance">
-          {title}
-        </h3>
-
-        {meta.length > 0 && (
-          <p className="mt-2 text-sm text-muted-foreground">
-            {meta.join(" \u2022 ")}
-          </p>
-        )}
-
-        {excerpt && (
-          <p className="mt-3 flex-1 text-sm text-muted-foreground leading-relaxed line-clamp-3">
-            {excerpt}
-          </p>
-        )}
-      </div>
+      </BaseCard>
     </Link>
   )
 }
@@ -104,44 +103,24 @@ export default async function ProjectsPage() {
       {heroBlock && <ModularBlockRenderer block={heroBlock} />}
 
       {/* Project listing */}
-      <section className="pt-24 pb-24 lg:pt-32 lg:pb-32">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          {projects.length > 0 ? (
-            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-              {projects.map((project: any) => (
-                <ProjectListCard key={project.sys.id} project={project} />
-              ))}
-            </div>
-          ) : (
-            <p className="text-center text-muted-foreground">
-              Projects are being added. Please check back soon.
-            </p>
-          )}
-        </div>
-      </section>
-
-      {/* Additional modular blocks (CTA, etc.) - rendered with dynamic diagonal styling */}
-      {otherBlocks.map((block: any, index: number) => {
-        const isLastBlock = index === otherBlocks.length - 1
-        // Diagonal on top only for last block, both top and bottom for others
-        const clipPath = isLastBlock
-          ? index % 2 === 0
-            ? "polygon(0 0, 100% 5%, 100% 100%, 0 100%)" // diagonal top-right, flat bottom
-            : "polygon(0 5%, 100% 0, 100% 100%, 0 100%)" // diagonal top-left, flat bottom
-          : index % 2 === 0
-            ? "polygon(0 0, 100% 5%, 100% 100%, 0 95%)" // diagonal both sides
-            : "polygon(0 5%, 100% 0, 100% 95%, 0 100%)" // diagonal both sides
-
-        return (
-          <div
-            key={block.sys.id}
-            className="relative"
-            style={{ clipPath }}
-          >
-            <ModularBlockRenderer block={block} />
+      <SectionContainer spacing="lg">
+        {projects.length > 0 ? (
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {projects.map((project: any) => (
+              <ProjectListCard key={project.sys.id} project={project} />
+            ))}
           </div>
-        )
-      })}
+        ) : (
+          <p className="text-center text-muted-foreground">
+            Projects are being added. Please check back soon.
+          </p>
+        )}
+      </SectionContainer>
+
+      {/* Additional modular blocks (CTA, etc.) */}
+      {otherBlocks.map((block: any) => (
+        <ModularBlockRenderer key={block.sys.id} block={block} />
+      ))}
     </div>
   )
 }

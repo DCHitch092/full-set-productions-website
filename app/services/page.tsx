@@ -4,6 +4,8 @@ import Image from "next/image"
 import { ArrowRight } from "lucide-react"
 import { getServices, getModularBlockByName, contentfulImageUrl } from "@/lib/contentful"
 import { RichText } from "@/components/rich-text"
+import { SectionContainer } from "@/components/sections/SectionContainer"
+import { ANIMATIONS } from "@/lib/animations"
 import type { Document } from "@contentful/rich-text-types"
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -58,18 +60,19 @@ export default async function ServicesPage() {
       {/* Hero / Intro                                */}
       {/* ============================================ */}
       {heroBlock && (
-        <section className="bg-secondary py-16 lg:py-24">
-          <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+        // ISS-22: Hero sits on teal bg-secondary. Use text-foreground (off-black) — never grey/muted on coloured hero backgrounds.
+        <SectionContainer bg="secondary" spacing="lg" align="center">
+          <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl text-balance">
               {heroBlock.fields.headline as string}
             </h1>
             {heroBlock.fields.body && (
-              <div className="prose prose-lg mx-auto mt-6 text-muted-foreground">
+              <div className="prose prose-lg mx-auto mt-6 text-foreground [&_p]:text-foreground [&_li]:text-foreground [&_strong]:text-foreground">
                 <RichText document={heroBlock.fields.body as Document} />
               </div>
             )}
           </div>
-        </section>
+        </SectionContainer>
       )}
 
       {/* ============================================ */}
@@ -77,15 +80,14 @@ export default async function ServicesPage() {
       {/* ============================================ */}
       {categories.map((category) =>
         category.items.length > 0 ? (
-          <section
+          <SectionContainer
             key={category.key}
-            className="py-16 lg:py-24 bg-background"
+            spacing="sm"
           >
-            <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-              <h2 className="mb-12 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-                {category.title}
-              </h2>
-              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <h2 className="mb-6 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+              {category.title}
+            </h2>
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                 {category.items.map((service) => {
                   const {
                     title,
@@ -125,7 +127,7 @@ export default async function ServicesPage() {
                     <Link
                       key={service.sys.id}
                       href={`/services/${slug}`}
-                      className="group relative flex flex-col overflow-hidden rounded-lg border border-border transition-shadow hover:shadow-lg"
+                      className="group relative flex flex-col overflow-hidden rounded-lg border border-border"
                     >
                       {imageUrl ? (
                         <div className="relative aspect-[4/3] overflow-hidden bg-muted">
@@ -133,16 +135,8 @@ export default async function ServicesPage() {
                             src={imageUrl || "/placeholder.svg"}
                             alt={displayHeading}
                             fill
-                            className="object-cover transition-transform duration-500 group-hover:scale-105"
+                            className={`object-cover ${ANIMATIONS.scaleHover}`}
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                          />
-                          
-                          {/* Subtle textured overlay for visual interest */}
-                          <div 
-                            className="absolute inset-0 opacity-5 pointer-events-none"
-                            style={{
-                              backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(0,0,0,.1) 2px, rgba(0,0,0,.1) 4px)',
-                            }}
                           />
                           
                           {/* Category color gradient overlay for consistent branding */}
@@ -168,7 +162,7 @@ export default async function ServicesPage() {
                             )}
                             <div className="mt-3 flex items-center text-sm font-medium text-white/90">
                               Learn more
-                              <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                              <ArrowRight className={`ml-1 h-4 w-4 ${ANIMATIONS.arrowHover}`} />
                             </div>
                           </div>
                         </div>
@@ -182,14 +176,6 @@ export default async function ServicesPage() {
                             backgroundAttachment: 'local',
                           }}
                         >
-                          {/* Subtle textured overlay for depth */}
-                          <div 
-                            className="absolute inset-0 opacity-10"
-                            style={{
-                              backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(0,0,0,.05) 2px, rgba(0,0,0,.05) 4px)',
-                            }}
-                          />
-                          
                           {/* Diagonal gradient overlay for visual interest and text contrast */}
                           <div 
                             className={`absolute inset-0 ${category.bgColor} opacity-75`}
@@ -210,7 +196,7 @@ export default async function ServicesPage() {
                             )}
                             <div className="mt-3 flex items-center text-sm font-medium">
                               Learn more
-                              <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                              <ArrowRight className={`ml-1 h-4 w-4 ${ANIMATIONS.arrowHover}`} />
                             </div>
                           </div>
                         </div>
@@ -219,22 +205,22 @@ export default async function ServicesPage() {
                   )
                 })}
               </div>
-            </div>
-          </section>
-        ) : null,
+            </SectionContainer>
+          ) : null,
       )}
 
       {/* ============================================ */}
       {/* CTA banner                                  */}
       {/* ============================================ */}
+      {/* ISS-25: No cornerBrackets on bg-primary — L-pieces must only appear on white/light backgrounds. */}
       {ctaBlock && (
-        <section className="bg-primary py-16 text-primary-foreground lg:py-20">
-          <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-balance">
+        <SectionContainer as="section" bg="primary" spacing="lg" align="center">
+          <div className="mx-auto max-w-4xl text-center">
+            <h2 className="text-3xl font-bold tracking-tight text-primary-foreground sm:text-4xl text-balance">
               {ctaBlock.fields.headline as string}
             </h2>
             {ctaBlock.fields.body && (
-              <div className="prose prose-lg mx-auto mt-4 text-primary-foreground/90">
+              <div className="prose prose-lg prose-invert mx-auto mt-4">
                 <RichText document={ctaBlock.fields.body as Document} />
               </div>
             )}
@@ -248,7 +234,7 @@ export default async function ServicesPage() {
               </Link>
             </div>
           </div>
-        </section>
+        </SectionContainer>
       )}
     </div>
   )

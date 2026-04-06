@@ -2,10 +2,11 @@ import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import Link from "next/link"
 import Image from "next/image"
-import { ArrowRight } from "lucide-react"
+import { LogoArrow, CornerBracket } from "@/components/brand-shapes"
 import { Button } from "@/components/ui/button"
 import { getServiceBySlug, getServices, contentfulImageUrl } from "@/lib/contentful"
 import { RichText } from "@/components/rich-text"
+import { KeyPointsList } from "@/components/key-points"
 import { ProjectCard } from "@/components/content-cards"
 import type { Document } from "@contentful/rich-text-types"
 import {
@@ -163,25 +164,11 @@ export default async function ServiceDetailPage({ params }: PageProps) {
       {/* ============================================ */}
       {keyPoints && keyPoints.length > 0 && (
         <section className="border-b border-border bg-secondary py-12 lg:py-16">
-          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-            <div className="mx-auto max-w-3xl">
-              <h2 className="mb-6 text-2xl font-bold tracking-tight text-foreground">
-                Key capabilities
-              </h2>
-              <ul className="grid gap-4 sm:grid-cols-2">
-                {(keyPoints as string[]).map((point, i) => (
-                  <li
-                    key={i}
-                    className="flex items-start gap-3 text-base text-foreground leading-relaxed"
-                  >
-                    <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-accent text-accent-foreground text-xs font-semibold">
-                      ✓
-                    </span>
-                    {point}
-                  </li>
-                ))}
-              </ul>
-            </div>
+          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+            <h2 className="mb-8 text-2xl font-bold tracking-tight text-foreground">
+              Key capabilities
+            </h2>
+            <KeyPointsList points={keyPoints as string[]} columns={2} itemClassName="bg-white py-3 pr-3 rounded-sm" />
           </div>
         </section>
       )}
@@ -194,19 +181,20 @@ export default async function ServiceDetailPage({ params }: PageProps) {
       {/* ============================================ */}
       {/* CTA                                         */}
       {/* ============================================ */}
-      <section className="border-t border-border bg-primary py-16 text-primary-foreground lg:py-20">
+      {/* ISS-25: L-pieces removed — bg-primary is a coloured background. L-pieces must only appear on white/light backgrounds. */}
+      <section className="relative border-t border-border bg-primary py-16 text-primary-foreground lg:py-20">
         <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-balance">
             Ready to discuss your project?
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-lg text-primary-foreground/90">
+          <p className="mx-auto mt-4 max-w-2xl text-lg text-primary-foreground">
             Get in touch to explore how we can bring your vision to life with our {(title as string ?? "").toLowerCase()} services.
           </p>
           <div className="mt-8">
             <Button asChild size="lg" variant="secondary">
               <Link href="/contact">
                 Contact us
-                <ArrowRight className="ml-2 h-5 w-5" />
+                <LogoArrow size={18} className="ml-2" />
               </Link>
             </Button>
           </div>

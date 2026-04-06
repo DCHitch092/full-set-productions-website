@@ -3,6 +3,7 @@ import { notFound } from "next/navigation"
 import Link from "next/link"
 import { ArrowLeft, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { CornerBracket } from "@/components/brand-shapes"
 import {
   getIndustryBySlug,
   getIndustries,
@@ -141,10 +142,6 @@ export default async function IndustryDetailPage({ params }: PageProps) {
       {/* ============================================ */}
       {resolvedServices.length > 0 && (
         <section className="relative bg-secondary py-16 lg:py-20">
-          <div
-            className="absolute inset-x-0 -top-6 h-6 bg-secondary"
-            style={{ clipPath: "polygon(0 100%, 100% 0, 100% 100%)" }}
-          />
           <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             <div className="mx-auto max-w-3xl">
               <h2 className="text-2xl font-bold text-foreground sm:text-3xl">
@@ -180,18 +177,15 @@ export default async function IndustryDetailPage({ params }: PageProps) {
       {/* CTA (from Contentful modular block)           */}
       {/* ============================================ */}
       {industryCta && (
+        // ISS-25: L-pieces removed — bg-primary is a coloured background. L-pieces must only appear on white/light backgrounds.
         <section className="relative bg-primary py-16 lg:py-20">
-          <div
-            className="absolute inset-x-0 -top-5 h-5 bg-primary"
-            style={{ clipPath: "polygon(0 0, 100% 100%, 0 100%)" }}
-          />
           <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             <div className="mx-auto max-w-2xl text-center">
               {industryCta.fields.body && (
                 <div className="mb-6">
                   <RichText
                     document={industryCta.fields.body as Document}
-                    className="text-lg text-primary-foreground/80 [&_p]:text-primary-foreground/80"
+                    className="text-lg text-primary-foreground [&_p]:text-primary-foreground"
                   />
                 </div>
               )}

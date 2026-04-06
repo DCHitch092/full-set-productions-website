@@ -2,16 +2,88 @@
 
 import Link from "next/link"
 import Image from "next/image"
-import { useState } from "react"
+import { useRef, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Menu, ChevronDown } from "lucide-react"
+import { ANIMATIONS } from "@/lib/animations"
+import { cn } from "@/lib/utils"
 import type { NavEntry } from "@/lib/contentful"
 
 interface HeaderClientProps {
   navEntries: NavEntry[]
   ctaText: string
   ctaUrl: string
+}
+
+// ─────────────────────────────────────────────────────────────
+// Desktop-only hover dropdown — label + chevron are one element.
+// Opens on mouse-enter; a short close-delay lets the cursor
+// move from trigger to menu content without snapping shut.
+// ─────────────────────────────────────────────────────────────
+function NavDropdown({ entry }: { entry: NavEntry }) {
+  const [open, setOpen] = useState(false)
+  const timer = useRef<ReturnType<typeof setTimeout>>()
+
+  const show = () => {
+    clearTimeout(timer.current)
+    setOpen(true)
+  }
+  const hide = () => {
+    timer.current = setTimeout(() => setOpen(false), 120)
+  }
+
+  return (
+    <DropdownMenu open={open} onOpenChange={setOpen}>
+      {/* Trigger — label navigates, chevron toggles dropdown */}
+      <div onMouseEnter={show} onMouseLeave={hide} className="flex items-center">
+        <Link
+          href={entry.href}
+          className={cn(
+            "rounded-l-md px-3 py-2 text-sm font-medium text-foreground",
+            "hover:bg-accent/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+          )}
+        >
+          {entry.label}
+        </Link>
+        <DropdownMenuTrigger asChild>
+          <button
+            className={cn(
+              "rounded-r-md px-1 py-2 text-sm font-medium text-foreground",
+              "hover:bg-accent/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+            )}
+            aria-label={`${entry.label} submenu`}
+          >
+            <ChevronDown
+              className={cn(
+                "h-3.5 w-3.5 transition-transform duration-200",
+                open && "rotate-180",
+              )}
+            />
+          </button>
+        </DropdownMenuTrigger>
+      </div>
+
+      {/* Content — keep hover alive while cursor is inside */}
+      <DropdownMenuContent
+        align="start"
+        onMouseEnter={show}
+        onMouseLeave={hide}
+      >
+        {entry.children.map((child) => (
+          <DropdownMenuItem key={child.href} asChild>
+            {child.openInNewTab ? (
+              <a href={child.href} target="_blank" rel="noopener noreferrer">
+                {child.label}
+              </a>
+            ) : (
+              <Link href={child.href}>{child.label}</Link>
+            )}
+          </DropdownMenuItem>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
+  )
 }
 
 export function HeaderClient({ navEntries, ctaText, ctaUrl }: HeaderClientProps) {
@@ -24,7 +96,7 @@ export function HeaderClient({ navEntries, ctaText, ctaUrl }: HeaderClientProps)
   )
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="header-theme-lock sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
@@ -128,7 +200,7 @@ export function HeaderClient({ navEntries, ctaText, ctaUrl }: HeaderClientProps)
                         setMobileOpen(false)
                         window.location.href = entry.href
                       }}
-                      className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                      className={`text-sm font-medium text-muted-foreground transition-colors duration-300 hover:text-foreground`}
                     >
                       {entry.label}
                     </button>
@@ -140,7 +212,7 @@ export function HeaderClient({ navEntries, ctaText, ctaUrl }: HeaderClientProps)
                           target="_blank"
                           rel="noopener noreferrer"
                           onClick={() => setMobileOpen(false)}
-                          className="block py-2 text-foreground hover:text-accent"
+                          className={`block py-2 text-foreground transition-colors duration-300 hover:text-accent`}
                         >
                           {child.label}
                         </a>
@@ -149,7 +221,7 @@ export function HeaderClient({ navEntries, ctaText, ctaUrl }: HeaderClientProps)
                           key={child.href}
                           href={child.href}
                           onClick={() => setMobileOpen(false)}
-                          className="block py-2 text-foreground hover:text-accent"
+                          className={`block py-2 text-foreground transition-colors duration-300 hover:text-accent`}
                         >
                           {child.label}
                         </Link>
@@ -161,7 +233,7 @@ export function HeaderClient({ navEntries, ctaText, ctaUrl }: HeaderClientProps)
                     key={entry.href}
                     href={entry.href}
                     onClick={() => setMobileOpen(false)}
-                    className="py-2 text-foreground hover:text-accent"
+                    className={`py-2 text-foreground transition-colors duration-300 hover:text-accent`}
                   >
                     {entry.label}
                   </Link>

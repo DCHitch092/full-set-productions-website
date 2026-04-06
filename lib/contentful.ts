@@ -18,7 +18,7 @@ import caseStudiesFallback from "@/content/case-studies.json"
 // =============================================================
 
 const CONTENTFUL_BASE = "https://cdn.contentful.com"
-const CONTENTFUL_PREVIEW_BASE = "https://preview.contentful.app"
+const CONTENTFUL_PREVIEW_BASE = "https://preview.contentful.com"
 
 interface ContentfulResponse<T> {
   sys: { type: string }
@@ -60,7 +60,9 @@ async function contentfulFetch<T>(
         Authorization: `Bearer ${accessToken}`,
         "Content-Type": "application/json",
       },
-      next: { revalidate: false },
+      // Use Next.js 16 cacheLife with 'max' profile for stale-while-revalidate
+      // This caches aggressively but allows on-demand revalidation via webhooks
+      next: { revalidate: 3600, tags: ['contentful-api'] }, // Cache for 1 hour
     })
 
     if (!res.ok) {
@@ -557,6 +559,148 @@ export async function getNavigation(preview = false): Promise<NavEntry[]> {
   } catch (e) {
     console.error("[Contentful] Failed to fetch navigation:", e)
     return []
+  }
+}
+
+// =============================================================
+// Articles
+// =============================================================
+export async function getArticles(preview = false) {
+  try {
+    const data = await contentfulFetch(
+      "/entries",
+      { content_type: "article", include: "2", order: "-fields.publishDate" },
+      preview,
+    )
+    
+    // Resolve featured images and headers for each article
+    const articles = data.items.map((item: any) => {
+      const article = { fields: item.fields, sys: item.sys, _includes: data.includes }
+      
+      // Resolve headerImage asset
+      if (article.fields.headerImage?.sys?.id && data.includes?.Asset) {
+        const asset = data.includes.Asset.find(
+          (a: any) => a.sys.id === article.fields.headerImage.sys.id,
+        )
+        if (asset) article.fields.headerImage = asset
+      }
+      
+      // Resolve featuredImage asset (for listings)
+      if (article.fields.featuredImage?.sys?.id && data.includes?.Asset) {
+        const asset = data.includes.Asset.find(
+          (a: any) => a.sys.id === article.fields.featuredImage.sys.id,
+        )
+        if (asset) article.fields.featuredImage = asset
+      }
+      
+      // Resolve author (person) entry
+      if (article.fields.author?.sys?.id && data.includes?.Entry) {
+        const author = data.includes.Entry.find(
+          (e: any) => e.sys.id === article.fields.author.sys.id,
+        )
+        if (author) {
+          article.fields.author = author
+          // Resolve author's headshot
+          if (author.fields?.headshot?.sys?.id && data.includes?.Asset) {
+            const headshot = data.includes.Asset.find(
+              (a: any) => a.sys.id === author.fields.headshot.sys.id,
+            )
+            if (headshot) author.fields.headshot = headshot
+          }
+        }
+      }
+      
+      return article
+    })
+    
+    return articles
+  } catch (e) {
+    console.error("[Contentful] Failed to fetch articles:", e)
+    return []
+  }
+}
+
+export async function getPublishedArticles(preview = false) {
+  const articles = await getArticles(preview)
+  const now = new Date()
+  
+  // Filter to only articles with publishDate in the past
+  return articles.filter((article: any) => {
+    const publishDate = article.fields.publishDate
+    if (!publishDate) return false
+    return new Date(publishDate) <= now
+  })
+}
+
+export async function getArticleBySlug(slug: string, preview = false) {
+  try {
+    const data = await contentfulFetch(
+      "/entries",
+      { content_type: "article", "fields.slug": slug, include: "3", limit: "1" },
+      preview,
+    )
+    const item = data.items[0]
+    if (!item) return null
+    
+    const article = { fields: item.fields, sys: item.sys, _includes: data.includes }
+    
+    // Resolve headerImage asset
+    if (article.fields.headerImage?.sys?.id && data.includes?.Asset) {
+      const asset = data.includes.Asset.find(
+        (a: any) => a.sys.id === article.fields.headerImage.sys.id,
+      )
+      if (asset) article.fields.headerImage = asset
+    }
+    
+    // Resolve featuredImage asset (for related articles grid)
+    if (article.fields.featuredImage?.sys?.id && data.includes?.Asset) {
+      const asset = data.includes.Asset.find(
+        (a: any) => a.sys.id === article.fields.featuredImage.sys.id,
+      )
+      if (asset) article.fields.featuredImage = asset
+    }
+    
+    // Resolve author (person) entry
+    if (article.fields.author?.sys?.id && data.includes?.Entry) {
+      const author = data.includes.Entry.find(
+        (e: any) => e.sys.id === article.fields.author.sys.id,
+      )
+      if (author) {
+        article.fields.author = author
+        // Resolve author's headshot
+        if (author.fields?.headshot?.sys?.id && data.includes?.Asset) {
+          const headshot = data.includes.Asset.find(
+            (a: any) => a.sys.id === author.fields.headshot.sys.id,
+          )
+          if (headshot) author.fields.headshot = headshot
+        }
+      }
+    }
+    
+    // Resolve related articles
+    if (article.fields.relatedArticles && Array.isArray(article.fields.relatedArticles)) {
+      article.fields.relatedArticles = article.fields.relatedArticles
+        .map((ref: any) => {
+          if (ref.fields) return ref
+          const resolved = data.includes?.Entry?.find((e: any) => e.sys.id === ref.sys?.id)
+          if (resolved) {
+            // Resolve the related article's featured image
+            if (resolved.fields?.featuredImage?.sys?.id && data.includes?.Asset) {
+              const asset = data.includes.Asset.find(
+                (a: any) => a.sys.id === resolved.fields.featuredImage.sys.id,
+              )
+              if (asset) resolved.fields.featuredImage = asset
+            }
+          }
+          return resolved ?? null
+        })
+        .filter(Boolean)
+    }
+    
+    return article
+  } catch (e) {
+    console.error(`[Contentful] Failed to fetch article "${slug}":`, e)
+    return null
   }
 }
 

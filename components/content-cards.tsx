@@ -2,9 +2,10 @@ import React from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { Badge } from "@/components/ui/badge"
-import { Card, CardContent } from "@/components/ui/card"
-import { ArrowRight, MapPin, Quote as QuoteIcon } from "lucide-react"
+import { ArrowRight, Quote as QuoteIcon } from "lucide-react"
 import { contentfulImageUrl } from "@/lib/contentful"
+import { BaseCard } from "@/components/cards/BaseCard"
+import { ANIMATIONS } from "@/lib/animations"
 
 // ============================================================
 // Service Card
@@ -12,31 +13,30 @@ import { contentfulImageUrl } from "@/lib/contentful"
 export function ServiceCard({ item }: { item: any }) {
   const { title, slug, summary, keyPoints } = item.fields
   return (
-    <Link
-      href={`/services/${slug}`}
-      className="group flex flex-col overflow-hidden rounded-lg border border-border bg-card transition-shadow hover:shadow-lg"
-    >
-      <div className="flex flex-1 flex-col p-6">
-        <h3 className="text-xl font-semibold text-card-foreground group-hover:text-accent">
-          {title}
-        </h3>
-        <p className="mt-3 flex-1 text-sm text-muted-foreground leading-relaxed line-clamp-3">
-          {summary}
-        </p>
-        {keyPoints && keyPoints.length > 0 && (
-          <div className="mt-4 flex flex-wrap gap-1.5">
-            {(keyPoints as string[]).slice(0, 3).map((point: string, i: number) => (
-              <Badge key={i} variant="secondary" className="text-xs">
-                {point}
-              </Badge>
-            ))}
+    <Link href={`/services/${slug}`}>
+      <BaseCard variant="elevated" interactive className="h-full">
+        <div className="flex flex-1 flex-col p-6">
+          <h3 className="text-xl font-semibold text-card-foreground group-hover:text-accent">
+            {title}
+          </h3>
+          <p className="mt-3 flex-1 text-sm text-muted-foreground leading-relaxed line-clamp-3">
+            {summary}
+          </p>
+          {keyPoints && keyPoints.length > 0 && (
+            <div className="mt-4 flex flex-wrap gap-1.5">
+              {(keyPoints as string[]).slice(0, 3).map((point: string, i: number) => (
+                <Badge key={i} variant="secondary" className="text-xs">
+                  {point}
+                </Badge>
+              ))}
+            </div>
+          )}
+          <div className="mt-4 flex items-center text-sm font-medium text-foreground">
+            Learn more
+            <ArrowRight className={`ml-1 h-4 w-4 ${ANIMATIONS.arrowHover}`} />
           </div>
-        )}
-        <div className="mt-4 flex items-center text-sm font-medium text-foreground">
-          Learn more
-          <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
         </div>
-      </div>
+      </BaseCard>
     </Link>
   )
 }
@@ -47,22 +47,21 @@ export function ServiceCard({ item }: { item: any }) {
 export function IndustryCard({ item }: { item: any }) {
   const { title, slug, intro } = item.fields
   return (
-    <Link
-      href={`/industry/${slug}`}
-      className="group flex flex-col overflow-hidden rounded-lg border border-border bg-card transition-shadow hover:shadow-lg"
-    >
-      <div className="flex flex-1 flex-col p-6">
-        <h3 className="text-xl font-semibold text-card-foreground group-hover:text-accent">
-          {title}
-        </h3>
-        <p className="mt-3 flex-1 text-sm text-muted-foreground leading-relaxed line-clamp-3">
-          {intro}
-        </p>
-        <div className="mt-4 flex items-center text-sm font-medium text-foreground">
-          Explore
-          <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
+    <Link href={`/industry/${slug}`}>
+      <BaseCard variant="simple" interactive className="h-full">
+        <div className="flex flex-1 flex-col p-6">
+          <h3 className="text-xl font-semibold text-card-foreground group-hover:text-accent">
+            {title}
+          </h3>
+          <p className="mt-3 flex-1 text-sm text-muted-foreground leading-relaxed line-clamp-3">
+            {intro}
+          </p>
+          <div className="mt-4 flex items-center text-sm font-medium text-foreground">
+            Explore
+            <ArrowRight className={`ml-1 h-4 w-4 ${ANIMATIONS.arrowHover}`} />
+          </div>
         </div>
-      </div>
+      </BaseCard>
     </Link>
   )
 }
@@ -94,36 +93,36 @@ export function ProjectCard({ item }: { item: any }) {
   const meta = [clientName, location, projectType].filter(Boolean)
 
   return (
-    <Link
-      href={`/projects/${slug}`}
-      className="group flex flex-col overflow-hidden rounded-lg border border-border bg-card"
-    >
-      {imageUrl && (
-        <div className="relative aspect-[4/3] overflow-hidden bg-muted">
-          <Image
-            src={imageUrl || "/placeholder.svg"}
-            alt={title as string}
-            fill
-            className="object-cover"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          />
+    <Link href={`/projects/${slug}`}>
+      {/* ISS-23: pt-0 removes Card's default py-6 top padding so the image sits flush */}
+      <BaseCard variant="simple" className="pt-0 h-full">
+        {imageUrl && (
+          <div className="relative aspect-[4/3] overflow-hidden bg-muted">
+            <Image
+              src={imageUrl || "/placeholder.svg"}
+              alt={title as string}
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            />
+          </div>
+        )}
+        <div className="flex flex-1 flex-col p-6">
+          <h3 className="text-xl font-semibold text-card-foreground leading-tight text-balance">
+            {title}
+          </h3>
+          {meta.length > 0 && (
+            <p className="mt-2 text-sm text-muted-foreground">
+              {meta.join(" \u2022 ")}
+            </p>
+          )}
+          {excerpt && (
+            <p className="mt-3 flex-1 text-sm text-muted-foreground leading-relaxed line-clamp-3">
+              {excerpt}
+            </p>
+          )}
         </div>
-      )}
-      <div className="flex flex-1 flex-col p-6">
-        <h3 className="text-xl font-semibold text-card-foreground leading-tight text-balance">
-          {title}
-        </h3>
-        {meta.length > 0 && (
-          <p className="mt-2 text-sm text-muted-foreground">
-            {meta.join(" \u2022 ")}
-          </p>
-        )}
-        {excerpt && (
-          <p className="mt-3 flex-1 text-sm text-muted-foreground leading-relaxed line-clamp-3">
-            {excerpt}
-          </p>
-        )}
-      </div>
+      </BaseCard>
     </Link>
   )
 }
@@ -134,17 +133,19 @@ export function ProjectCard({ item }: { item: any }) {
 export function FAQItemCard({ item }: { item: any }) {
   const { question, answer } = item.fields
   return (
-    <details className="group rounded-lg border border-border bg-card">
-      <summary className="flex cursor-pointer items-center justify-between p-5">
-        <h3 className="text-base font-semibold text-card-foreground pr-4">{question}</h3>
-        <span className="flex-shrink-0 text-muted-foreground transition-transform group-open:rotate-45">
-          +
-        </span>
-      </summary>
-      <div className="px-5 pb-5">
-        <p className="text-sm text-muted-foreground leading-relaxed">{answer}</p>
-      </div>
-    </details>
+    <BaseCard variant="interactive" asChild>
+      <details className="group">
+        <summary className="flex cursor-pointer items-center justify-between p-5">
+          <h3 className="text-base font-semibold text-card-foreground pr-4">{question}</h3>
+          <span className="flex-shrink-0 text-muted-foreground transition-transform group-open:rotate-45">
+            +
+          </span>
+        </summary>
+        <div className="px-5 pb-5">
+          <p className="text-sm text-muted-foreground leading-relaxed">{answer}</p>
+        </div>
+      </details>
+    </BaseCard>
   )
 }
 
@@ -154,19 +155,17 @@ export function FAQItemCard({ item }: { item: any }) {
 export function TestimonialCard({ item }: { item: any }) {
   const { quote, sourceName, sourceRole, sourceCompany } = item.fields
   return (
-    <Card>
-      <CardContent className="p-6">
-        <QuoteIcon className="h-6 w-6 text-accent opacity-40" />
-        <blockquote className="mt-3 text-foreground leading-relaxed italic">
-          {`"${quote}"`}
-        </blockquote>
-        <div className="mt-4 text-sm text-muted-foreground">
-          <span className="font-medium text-foreground">{sourceName}</span>
-          {sourceRole && `, ${sourceRole}`}
-          {sourceCompany && ` at ${sourceCompany}`}
-        </div>
-      </CardContent>
-    </Card>
+    <BaseCard variant="testimonial">
+      <QuoteIcon className="h-6 w-6 text-accent opacity-40" />
+      <blockquote className="mt-3 text-foreground leading-relaxed italic">
+        {`"${quote}"`}
+      </blockquote>
+      <div className="mt-4 text-sm text-muted-foreground">
+        <span className="font-medium text-foreground">{sourceName}</span>
+        {sourceRole && `, ${sourceRole}`}
+        {sourceCompany && ` at ${sourceCompany}`}
+      </div>
+    </BaseCard>
   )
 }
 

@@ -3,81 +3,360 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* ============================================================ */
+/* Header Theme Lock (Always Use Home Theme)                    */
+/* ============================================================ */
+.header-theme-lock {
+  --primary: var(--color-blue);
+  --primary-foreground: var(--color-off-black);
+  --secondary: var(--color-blue);
+  --secondary-foreground: var(--color-off-black);
+  --accent: var(--color-blue);
+  --accent-foreground: var(--color-off-black);
+  --ring: var(--color-blue);
+}
+
+/* ============================================================ */
+/* Page Theme Color Overrides                                   */
+/* All brand colours are light (L 0.67–0.82), so all use        */
+/* --color-off-black as their foreground for legibility.        */
+/* ============================================================ */
+[data-page-theme="home"] {
+  --primary: var(--color-blue);
+  --primary-foreground: var(--color-off-black);
+  --ring: var(--color-blue);
+  --sidebar-primary: var(--color-blue);
+}
+
+[data-page-theme="services"] {
+  --primary: var(--color-teal);
+  --primary-foreground: var(--color-off-black);
+  --ring: var(--color-teal);
+  --sidebar-primary: var(--color-teal);
+}
+
+[data-page-theme="industries"] {
+  --primary: var(--color-coral);
+  --primary-foreground: var(--color-off-black);
+  --ring: var(--color-coral);
+  --sidebar-primary: var(--color-coral);
+}
+
+[data-page-theme="projects"] {
+  --primary: var(--color-pink);
+  --primary-foreground: var(--color-off-black);
+  --ring: var(--color-pink);
+  --sidebar-primary: var(--color-pink);
+}
+
+[data-page-theme="about"] {
+  --primary: var(--color-yellow);
+  --primary-foreground: var(--color-off-black);
+  --ring: var(--color-yellow);
+  --sidebar-primary: var(--color-yellow);
+}
+
+[data-page-theme="contact"] {
+  --primary: var(--color-teal);
+  --primary-foreground: var(--color-off-black);
+  --ring: var(--color-teal);
+  --sidebar-primary: var(--color-teal);
+}
+
+/* ============================================================ */
+/* Geometric Motif Background Shapes                            */
+/* ============================================================ */
+[data-page-theme="home"]::before,
+[data-page-theme="home"]::after {
+  background: radial-gradient(circle at 100% 0%, var(--color-blue) 0%, transparent 40%);
+  opacity: 0.08;
+}
+
+[data-page-theme="services"]::before,
+[data-page-theme="services"]::after {
+  background: radial-gradient(ellipse at 0% 100%, var(--color-teal) 0%, transparent 45%);
+  opacity: 0.08;
+}
+
+[data-page-theme="industries"]::before,
+[data-page-theme="industries"]::after {
+  background: radial-gradient(circle at 50% 50%, var(--color-coral) 0%, transparent 50%);
+  opacity: 0.08;
+}
+
+[data-page-theme="projects"]::before,
+[data-page-theme="projects"]::after {
+  background: radial-gradient(ellipse at 100% 50%, var(--color-pink) 0%, transparent 48%);
+  opacity: 0.08;
+}
+
+[data-page-theme="about"]::before,
+[data-page-theme="about"]::after {
+  background: radial-gradient(circle at 25% 75%, var(--color-yellow) 0%, transparent 42%);
+  opacity: 0.08;
+}
+
+[data-page-theme="contact"]::before,
+[data-page-theme="contact"]::after {
+  background: radial-gradient(ellipse at 50% 0%, var(--color-teal) 0%, transparent 46%);
+  opacity: 0.08;
+}
+
+/* ============================================================ */
+/* Texture Background Filters for Theme Colors                  */
+/* Low opacity and color tint to maintain text readability     */
+/* ============================================================ */
+.texture-background {
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  position: relative;
+}
+
+.texture-background::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.08;
+}
+
+/* Blue theme filter (Home, Featured Work) */
+.texture-background.theme-blue::before {
+  background-color: var(--color-blue);
+  mix-blend-mode: multiply;
+}
+
+/* Teal theme filter (Services, Contact) */
+.texture-background.theme-teal::before {
+  background-color: var(--color-teal);
+  mix-blend-mode: multiply;
+}
+
+/* Coral theme filter (Industries) */
+.texture-background.theme-coral::before {
+  background-color: var(--color-coral);
+  mix-blend-mode: multiply;
+}
+
+/* Pink theme filter (Projects) */
+.texture-background.theme-pink::before {
+  background-color: var(--color-pink);
+  mix-blend-mode: multiply;
+}
+
+/* Yellow theme filter (About) */
+.texture-background.theme-yellow::before {
+  background-color: var(--color-yellow);
+  mix-blend-mode: multiply;
+}
+
+/* Ensure content stays above texture overlay */
+.texture-background > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ============================================================ */
+/* TEXT COLOUR RULE — coloured backgrounds (ISS-22, ISS-24)    */
+/* On any coloured/brand-tinted section (bg-primary, bg-secondary,
+/* bg-accent, or any --color-* background) NEVER use:
+/*   - text-muted-foreground  (resolves to --color-grey)
+/*   - text-muted             (grey tint)
+/* ALWAYS use text-foreground or the matching *-foreground token
+/* (e.g. text-primary-foreground on bg-primary,
+/*       text-secondary-foreground on bg-secondary).          */
+/* ============================================================ */
+
+/* ============================================================ */
+/* Keyframe animations for microinteractions                    */
+/* ============================================================ */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@layer utilities {
+  .animate-fadeInUp {
+    animation: fadeInUp 0.5s ease-out;
+  }
+
+  .animate-slideInFromLeft {
+    animation: slideInFromLeft 0.3s ease-out;
+  }
+
+  .animate-slideInFromRight {
+    animation: slideInFromRight 0.3s ease-out;
+  }
+
+  .animate-shimmer {
+    animation: shimmer 2s infinite;
+    background-size: 1000px 100%;
+  }
+
+  .animate-scaleIn {
+    animation: scaleIn 0.3s ease-out;
+  }
+}
+
 :root {
-  /* Professional dark slate palette with warm amber accent */
-  --background: oklch(0.985 0 0);
-  --foreground: oklch(0.145 0.01 250);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0.01 250);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0.01 250);
-  --primary: oklch(0.205 0.015 250);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.965 0.005 250);
-  --secondary-foreground: oklch(0.205 0.015 250);
-  --muted: oklch(0.955 0.005 250);
-  --muted-foreground: oklch(0.45 0.01 250);
-  --accent: oklch(0.75 0.15 75);
-  --accent-foreground: oklch(0.205 0.015 250);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.577 0.245 27.325);
-  --border: oklch(0.91 0.005 250);
-  --input: oklch(0.91 0.005 250);
-  --ring: oklch(0.45 0.01 250);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
+  /* ============================================================ */
+  /* BRAND COLOURS — Edit these to update the whole site          */
+  /* Each colour maps to a page section (see Page Theme Overrides */
+  /* section below). Change a value here and it updates everywhere.*/
+  /* ============================================================ */
+  --color-blue:   oklch(0.73 0.09 262.89);   /* Home / Header / Default primary */
+  --color-teal:   oklch(0.78 0.09 184.18);   /* Services / Contact              */
+  --color-pink:   oklch(0.72 0.18 336.27);   /* Projects                        */
+  --color-coral:  oklch(0.67 0.16 38.00);    /* Industries                      */
+  --color-yellow: oklch(0.82 0.14 92.25);    /* About                           */
+
+  /* ============================================================ */
+  /* NEUTRAL COLOURS — Cool-tinted to complement the brand palette*/
+  /* ============================================================ */
+  --color-white:      oklch(1 0 0);              /* Pure white — cards, modals       */
+  --color-light-grey: oklch(0.96 0.005 263);     /* Page backgrounds, subtle panels  */
+  --color-grey:       oklch(0.65 0.010 263);     /* Muted text, borders, placeholders*/
+  --color-off-black:  oklch(0.22 0.015 263);     /* Body text, dark surfaces         */
+
+  /* ============================================================ */
+  /* Semantic tokens — reference the variables above              */
+  /* Don't edit values here; edit the colour sections above.      */
+  /* ============================================================ */
+  --background: var(--color-light-grey);
+  --foreground: var(--color-off-black);
+  --card: var(--color-white);
+  --card-foreground: var(--color-off-black);
+  --popover: var(--color-white);
+  --popover-foreground: var(--color-off-black);
+
+  /* All brand colours are now lighter (L 0.67–0.82), so dark     */
+  /* foreground text is used on all of them for legibility.        */
+  --primary: var(--color-blue);
+  --primary-foreground: var(--color-off-black);
+  --secondary: var(--color-teal);
+  --secondary-foreground: var(--color-off-black);
+  --accent: var(--color-pink);
+  --accent-foreground: var(--color-off-black);
+  --destructive: var(--color-coral);
+  --destructive-foreground: var(--color-off-black);
+  --highlight: var(--color-yellow);
+  --highlight-foreground: var(--color-off-black);
+
+  --muted: oklch(0.93 0.005 263);
+  --muted-foreground: var(--color-grey);
+  --border: oklch(0.90 0.007 263);
+  --input: oklch(0.90 0.007 263);
+  --ring: var(--color-blue);
+  --chart-1: var(--color-blue);
+  --chart-2: var(--color-teal);
+  --chart-3: var(--color-pink);
+  --chart-4: var(--color-coral);
+  --chart-5: var(--color-yellow);
   --radius: 0.5rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --sidebar: var(--color-light-grey);
+  --sidebar-foreground: var(--color-off-black);
+  --sidebar-primary: var(--color-blue);
+  --sidebar-primary-foreground: var(--color-off-black);
+  --sidebar-accent: var(--color-pink);
+  --sidebar-accent-foreground: var(--color-off-black);
+  --sidebar-border: oklch(0.90 0.007 263);
+  --sidebar-ring: var(--color-blue);
 }
 
 .dark {
-  --background: oklch(0.16 0.015 250);
-  --foreground: oklch(0.95 0.005 250);
-  --card: oklch(0.20 0.015 250);
-  --card-foreground: oklch(0.95 0.005 250);
-  --popover: oklch(0.20 0.015 250);
-  --popover-foreground: oklch(0.95 0.005 250);
-  --primary: oklch(0.95 0.005 250);
-  --primary-foreground: oklch(0.16 0.015 250);
-  --secondary: oklch(0.25 0.015 250);
-  --secondary-foreground: oklch(0.95 0.005 250);
-  --muted: oklch(0.25 0.015 250);
-  --muted-foreground: oklch(0.65 0.01 250);
-  --accent: oklch(0.75 0.15 75);
-  --accent-foreground: oklch(0.16 0.015 250);
-  --destructive: oklch(0.396 0.141 25.723);
-  --destructive-foreground: oklch(0.637 0.237 25.331);
-  --border: oklch(0.30 0.015 250);
-  --input: oklch(0.30 0.015 250);
-  --ring: oklch(0.65 0.01 250);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(0.269 0 0);
-  --sidebar-ring: oklch(0.439 0 0);
+  /* Dark mode neutral surfaces — cool-tinted to match the palette */
+  --background: oklch(0.18 0.015 263);
+  --foreground: oklch(0.95 0.005 263);
+  --card: oklch(0.22 0.015 263);
+  --card-foreground: oklch(0.95 0.005 263);
+  --popover: oklch(0.22 0.015 263);
+  --popover-foreground: oklch(0.95 0.005 263);
+
+  /* Brand colours are light enough to read dark text on in light   */
+  /* mode; in dark mode they sit on dark surfaces so dark text      */
+  /* remains correct — the brand colours themselves don't change.   */
+  --primary: var(--color-blue);
+  --primary-foreground: var(--color-off-black);
+  --secondary: var(--color-teal);
+  --secondary-foreground: var(--color-off-black);
+  --accent: var(--color-pink);
+  --accent-foreground: var(--color-off-black);
+  --destructive: var(--color-coral);
+  --destructive-foreground: var(--color-off-black);
+  --highlight: var(--color-yellow);
+  --highlight-foreground: var(--color-off-black);
+  --muted: oklch(0.27 0.015 263);
+  --muted-foreground: oklch(0.65 0.010 263);
+  --border: oklch(0.32 0.015 263);
+  --input: oklch(0.32 0.015 263);
+  --ring: var(--color-blue);
+  --chart-1: var(--color-blue);
+  --chart-2: var(--color-teal);
+  --chart-3: var(--color-pink);
+  --chart-4: var(--color-coral);
+  --chart-5: var(--color-yellow);
+  --sidebar: oklch(0.22 0.015 263);
+  --sidebar-foreground: oklch(0.95 0.005 263);
+  --sidebar-primary: var(--color-blue);
+  --sidebar-primary-foreground: var(--color-off-black);
+  --sidebar-accent: var(--color-pink);
+  --sidebar-accent-foreground: var(--color-off-black);
+  --sidebar-border: oklch(0.32 0.015 263);
+  --sidebar-ring: var(--color-blue);
 }
 
 @theme inline {
-  --font-sans: 'Geist', 'Geist Fallback';
-  --font-mono: 'Geist Mono', 'Geist Mono Fallback';
+  --font-sans: 'Chivo', 'Chivo Fallback';
+  --font-serif: 'Alfa Slab One', 'Alfa Slab One Fallback';
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -102,6 +381,19 @@
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
+  /* Brand colours for direct use */
+  --color-blue: var(--color-blue);
+  --color-teal: var(--color-teal);
+  --color-pink: var(--color-pink);
+  --color-coral: var(--color-coral);
+  --color-yellow: var(--color-yellow);
+  --color-highlight: var(--highlight);
+  --color-highlight-foreground: var(--highlight-foreground);
+  /* Neutral colours for direct use */
+  --color-white: var(--color-white);
+  --color-light-grey: var(--color-light-grey);
+  --color-grey: var(--color-grey);
+  --color-off-black: var(--color-off-black);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -123,4 +415,125 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* ============================================================ */
+/* Hero text highlight — per-line rectangle background          */
+/* Apply to a <span> wrapping text that sits over a busy or     */
+/* colourful background. Each line gets its own rectangle.      */
+/* ============================================================ */
+.text-highlight-block {
+  display: inline;
+  background-color: var(--color-white);
+  color: var(--color-off-black);
+  padding: 0.08em 0.45em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  line-height: 1.9;
+}
+
+/* ============================================================ */
+/* Logo-derived bullet point utilities                          */
+/* Replace standard disc bullets with brand shapes via CSS      */
+/* ============================================================ */
+
+/* Diamond bullet (F shape) — default for most lists */
+.bullet-diamond li {
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+.bullet-diamond li::before {
+  content: "";
+  flex-shrink: 0;
+  margin-top: 0.3em;
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background-color: var(--color-primary);
+  /* Rotate a square to make a diamond */
+  transform: rotate(45deg);
+  border-radius: 1px;
+}
+
+/* Half-circle bullet (S shape) */
+.bullet-halfcircle li {
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+.bullet-halfcircle li::before {
+  content: "";
+  flex-shrink: 0;
+  margin-top: 0.3em;
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background-color: var(--color-secondary);
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-35deg);
+}
+
+/* Oblong bullet (L shape) */
+.bullet-oblong li {
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+.bullet-oblong li::before {
+  content: "";
+  flex-shrink: 0;
+  margin-top: 0.45em;
+  display: inline-block;
+  width: 16px;
+  height: 5px;
+  background-color: var(--color-primary);
+  border-radius: 2px;
+}
+
+/* Cycling bullet — cycles all three shapes by nth-child */
+.bullet-cycle li {
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+.bullet-cycle li::before {
+  content: "";
+  flex-shrink: 0;
+  margin-top: 0.3em;
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+}
+/* 1st, 4th, 7th… → diamond */
+.bullet-cycle li:nth-child(3n+1)::before {
+  background-color: var(--color-primary);
+  transform: rotate(45deg);
+  border-radius: 1px;
+  width: 10px;
+  height: 10px;
+}
+/* 2nd, 5th, 8th… → half-circle */
+.bullet-cycle li:nth-child(3n+2)::before {
+  background-color: var(--color-secondary);
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-35deg);
+  width: 10px;
+  height: 10px;
+}
+/* 3rd, 6th, 9th… → oblong */
+.bullet-cycle li:nth-child(3n)::before {
+  background-color: var(--color-primary);
+  border-radius: 2px;
+  width: 16px;
+  height: 5px;
+  margin-top: 0.45em;
 }

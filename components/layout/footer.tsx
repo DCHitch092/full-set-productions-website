@@ -2,6 +2,8 @@ import Link from "next/link"
 import Image from "next/image"
 import { getFooter, getGlobalSettings, getNavigation } from "@/lib/contentful"
 import { documentToPlainTextString } from "@contentful/rich-text-plain-text-renderer"
+import { ANIMATIONS } from "@/lib/animations"
+import { Body, BodySmall, H6 } from "@/components/typography/Typography"
 import type { Document } from "@contentful/rich-text-types"
 
 export async function Footer() {
@@ -34,12 +36,12 @@ export async function Footer() {
         : "grid gap-8 md:grid-cols-5"
 
   return (
-    <footer className="border-t border-border bg-secondary">
+    <footer className="bg-secondary">
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
         <div className={gridClass}>
           {/* Brand */}
           <div className="md:col-span-2">
-            <Link href="/" className="inline-block">
+            <Link href="/" className={`inline-block transition-opacity duration-300 hover:opacity-80`}>
               <Image
                 src="/images/logo-mono-horizontal.png"
                 alt="Full Set Productions"
@@ -48,9 +50,9 @@ export async function Footer() {
                 className="h-9 w-auto"
               />
             </Link>
-            <p className="mt-4 max-w-sm text-sm text-muted-foreground leading-relaxed">
+            <Body color="muted" className="mt-4 max-w-sm text-sm text-white/80 leading-relaxed">
               {bodyText}
-            </p>
+            </Body>
             {/* Social links */}
             {socialLinks.length > 0 && (
               <div className="mt-4 flex gap-4">
@@ -60,7 +62,7 @@ export async function Footer() {
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                    className={`text-sm text-muted-foreground transition-colors duration-300 hover:text-foreground text-white/70 hover:text-white transition-colors`}
                   >
                     {link.label}
                   </a>
@@ -74,9 +76,9 @@ export async function Footer() {
             <div key={section.href}>
               <Link
                 href={section.href}
-                className="text-sm font-semibold text-foreground hover:text-accent transition-colors"
+                className="transition-colors duration-300 hover:text-accent text-sm font-semibold text-white hover:text-accent transition-colors"
               >
-                {section.label}
+                <H6 color="foreground">{section.label}</H6>
               </Link>
               <ul className="mt-4 space-y-2">
                 {section.children.map((item) => (
@@ -85,7 +87,7 @@ export async function Footer() {
                       href={item.href}
                       target={item.openInNewTab ? "_blank" : undefined}
                       rel={item.openInNewTab ? "noopener noreferrer" : undefined}
-                      className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                      className="text-sm text-white/70 hover:text-white transition-colors"
                     >
                       {item.label}
                     </Link>
@@ -97,8 +99,8 @@ export async function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-12 border-t border-border pt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
-          <p className="text-sm text-muted-foreground">
+        <div className="mt-12 border-t border-border/30 pt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
+          <p className="text-sm text-white/60">
             &copy; {new Date().getFullYear()} Full Set Productions. All rights reserved.
           </p>
           {legalLinks.length > 0 && (
@@ -118,7 +120,7 @@ export async function Footer() {
                   <Link
                     key={link.label}
                     href={href}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                    className="text-sm text-white/70 hover:text-white transition-colors"
                   >
                     {link.label}
                   </Link>

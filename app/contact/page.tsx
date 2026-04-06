@@ -3,6 +3,7 @@ import React from "react"
 import { ContactForm } from "@/components/contact-form"
 import { Card, CardContent } from "@/components/ui/card"
 import { Mail, MapPin, Clock } from "lucide-react"
+import { CornerBracket } from "@/components/brand-shapes"
 import {
   getGlobalSettings,
   getPageBySlug,
@@ -74,13 +75,14 @@ export default async function ContactPage() {
   return (
     <div className="flex flex-col">
       {/* Hero */}
-      <section className="bg-primary py-16 lg:py-20">
+      {/* ISS-25: L-pieces removed — bg-primary is a coloured background. L-pieces must only appear on white/light backgrounds. */}
+      <section className="relative bg-primary py-16 lg:py-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl">
             <h1 className="text-4xl font-bold tracking-tight text-primary-foreground sm:text-5xl">
               {pageTitle}
             </h1>
-            <p className="mt-4 text-lg text-primary-foreground/80">
+            <p className="mt-4 text-lg text-primary-foreground">
               {pageIntro}
             </p>
           </div>
@@ -130,8 +132,9 @@ export default async function ContactPage() {
                 </Card>
 
                 {workshopNote && (
+                  // ISS-24: bg-secondary is teal. Use text-secondary-foreground (off-black) — never text-muted-foreground (grey) on coloured backgrounds.
                   <div className="rounded-lg bg-secondary p-4">
-                    <p className="text-sm text-muted-foreground">{workshopNote}</p>
+                    <p className="text-sm text-secondary-foreground">{workshopNote}</p>
                   </div>
                 )}
               </div>
